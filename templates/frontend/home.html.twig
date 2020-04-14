@@ -6,4 +6,17 @@
     <div class="jumbotron text-center">
         <h1>Bienvenue sur la page d'accueil</h1>
     </div>
+    <div class="container mx-auto">
+        <h2 class="pb-4 text-center text-primary">Les actualités de l'école</h2>
+        <div class="row justify-content-center">
+            <div class="col-md-10">
+            {% for article in articles %}
+                <h5 class="">{{ article.title }}</h5>
+                <p>{{ article.content }}</p>
+                {# <small class="">publié le : {{ article.created_at }}</small> #}
+                <hr class="text-dark">
+            {% endfor %}
+            </div>
+        </div>
+    </div>
 {% endblock %}

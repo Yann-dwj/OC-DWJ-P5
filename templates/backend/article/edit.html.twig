@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block title 'Édition des articles | MonEcole' %}
+
+{% block body %}
+    <div class="container mt-4 mx-auto">
+
+        <h1 class="">Éditer l'article</h1>
+
+        {{ form_start(form) }}
+            {{ form_rest(form) }}
+            <button class="btn btn-primary">Éditer</button>
+        {{ form_end(form) }}
+
+    </div>
+{% endblock %}
