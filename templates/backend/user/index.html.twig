@@ -1,0 +1,60 @@
+{% extends 'base.html.twig' %}
+
+{% block title 'Gestion des utilisateurs | MonEcole' %}
+
+{% block body %}
+    <div class="container mt-4 mx-auto">
+
+        <h1 class="">Gérer les utilisateurs</h1>
+
+        {% for message in app.flashes('success') %}
+        <div class="alert alert-success">
+            {{ message }}
+        </div>
+        {% endfor %}
+
+
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Nom</th>
+                    <th>Email</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for user in users %}
+                <tr>
+                    <td>{{ user.firstname }}</td>
+                    <td>{{ user.email }}</td>
+                    {# <td>{{ user.password }}</td> #}
+                    {# <td>{{ user.roles }}</td> #}
+                    <td>
+                        {% for role in user.roles %}
+                            {% if role == "ROLE_USER" %}
+                                Famille
+                            {% elseif role == "ROLE_TEACHER" %}
+                                Instituteur
+                            {% elseif role == "ROLE_ADMIN" %}
+                                Administrateur
+                            {% endif %}
+                        {% endfor %}
+                    </td>
+                    <td>
+                        <form method="post" action="{{ path('admin.user.delete', {id: user.id}) }}" style="display: inline-block;" onsubmit="return confirm('Êtes vous sur de supprimer cet utilisateur ?')">
+                            <input type="hidden" name="_method" value="DELETE">
+                            <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ user.id) }}">
+                            <button class="btn btn-danger">Supprimer</button>
+                        </form>
+                    </td>
+                    <td></td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
+        <div class="text-right">
+            <a href="{{ path('admin.user.new') }}" class="btn btn-primary">Ajouter un utilisateur</a>
+        </div>
+
+    </div>
+{% endblock %}

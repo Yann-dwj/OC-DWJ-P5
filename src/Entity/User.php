@@ -10,6 +10,12 @@ use Symfony\Component\Security\Core\User\UserInterface;
  */
 class User implements UserInterface, \Serializable
 {
+    // const ROLES = [
+    //     'Famille' => 'ROLE_USER',
+    //     'Instituteur' => 'ROLE_TEACHER',
+    //     'Administrateur' => 'ROLE_ADMIN'
+    // ];
+
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
@@ -128,7 +134,7 @@ class User implements UserInterface, \Serializable
         return $this;
     }
 
-        public function serialize()
+    public function serialize()
     {
         return serialize([
             $this->id,
