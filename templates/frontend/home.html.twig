@@ -3,20 +3,94 @@
 {% block title 'Accueil | MonEcole' %}
 
 {% block body %}
-    <div class="jumbotron text-center">
-        <h1>Bienvenue sur la page d'accueil</h1>
+    <div id="" class="d-flex align-content-center flex-wrap" style="background-color: lightgrey; height: 600px;">
+        <h1 class="mx-auto">Bienvenue sur la page d'accueil</h1>
     </div>
-    <div class="container mx-auto">
-        <h2 class="pb-4 text-center text-primary">Les actualités de l'école</h2>
-        <div class="row justify-content-center">
-            <div class="col-md-10">
-            {% for article in articles %}
-                <h5 class="">{{ article.title }}</h5>
-                <p>{{ article.content }}</p>
-                {# <small class="">publié le : {{ article.created_at }}</small> #}
-                <hr class="text-dark">
-            {% endfor %}
+
+<style type="text/css">
+
+.carousel-control-prev-icon
+{
+    background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%23000' viewBox='0 0 8 8'%3E%3Cpath d='M5.25 0l-4 4 4 4 1.5-1.5-2.5-2.5 2.5-2.5-1.5-1.5z'/%3E%3C/svg%3E") !important;
+}
+
+.carousel-control-next-icon
+{
+    background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%23000' viewBox='0 0 8 8'%3E%3Cpath d='M2.75 0l-1.5 1.5 2.5 2.5-2.5 2.5 1.5 1.5 4-4-4-4z'/%3E%3C/svg%3E") !important;
+}
+
+.carousel-indicators li
+{
+    background-color: black !important;
+}
+
+</style>
+
+    <div id="carouselExampleCaptions" class="carousel slide" data-ride="carousel" data-interval="300000" data-pause="false">
+        <ol class="carousel-indicators" data-keyboard="true">
+            <li data-target="#carouselExampleCaptions" data-slide-to="0" class="active"></li>
+            <li data-target="#carouselExampleCaptions" data-slide-to="1"></li>
+            <li data-target="#carouselExampleCaptions" data-slide-to="2"></li>
+            <li data-target="#carouselExampleCaptions" data-slide-to="3"></li>
+        </ol>
+        <div class="carousel-inner" id="news">
+            <div class="carousel-item active">
+                <div class="d-block w-100" style="background-color: white;">
+                    <div class="container-fluid">
+                        <div class="col-md-10 mx-auto my-5">
+                            <div class="card">
+                                <h5 class="card-header text-center">Tableau des informations</h5>
+                                <div class="container-fluid text-white text-center">
+                                    <div class="row align-items-center" style="background-color: #5A5E6B; border: solid 6px #E0CDA9; height: 450px">
+                                        <div class="col-md-12">
+                                        <p>Retrouvez nos actualités mis à jour régulierement sur l'établissement scolaire Mon Ecole</p>
+                                        <p>Si vous êtes parents d'élèves vous pouvez vous connecter à votre espace personnel depuis cette page.<br/>
+                                        Pour les autres personnes souhaitant nous écrire, un formluaire de contact est disponnible en bas de cette page.</p>
+                                        <p>
+                                            Naviguez dans le diaporama du tableau à l'aide des fleches
+                                            <i class="fas fa-chevron-left"></i>
+                                            <i class="fas fa-chevron-right "></i>
+                                        </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
+            {% for article in articles %}
+            <div class="carousel-item">
+                <div class="d-block w-100 my-auto" style="background-color: white;">
+                    <div class="container-fluid my-auto">
+                        <div class="col-md-10 mx-auto my-5">
+                            <div class="card" style="height: 500px;">
+                                <h5 class="card-header text-center">{{ article.title }}</h5>
+                                <div class="card-body text-white" style="background-color: #5A5E6B; border: solid 6px #E0CDA9">
+                                    <p class="card-text">{{ article.content }}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
         </div>
+        <a class="carousel-control-prev" href="#carouselExampleCaptions" role="button" data-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true" style="color: grey!important;"></span>
+            <span class="sr-only">Previous</span>
+        </a>
+        <a class="carousel-control-next" href="#carouselExampleCaptions" role="button" data-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="sr-only">Next</span>
+        </a>
+    </div>
+
+    <div id="about" class="d-flex align-content-center flex-wrap" style="background-color: lightgrey; height: 600px;">
+        <h2 class="mx-auto">A PROPOS</h2>
+    </div>
+
+    <div id="contact" class="d-flex align-content-center flex-wrap" style="background-color: white; height: 600px;">
+        <h2 class="mx-auto">CONTACT</h2>
     </div>
 {% endblock %}
