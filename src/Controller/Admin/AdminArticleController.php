@@ -26,13 +26,13 @@ class AdminArticleController extends AbstractController
     }
 
     /**
-     * @Route("/admin", name="admin.article.index")
+     * @Route("/admin/article", name="admin.article.index")
      * @return Response
      */
     public function index()
     {
         $articles = $this->repository->findAll();
-        return $this->render('backend/article/index.html.twig', compact('articles'));
+        return $this->render('backend/admin/article/index.html.twig', compact('articles'));
     }
 
     /**
@@ -52,7 +52,7 @@ class AdminArticleController extends AbstractController
             return $this->redirectToRoute('admin.article.index');
         }
 
-        return $this->render('backend/article/new.html.twig',[
+        return $this->render('backend/admin/article/new.html.twig',[
             'article' => $article,
             'form' => $form->createView()
         ]);
@@ -76,7 +76,7 @@ class AdminArticleController extends AbstractController
             return $this->redirectToRoute('admin.article.index');
         }
 
-        return $this->render('backend/article/edit.html.twig',[
+        return $this->render('backend/admin/article/edit.html.twig',[
             'article' => $article,
             'form' => $form->createView()
         ]);

@@ -31,14 +31,47 @@
                 <ul class="navbar-nav">
                     <li class="nav-item">
                         {% if app.user %}
+                        <a class="btn" href="{{ path('admin.index') }}" role="button">
+                            <i class="fas fa-user text-white fa-lg pr-2"></i>
+                        </a>
                         <a class="btn btn-outline-light" href="{{ path('logout') }}" role="button">Se deconnecter</a>
                         {% else %}
-                        <a class="btn btn-outline-light" href="{{ path('admin.article.index') }}" role="button">Se connecter</a>
+                        <a class="btn btn-outline-light" href="{{ path('admin.index') }}" role="button">Se connecter</a>
                         {% endif %}
                     </li>  
                 </ul>
             </div>
         </nav>
+
+        {% if app.user %}
+        <ul class="nav justify-content-center bg-primary sticky-top">
+            <li class="nav-item">
+                <a class="nav-link text-white px-5 active" href="{{ path('admin.index') }}">
+                    <i class="fas fa-home px-2"></i>
+                    Accueil
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-white px-5" href="{{ path('admin.article.index') }}">
+                    <i class="fas fa-align-left px-2"></i>
+                    Article
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-white px-5" href="{{ path('admin.user.index') }}">
+                    <i class="fas fa-user-cog px-2"></i>
+                    Utilisateur
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-white px-5" href="{{ path('admin.index') }}">
+                    <i class="fas fa-envelope px-2"></i>
+                    Messagerie
+                </a>
+            </li>
+        </ul>
+        {% endif %}
+
         {% block body %}{% endblock %}
         {% block javascripts %}{% endblock %}
         <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>

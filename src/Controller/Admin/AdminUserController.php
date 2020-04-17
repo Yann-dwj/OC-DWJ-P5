@@ -33,7 +33,7 @@ class AdminUserController extends AbstractController
     public function index()
     {
         $users = $this->repository->findAll();
-        return $this->render('backend/user/index.html.twig', compact('users'));
+        return $this->render('backend/admin/user/index.html.twig', compact('users'));
     }
 
     /**
@@ -54,7 +54,7 @@ class AdminUserController extends AbstractController
             return $this->redirectToRoute('admin.user.index');
         }
 
-        return $this->render('backend/user/new.html.twig',[
+        return $this->render('backend/admin/user/new.html.twig',[
             'user' => $user,
             'form' => $form->createView()
         ]);
