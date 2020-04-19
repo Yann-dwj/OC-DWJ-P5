@@ -15,17 +15,14 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav mr-auto">
-                    {# <li class="nav-item active">
-                        <a class="nav-link" href="#news">Actualités <span class="sr-only">(current)</span></a>
-                    </li> #}
                     <li class="nav-item">
-                        <a class="nav-link" href="#news">Actualités</a>
+                        <a class="nav-link" href="{{ path('home') }}#news">Actualités</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#about">A propos</a>
+                        <a class="nav-link" href="{{ path('home') }}#about">A propos</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#contact">Contact</a>
+                        <a class="nav-link" href="{{ path('home') }}#contact">Contact</a>
                     </li>
                 </ul>
                 <ul class="navbar-nav">
@@ -43,7 +40,7 @@
             </div>
         </nav>
 
-        {% if app.user %}
+        {% if is_granted('ROLE_ADMIN') and app.request.requestUri != '/' %}
         <ul class="nav justify-content-center bg-primary sticky-top">
             <li class="nav-item">
                 <a class="nav-link text-white px-5 active" href="{{ path('admin.index') }}">
