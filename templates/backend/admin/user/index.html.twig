@@ -39,6 +39,7 @@
                             {% endif %}
                         {% endfor %}
                     </td>
+                    <td>{{ user.classroom }}</td>
                     <td>
                         <form method="post" action="{{ path('admin.user.delete', {id: user.id}) }}" style="display: inline-block;" onsubmit="return confirm('Êtes vous sur de supprimer cet utilisateur ?')">
                             <input type="hidden" name="_method" value="DELETE">

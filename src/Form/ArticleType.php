@@ -18,7 +18,6 @@ class ArticleType extends AbstractType
             ->add('category', ChoiceType::class, [
                 'choices' => $this->getChoices()
             ])
-            // ->add('created_at')
         ;
     }
 

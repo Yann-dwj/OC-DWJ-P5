@@ -10,11 +10,16 @@ use Symfony\Component\Security\Core\User\UserInterface;
  */
 class User implements UserInterface, \Serializable
 {
-    // const ROLES = [
-    //     'Famille' => 'ROLE_USER',
-    //     'Instituteur' => 'ROLE_TEACHER',
-    //     'Administrateur' => 'ROLE_ADMIN'
-    // ];
+    const CLASSROOM = [
+        0 => 'PS',
+        1 => 'MS',
+        2 => 'GS',
+        3 => 'CP',
+        4 => 'CE1', 
+        5 => 'CE2',
+        6 => 'CM1',
+        7 => 'CM2'
+    ];
 
     /**
      * @ORM\Id()
@@ -43,6 +48,11 @@ class User implements UserInterface, \Serializable
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $firstname;
+
+    /**
+     * @ORM\Column(type="string", length=25, nullable=true)
+     */
+    private $classroom;
 
     public function getId(): ?int
     {
@@ -76,11 +86,7 @@ class User implements UserInterface, \Serializable
      */
     public function getRoles(): array
     {
-        $roles = $this->roles;
-        // guarantee every user at least has ROLE_USER
-        $roles[] = 'ROLE_ADMIN';
-
-        return array_unique($roles);
+        return array_unique($this->roles);
     }
 
     public function setRoles(array $roles): self
@@ -108,6 +114,41 @@ class User implements UserInterface, \Serializable
     /**
      * @see UserInterface
      */
+    public function getFirstname(): ?string
+    {
+        return $this->firstname;
+    }
+
+    public function setFirstname(?string $firstname): self
+    {
+        $this->firstname = $firstname;
+
+        return $this;
+    }
+
+    /**
+     * @see UserInterface
+     */
+    public function getClassroom(): ?string
+    {
+        return $this->classroom;
+    }
+
+    public function getClassroomType(): string
+    {
+        return self::CLASSROOM[$this->classroom];
+    }
+
+    public function setClassroom(?string $classroom): self
+    {
+        $this->classroom = $classroom;
+
+        return $this;
+    }
+
+    /**
+     * @see UserInterface
+     */
     public function getSalt()
     {
         // not needed when using the "bcrypt" algorithm in security.yaml
@@ -120,18 +161,6 @@ class User implements UserInterface, \Serializable
     {
         // If you store any temporary, sensitive data on the user, clear it here
         // $this->plainPassword = null;
-    }
-
-    public function getFirstname(): ?string
-    {
-        return $this->firstname;
-    }
-
-    public function setFirstname(?string $firstname): self
-    {
-        $this->firstname = $firstname;
-
-        return $this;
     }
 
     public function serialize()

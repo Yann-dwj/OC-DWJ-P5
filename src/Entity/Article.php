@@ -89,6 +89,11 @@ class Article
         return $this->category;
     }
 
+    public function getCategoryType(): string
+    {
+        return self::CATEGORY[$this->category];
+    }
+
     public function setCategory(?string $category): self
     {
         $this->category = $category;
