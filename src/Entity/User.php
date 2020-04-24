@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
 
@@ -53,6 +55,22 @@ class User implements UserInterface, \Serializable
      * @ORM\Column(type="string", length=25, nullable=true)
      */
     private $classroom;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Message", mappedBy="transmitter")
+     */
+    private $sendedMessages;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Message", mappedBy="recipient")
+     */
+    private $receivedMessages;
+
+    public function __construct()
+    {
+        $this->sendedMessages = new ArrayCollection();
+        $this->receivedMessages = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -179,5 +197,67 @@ class User implements UserInterface, \Serializable
             $this->email,
             $this->password 
         ) = unserialize($serialized, ['allowed-classes' => false]);
+    }
+
+    /**
+     * @return Collection|Message[]
+     */
+    public function getSendedMessages(): Collection
+    {
+        return $this->sendedMessages;
+    }
+
+    public function addSendedMessage(Message $sendedMessage): self
+    {
+        if (!$this->sendedMessages->contains($sendedMessage)) {
+            $this->sendedMessages[] = $sendedMessage;
+            $sendedMessage->setTransmitter($this);
+        }
+
+        return $this;
+    }
+
+    public function removeSendedMessage(Message $sendedMessage): self
+    {
+        if ($this->sendedMessages->contains($sendedMessage)) {
+            $this->sendedMessages->removeElement($sendedMessage);
+            // set the owning side to null (unless already changed)
+            if ($sendedMessage->getTransmitter() === $this) {
+                $sendedMessage->setTransmitter(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Message[]
+     */
+    public function getReceivedMessages(): Collection
+    {
+        return $this->receivedMessages;
+    }
+
+    public function addReceivedMessage(Message $receivedMessage): self
+    {
+        if (!$this->receivedMessages->contains($receivedMessage)) {
+            $this->receivedMessages[] = $receivedMessage;
+            $receivedMessage->setRecipient($this);
+        }
+
+        return $this;
+    }
+
+    public function removeReceivedMessage(Message $receivedMessage): self
+    {
+        if ($this->receivedMessages->contains($receivedMessage)) {
+            $this->receivedMessages->removeElement($receivedMessage);
+            // set the owning side to null (unless already changed)
+            if ($receivedMessage->getRecipient() === $this) {
+                $receivedMessage->setRecipient(null);
+            }
+        }
+
+        return $this;
     }
 }

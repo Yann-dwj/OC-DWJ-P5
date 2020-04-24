@@ -19,6 +19,9 @@ class AdminController extends AbstractController
      */
     public function index()
     {
-        return $this->render('backend/admin/index.html.twig');
+        if ('ROLE_ADMIN')
+        {
+            return $this->render('backend/admin/index.html.twig');
+        }
     }
 }

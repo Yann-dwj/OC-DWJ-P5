@@ -13,13 +13,15 @@
         <form action="{{ path('login') }}" method="post">
             <div class="form-group">
                 <label for="email">Email</label>
-                <input type="email" id="email" name="_username" class="form-control" value="{{ last_username }}">
+                <input type="email" id="email" name="email" class="form-control" value="{{ last_username }}">
             </div>
 
             <div class="form-group">
                 <label for="password">Mot de passe</label>
-                <input type="password" id="password" name="_password" class="form-control">
+                <input type="password" id="password" name="password" class="form-control">
             </div>
+
+            <input type="hidden" id="" name="_csrf_token" class="form-control" value="{{ csrf_token('authenticate') }}">
 
             <button type="submit" class="btn btn-primary">Se connecter</button>
         </form>

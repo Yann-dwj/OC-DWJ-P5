@@ -28,12 +28,22 @@
                 <ul class="navbar-nav">
                     <li class="nav-item">
                         {% if app.user %}
-                        <a class="btn" href="{{ path('admin.index') }}" role="button">
-                            <i class="fas fa-user text-white fa-lg pr-2"></i>
-                        </a>
+                            {% if is_granted('ROLE_ADMIN') %}
+                            <a class="btn" href="{{ path('admin.index') }}" role="button">
+                                <i class="fas fa-user text-white fa-lg pr-2"></i>
+                            </a>
+                            {% elseif is_granted('ROLE_TEACHER') %}
+                            <a class="btn" href="{{ path('teacher.index') }}" role="button">
+                                <i class="fas fa-user text-white fa-lg pr-2"></i>
+                            </a>
+                            {% elseif is_granted('ROLE_USER') %}
+                            <a class="btn" href="{{ path('user.index') }}" role="button">
+                                <i class="fas fa-user text-white fa-lg pr-2"></i>
+                            </a>
+                            {% endif %}
                         <a class="btn btn-outline-light" href="{{ path('logout') }}" role="button">Se deconnecter</a>
                         {% else %}
-                        <a class="btn btn-outline-light" href="{{ path('admin.index') }}" role="button">Se connecter</a>
+                        <a class="btn btn-outline-light" href="{{ path('login') }}" role="button">Se connecter</a>
                         {% endif %}
                     </li>  
                 </ul>
