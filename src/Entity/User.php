@@ -23,6 +23,12 @@ class User implements UserInterface, \Serializable
         7 => 'CM2'
     ];
 
+    const ROLES = [
+        'Famille' => 'ROLE_USER',
+        'Instituteur' => 'ROLE_TEACHER',
+        'Administrateur' => 'ROLE_ADMIN'
+    ];
+
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()

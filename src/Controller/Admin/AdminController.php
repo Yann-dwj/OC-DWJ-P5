@@ -14,6 +14,18 @@ use Symfony\Component\Routing\Annotation\Route;
 class AdminController extends AbstractController
 {
     /**
+     *
+     * @var ArticleRepository
+     */
+    private $repository;
+
+    public function __construct(ArticleRepository $repository, EntityManagerInterface $entityManager)
+    {
+        $this->repository = $repository;
+        $this->entityManager = $entityManager;
+    }
+
+    /**
      * @Route("/admin", name="admin.index")
      * @return Response
      */
@@ -21,7 +33,10 @@ class AdminController extends AbstractController
     {
         if ('ROLE_ADMIN')
         {
-            return $this->render('backend/admin/index.html.twig');
+            $articles = $this->repository->findAll();
+            return $this->render('backend/admin/index.html.twig', [
+                "articles" => $articles
+            ]);
         }
     }
 }

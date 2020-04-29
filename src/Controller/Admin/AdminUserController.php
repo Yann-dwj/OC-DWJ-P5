@@ -33,7 +33,32 @@ class AdminUserController extends AbstractController
     public function index()
     {
         $users = $this->repository->findAll();
-        return $this->render('backend/admin/user/index.html.twig', compact('users'));
+
+        // $teachers = $this->repository->findBy(
+        //     ['roles' => ['ROLE_USER']]
+        //     );
+        // dump($teachers);
+
+        $admins = $this->repository->findBy(
+            ['firstname' => 'admin']
+        );
+        $teachers = $this->repository->findBy(
+            ['firstname' => 'instituteur']
+        );
+        $families = $this->repository->findBy(
+            ['firstname' => 'famille']
+        );
+        dump($admins);
+        dump($teachers);
+        dump($families);
+
+
+        return $this->render('backend/admin/user/index.html.twig', [
+            'admins' => $admins,
+            'teachers' => $teachers,
+            'families' => $families
+            // 'users' => $users
+        ]);
     }
 
     /**

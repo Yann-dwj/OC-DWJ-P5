@@ -3,9 +3,65 @@
 {% block title 'Gestion des utilisateurs | MonEcole' %}
 
 {% block body %}
-    <div class="container mt-4 mx-auto">
 
-        <h1 class="">Gérer les utilisateurs</h1>
+<style>
+body
+{
+    background-color: #edeef2;
+}
+.cream
+{
+    color: #d2c5b4;
+}
+.create
+{
+    border: solid 5px #f8f9fc !important;
+    border-radius: 5px;
+    color: #343a40 !important;
+}
+.create:hover
+{
+    border: solid 5px #343a40 !important;
+    border-radius: 5px;
+    background-color: #343a40 !important;
+    color: #d2c5b4 !important;
+}
+button, .buttonStyle
+{
+    background-color: #f8f9fc;
+    border: solid 3px #f8f9fc;
+}
+.buttonStyle:hover
+{
+    color: white !important;
+    background-color: #343a40 !important;
+    border: solid 3px #d2c5b4 !important;
+}
+#pills-tab .nav-link
+{
+    border: solid 1px #f8f9fc;
+}
+#pills-tab .nav-link:hover, #pills-tab .nav-link.active:hover
+{
+    background-color: #343a40 !important;
+    border: solid 1px #343a40;
+    color: white !important;
+    font-weight: bold;
+}
+#pills-tab .nav-link.active
+{
+    background-color: #f8f9fc !important;
+    border: solid 1px #343a40;
+    font-weight: bold;
+}
+</style>
+
+    <div class="container-fluid">
+        <div class="container pt-4">
+            <div class="d-sm-flex mb-4">
+                <h1 class="h3 mb-0 text-gray-800 mr-2">Gestion des utilisateurs</h1>
+            </div>
+
 
         {% for message in app.flashes('success') %}
         <div class="alert alert-success">
@@ -13,49 +69,186 @@
         </div>
         {% endfor %}
 
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card mb-3">
+                        <div class="card-header my-0" style="background-color: #f8f9fc;">
+                            <ul class="nav nav-pills" id="pills-tab" role="tablist">
+                                <li class="nav-item">
+                                    <a class="nav-link active text-dark font-weight-bold" id="pills-family-tab" data-toggle="pill" href="#pills-family" role="tab" aria-controls="pills-family" aria-selected="true">Parents/Élèves</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark font-weight-bold" id="pills-teacher-tab" data-toggle="pill" href="#pills-teacher" role="tab" aria-controls="pills-teacher" aria-selected="false">Instituteurs</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark font-weight-bold" id="pills-admin-tab" data-toggle="pill" href="#pills-admin" role="tab" aria-controls="pills-admin" aria-selected="false">Administrateurs</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="tab-content" id="pills-tabContent">
+                            <div class="tab-pane fade show active" id="pills-family" role="tabpanel" aria-labelledby="pills-family-tab">
+                                <div class="card-body bg-dark">
+                                    <table class="table table-bordered table-hover table-dark text-white">
+                                        <thead>
+                                            <tr>
+                                                <th class="cream">ID</th>
+                                                <th class="cream">Nom</th>
+                                                <th class="cream">Email</th>
+                                                <th class="cream">Classe</th>
+                                                <th class="cream text-right">Supprimer</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {% for family in families %}
+                                                <tr>
+                                                    <td>{{ family.id }}</td>
+                                                    <td>{{ family.firstname }}</td>
+                                                    <td>{{ family.email }}</td>
+                                                    <td>{{ family.classroom }}</td>
+                                                    <td class="text-right">
+                                                        <form method="post" action="{{ path('admin.user.delete', {id: family.id}) }}" style="display: inline-block;" onsubmit="return confirm('Êtes vous sur de supprimer cet utilisateur ?')">
+                                                            <input type="hidden" name="_method" value="DELETE">
+                                                            <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ family.id) }}">
+                                                            <button class="btn buttonStyle font-weight-bold"><i class="fas fa-trash-alt"></i></button>
+                                                        </form>
+                                                    </td>
+                                                </tr>
+                                            {% endfor %}
+                                        </tbody>
+                                    </table>
+                                    <div class="row mt-4 justify-content-center">
+                                        <div class="col-md-12">
+                                            <a class="buttonStyle btn btn-block font-weight-bold" href="{{ path('admin.user.new') }}" role="button">Ajouter un utilisateur</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tab-pane fade" id="pills-teacher" role="tabpanel" aria-labelledby="pills-teacher-tab">
+                                <div class="card-body bg-dark">
+                                    <table class="table table-bordered table-hover table-dark text-white">
+                                        <thead>
+                                            <tr>
+                                                <th class="cream">ID</th>
+                                                <th class="cream">Nom</th>
+                                                <th class="cream">Email</th>
+                                                <th class="cream">Classe</th>
+                                                <th class="cream text-right">Supprimer</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {% for teacher in teachers %}
+                                                <tr>
+                                                    <td>{{ teacher.id }}</td>
+                                                    <td>{{ teacher.firstname }}</td>
+                                                    <td>{{ teacher.email }}</td>
+                                                    <td>{{ teacher.classroom }}</td>
+                                                    <td class="text-right">
+                                                        <form method="post" action="{{ path('admin.user.delete', {id: teacher.id}) }}" style="display: inline-block;" onsubmit="return confirm('Êtes vous sur de supprimer cet utilisateur ?')">
+                                                            <input type="hidden" name="_method" value="DELETE">
+                                                            <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ teacher.id) }}">
+                                                            <button class="btn buttonStyle font-weight-bold"><i class="fas fa-trash-alt"></i></button>
+                                                        </form>
+                                                    </td>
+                                                </tr>
+                                            {% endfor %}
+                                        </tbody>
+                                    </table>
+                                    <div class="row mt-4 justify-content-center">
+                                        <div class="col-md-12">
+                                            <a class="buttonStyle btn btn-block font-weight-bold" href="{{ path('admin.user.new') }}" role="button">Ajouter un utilisateur</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tab-pane fade" id="pills-admin" role="tabpanel" aria-labelledby="pills-admin-tab">
+                                <div class="card-body bg-dark">
+                                    <table class="table table-bordered table-hover table-dark text-white">
+                                        <thead>
+                                            <tr>
+                                                <th class="cream">ID</th>
+                                                <th class="cream">Nom</th>
+                                                <th class="cream">Email</th>
+                                                <th class="cream">Classe</th>
+                                                <th class="cream text-right">Supprimer</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {% for admin in admins %}
+                                                <tr>
+                                                    <td>{{ admin.id }}</td>
+                                                    <td>{{ admin.firstname }}</td>
+                                                    <td>{{ admin.email }}</td>
+                                                    <td>{{ admin.classroom }}</td>
+                                                    <td class="text-right">
+                                                        <form method="post" action="{{ path('admin.user.delete', {id: admin.id}) }}" style="display: inline-block;" onsubmit="return confirm('Êtes vous sur de supprimer cet utilisateur ?')">
+                                                            <input type="hidden" name="_method" value="DELETE">
+                                                            <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ admin.id) }}">
+                                                            <button class="btn buttonStyle font-weight-bold"><i class="fas fa-trash-alt"></i></button>
+                                                        </form>
+                                                    </td>
+                                                </tr>
+                                            {% endfor %}
+                                        </tbody>
+                                    </table>
+                                    <div class="row mt-4 justify-content-center">
+                                        <div class="col-md-12">
+                                            <a class="buttonStyle btn btn-block font-weight-bold" href="{{ path('admin.user.new') }}" role="button">Ajouter un utilisateur</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
 
-        <table class="table table-striped">
-            <thead>
-                <tr>
-                    <th>Nom</th>
-                    <th>Email</th>
-                </tr>
-            </thead>
-            <tbody>
-            {% for user in users %}
-                <tr>
-                    <td>{{ user.firstname }}</td>
-                    <td>{{ user.email }}</td>
-                    {# <td>{{ user.password }}</td> #}
-                    {# <td>{{ user.roles }}</td> #}
-                    <td>
-                        {% for role in user.roles %}
-                            {% if role == "ROLE_USER" %}
-                                Famille
-                            {% elseif role == "ROLE_TEACHER" %}
-                                Instituteur
-                            {% elseif role == "ROLE_ADMIN" %}
-                                Administrateur
-                            {% endif %}
-                        {% endfor %}
-                    </td>
-                    <td>{{ user.classroom }}</td>
-                    <td>
-                        <form method="post" action="{{ path('admin.user.delete', {id: user.id}) }}" style="display: inline-block;" onsubmit="return confirm('Êtes vous sur de supprimer cet utilisateur ?')">
-                            <input type="hidden" name="_method" value="DELETE">
-                            <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ user.id) }}">
-                            <button class="btn btn-danger">Supprimer</button>
-                        </form>
-                    </td>
-                    <td></td>
-                </tr>
-            {% endfor %}
-            </tbody>
-        </table>
-
-        <div class="text-right">
-            <a href="{{ path('admin.user.new') }}" class="btn btn-primary">Ajouter un utilisateur</a>
+                        {# <div class="card-body bg-dark">
+                            <table class="table table-bordered table-hover table-dark text-white">
+                                <thead>
+                                    <tr>
+                                        <th class="cream">ID</th>
+                                        <th class="cream">Nom</th>
+                                        <th class="cream">Email</th>
+                                        <th class="cream">Classe</th>
+                                        <th class="cream text-right">Supprimer</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                {% for user in users %}
+                                    <tr>
+                                        <td>{{ user.id }}</td>
+                                        <td>{{ user.firstname }}</td>
+                                        <td>{{ user.email }}</td>
+                                        <td>{{ user.password }}</td>
+                                        <td>{{ user.roles }}</td>
+                                        <td>
+                                            {% for role in user.roles %}
+                                                {% if role == "ROLE_USER" %}
+                                                    Famille
+                                                {% elseif role == "ROLE_TEACHER" %}
+                                                    Instituteur
+                                                {% elseif role == "ROLE_ADMIN" %}
+                                                    Administrateur
+                                                {% endif %}
+                                            {% endfor %}
+                                        </td>
+                                        <td>{{ user.classroom }}</td>
+                                        <td class="text-right">
+                                            <form method="post" action="{{ path('admin.user.delete', {id: user.id}) }}" style="display: inline-block;" onsubmit="return confirm('Êtes vous sur de supprimer cet utilisateur ?')">
+                                                <input type="hidden" name="_method" value="DELETE">
+                                                <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ user.id) }}">
+                                                <button class="btn buttonStyle font-weight-bold"><i class="fas fa-trash-alt"></i></button>
+                                            </form>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                            <div class="row mt-4 justify-content-center">
+                                <div class="col-md-12">
+                                    <a class="buttonStyle btn btn-block font-weight-bold" href="{{ path('admin.user.new') }}" role="button">Ajouter un utilisateur</a>
+                                </div>
+                            </div> #}
+                        </div>
+                    </div>
+                </div>
+            </div>         
         </div>
-
     </div>
 {% endblock %}
