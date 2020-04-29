@@ -3,9 +3,46 @@
 {% block title 'Gestion des articles | MonEcole' %}
 
 {% block body %}
-    <div class="container mt-4 mx-auto">
+<style>
+body
+{
+    background-color: #edeef2;
+}
+.cream
+{
+    color: #d2c5b4;
+}
+.create
+{
+    border: solid 5px #f8f9fc !important;
+    border-radius: 5px;
+    color: #343a40 !important;
+}
+.create:hover
+{
+    border: solid 5px #343a40 !important;
+    border-radius: 5px;
+    background-color: #343a40 !important;
+    color: #d2c5b4 !important;
+}
+button, .buttonStyle
+{
+    background-color: #f8f9fc;
+    border: solid 3px #f8f9fc;
+}
+.buttonStyle:hover
+{
+    color: white !important;
+    background-color: #343a40 !important;
+    border: solid 3px #d2c5b4 !important;
+}
+</style>
 
-        <h1 class="">Gérer les articles</h1>
+    <div class="container-fluid">
+        <div class="container pt-4">
+            <div class="d-sm-flex mb-4">
+                <h1 class="h3 mb-0 text-gray-800 mr-2">Gestion des actualités</h1>
+            </div>
 
         {% for message in app.flashes('success') %}
         <div class="alert alert-success">
@@ -13,35 +50,58 @@
         </div>
         {% endfor %}
 
-
-        <table class="table table-striped">
-            <thead>
-                <tr>
-                    <th>Titre</th>
-                    <th>Contenu</th>
-                </tr>
-            </thead>
-            <tbody>
-            {% for article in articles %}
-                <tr>
-                    <td>{{ article.title }}</td>
-                    <td>
-                        <a href="{{ path('admin.article.edit', {id: article.id}) }}" class="btn btn-secondary">Éditer</a>
-                        <form method="post" action="{{ path('admin.article.delete', {id: article.id}) }}" style="display: inline-block;" onsubmit="return confirm('Êtes vous sur de supprimer cet article ?')">
-                            <input type="hidden" name="_method" value="DELETE">
-                            <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ article.id) }}">
-                            <button class="btn btn-danger">Supprimer</button>
-                        </form>
-                    </td>
-                    <td></td>
-                </tr>
-            {% endfor %}
-            </tbody>
-        </table>
-
-        <div class="text-right">
-            <a href="{{ path('admin.article.new') }}" class="btn btn-primary">Ajouter un article</a>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card mb-3">
+                        <div class="card-header my-0" style="background-color: #f8f9fc;">
+                            <div class="row">
+                                <div class="col"> 
+                                    <h3 class="h6 text-dark font-weight-bold">Articles</h3>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body bg-dark">
+                            <table class="table table-bordered table-hover table-dark text-white">
+                                <thead>
+                                    <tr>
+                                        <th class="cream">ID</th>
+                                        <th class="cream">Titre</th>
+                                        <th class="cream">Contenu</th>
+                                        <th class="cream">Editer</th>
+                                        <th class="cream text-right">Supprimer</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                {% for article in articles %}
+                                    <tr>
+                                        <td>{{ article.id }}</td>
+                                        <td>{{ article.title }}</td>
+                                        <td>"{{ article.content|striptags|slice(0, 55)|raw }}..."</td>
+                                        <td class="text-right">
+                                            <a href="{{ path('admin.article.edit', {id: article.id}) }}" class="buttonStyle btn font-weight-bold">
+                                                <i class="fas fa-edit"></i>
+                                            </a>
+                                        </td>
+                                        <td class="text-right">
+                                            <form method="post" action="{{ path('admin.article.delete', {id: article.id}) }}" style="display: inline-block;" onsubmit="return confirm('Êtes vous sur de supprimer cet article ?')">
+                                                <input type="hidden" name="_method" value="DELETE">
+                                                <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ article.id) }}">
+                                                <button class="btn buttonStyle font-weight-bold"><i class="fas fa-trash-alt"></i></button>
+                                            </form>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                            <div class="row mt-4 justify-content-center">
+                                <div class="col-md-12">
+                                    <a class="buttonStyle btn btn-block font-weight-bold" href="{{ path('admin.article.new') }}" role="button">Ajouter un article</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>         
         </div>
-
     </div>
 {% endblock %}
