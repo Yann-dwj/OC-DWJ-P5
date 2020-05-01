@@ -37,6 +37,44 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
     }
 
     // /**
+    //  * Undocumented function
+    //  *
+    //  * @return User[]
+    //  */
+    // public function findByRole(): array
+    // {
+    //     $query = $this->findAll();
+    //     $users = [];
+    //     $admins = [];
+    //     $teachers = [];
+    //     $families = [];
+
+    //     foreach($users as $user)
+    //     {
+    //         if($user->hasRole('ROLE_ADMIN'))
+    //         {
+    //             $admins[] = $user;
+    //             $user = $admins;
+    //             $admins = $query;
+    //         }
+    //         if($user->hasRole('ROLE_USER'))
+    //         {
+    //             $families[] = $user;
+    //             $user = $families;
+    //             $families = $query;
+    //         }
+    //         if($user->hasRole('ROLE_TEACHER'))
+    //         {
+    //             $teachers[] = $user;
+    //             $user = $teachers;
+    //             $teachers = $query;
+    //         }
+    //     }
+
+    //     return $query;
+    // }
+
+    // /**
     //  * @return User[] Returns an array of User objects
     //  */
     /*

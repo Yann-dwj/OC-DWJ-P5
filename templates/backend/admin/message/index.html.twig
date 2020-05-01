@@ -1,0 +1,106 @@
+{% extends 'base.html.twig' %}
+
+{% block title 'Messagerie | MonEcole' %}
+
+{% block body %}
+<style>
+body
+{
+    background-color: #edeef2;
+}
+.cream
+{
+    color: #d2c5b4;
+}
+.create
+{
+    border: solid 5px #f8f9fc !important;
+    border-radius: 5px;
+    color: #343a40 !important;
+}
+.create:hover
+{
+    border: solid 5px #343a40 !important;
+    border-radius: 5px;
+    background-color: #343a40 !important;
+    color: #d2c5b4 !important;
+}
+button, .buttonStyle
+{
+    background-color: #f8f9fc;
+    border: solid 3px #f8f9fc;
+}
+.buttonStyle:hover
+{
+    color: white !important;
+    background-color: #343a40 !important;
+    border: solid 3px #d2c5b4 !important;
+}
+</style>
+
+    <div class="container-fluid">
+        <div class="container pt-4">
+            <div class="d-sm-flex mb-4">
+                <h1 class="h3 mb-0 text-gray-800 mr-2">Boite de reception</h1>
+            </div>
+
+        {% for message in app.flashes('success') %}
+        <div class="alert alert-success">
+            {{ message }}
+        </div>
+        {% endfor %}
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card mb-3">
+                        <div class="card-header my-0" style="background-color: #f8f9fc;">
+                            <div class="row">
+                                <div class="col"> 
+                                    <h3 class="h6 text-dark font-weight-bold">Messages</h3>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body bg-dark">
+                            <table class="table table-bordered table-hover table-dark text-white">
+                                <thead>
+                                    <tr>
+                                        <th class="cream">Expediteur</th>
+                                        <th class="cream">Date</th>
+                                        <th class="cream">Sujet</th>
+                                        <th class="cream text-right">Supprimer</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                {% for message in messages %}
+                                    <tr>
+                                        <td>{{ message.transmitter }}</td>
+                                        <td>{{ message.createdAt | date('d/m/Y') }}</td>
+                                        <td>"{{ message.subject|striptags|slice(0, 55)|raw }}..."</td>
+                                        {# <td class="text-right">
+                                            <a href="{{ path('admin.message.edit', {id: message.id}) }}" class="buttonStyle btn font-weight-bold">
+                                                <i class="fas fa-edit"></i>
+                                            </a>
+                                        </td> #}
+                                        <td class="text-right">
+                                            <form method="post" action="{{ path('admin.message.delete', {id: message.id}) }}" style="display: inline-block;" onsubmit="return confirm('Êtes vous sur de supprimer cet message ?')">
+                                                <input type="hidden" name="_method" value="DELETE">
+                                                <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ message.id) }}">
+                                                <button class="btn buttonStyle font-weight-bold"><i class="fas fa-trash-alt"></i></button>
+                                            </form>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                            <div class="row mt-4 justify-content-center">
+                                <div class="col-md-12">
+                                    <a class="buttonStyle btn btn-block font-weight-bold" href="{{ path('admin.message.new') }}" role="button">Ajouter un message</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>         
+        </div>
+    </div>
+{% endblock %}

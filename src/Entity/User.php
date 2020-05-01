@@ -53,12 +53,12 @@ class User implements UserInterface, \Serializable
     private $password;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\Column(type="string", length=255)
      */
     private $firstname;
 
     /**
-     * @ORM\Column(type="string", length=25, nullable=true)
+     * @ORM\Column(type="string", length=25)
      */
     private $classroom;
 
@@ -76,6 +76,11 @@ class User implements UserInterface, \Serializable
     {
         $this->sendedMessages = new ArrayCollection();
         $this->receivedMessages = new ArrayCollection();
+    }
+
+    public function __toString()
+    {
+        return $this->firstname;
     }
 
     public function getId(): ?int
@@ -133,6 +138,11 @@ class User implements UserInterface, \Serializable
         $this->password = $password;
 
         return $this;
+    }
+
+    public function hasRole(string $role): bool
+    {
+        return in_array($role, $this->getRoles());
     }
 
     /**

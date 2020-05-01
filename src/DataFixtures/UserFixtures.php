@@ -23,6 +23,7 @@ class UserFixtures extends Fixture
         $user->setRoles(['ROLE_ADMIN']);
         $user->setPassword($this->encoder->encodePassword($user, 'admin'));
         $manager->persist($user);
+        $this->addReference('user-admin', $user);
 
         $user = new User;
         $user->setFirstName('instituteur');
@@ -31,6 +32,7 @@ class UserFixtures extends Fixture
         $user->setRoles(['ROLE_TEACHER']);
         $user->setPassword($this->encoder->encodePassword($user, 'instituteur'));
         $manager->persist($user);
+        $this->addReference('user-teacher', $user);
 
         $user = new User;
         $user->setFirstName('famille');
@@ -39,6 +41,7 @@ class UserFixtures extends Fixture
         $user->setRoles(['ROLE_USER']);
         $user->setPassword($this->encoder->encodePassword($user, 'famille'));
         $manager->persist($user);
+        $this->addReference('user-user', $user);
 
         $manager->flush();
     }
