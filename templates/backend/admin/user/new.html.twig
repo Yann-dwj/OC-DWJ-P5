@@ -3,45 +3,24 @@
 {% block title 'Creation d\'utilisateur | MonEcole' %}
 
 {% block body %}
-<style>
-body
-{
-    background-color: #edeef2;
-}
-.cream
-{
-    color: #d2c5b4;
-}
-.create
-{
-    border: solid 5px #f8f9fc !important;
-    border-radius: 5px;
-    color: #343a40 !important;
-}
-.create:hover
-{
-    border: solid 5px #343a40 !important;
-    border-radius: 5px;
-    background-color: #343a40 !important;
-    color: #d2c5b4 !important;
-}
-button, .buttonStyle
-{
-    background-color: #f8f9fc;
-    border: solid 3px #f8f9fc;
-}
-.buttonStyle:hover
-{
-    color: white !important;
-    background-color: #343a40 !important;
-    border: solid 3px #d2c5b4 !important;
-}
-</style>
-
     <div class="container-fluid">
         <div class="container pt-4">
-            <div class="d-sm-flex mb-4">
-                <h1 class="h3 mb-0 text-gray-800 mr-2">Créer un utilisateur</h1>
+            <div class="row mb-2">
+                <div class="col-md-12">
+                    <h1 class="h3 mb-2 text-gray-800">Utilisateurs</h1>
+                </div>
+                <div class="d-md-flex col-md-12 justify-content-between">
+                    <div class="">
+                        <span class="small font-italic"><a class="text-dark" href="{{ path('dashboard.index') }}"><i class="fas fa-home mr-1"></i>Tableau de bord</a></span>
+                        <span class="small font-italic">/</span>
+                        <span class="small font-italic"><a class="text-dark" href="{{ path('admin.user.index') }}">Utilisateurs</a></span>
+                        <span class="small font-italic">/</span>
+                        <span class="small font-italic">Ajouter un utilisateur</span>
+                    </div>
+                    <div class="">
+                        <span class="h3 mb-0 text-right"><a class="returnLink" href="{{ path('admin.user.index') }}"><i class="fas fa-long-arrow-alt-left fa-lg"></i></a></span>
+                    </div>
+                </div>
             </div>
             <div class="row">
                 <div class="col-md-12">
@@ -49,7 +28,7 @@ button, .buttonStyle
                         <div class="card-header my-0" style="background-color: #f8f9fc;">
                             <div class="row">
                                 <div class="col"> 
-                                    <h3 class="h6 text-dark font-weight-bold">Formulaire</h3>
+                                    <span class="h6 text-dark font-weight-bold">Nouvel Utilisateur</span>
                                 </div>
                             </div>
                         </div>

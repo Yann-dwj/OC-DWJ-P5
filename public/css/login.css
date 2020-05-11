@@ -1,0 +1,21 @@
+button, .buttonStyle
+{
+    color: white !important;
+    background-color: #343a40 !important;
+    border: solid 3px #d2c5b4 !important;
+}
+.buttonStyle:hover
+{
+    color: #343a40 !important;
+    background-color: #f8f9fc !important;
+    border: solid 3px #f8f9fc !important;
+}
+a
+{
+    color: #343a40; 
+}
+a:hover
+{
+    color: #a84d52;
+    text-decoration: none;
+}

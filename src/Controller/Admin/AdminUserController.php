@@ -32,33 +32,12 @@ class AdminUserController extends AbstractController
      */
     public function index()
     {
-        $users = $this->repository->findAll();
-      
-        $admins = [];
-        $teachers = [];
-        $families = [];
-
-        foreach($users as $user)
-        {
-            if($user->hasRole('ROLE_ADMIN'))
-            {
-                $admins[] = $user;
-            }
-            if($user->hasRole('ROLE_USER'))
-            {
-                $families[] = $user;
-            }
-            if($user->hasRole('ROLE_TEACHER'))
-            {
-                $teachers[] = $user;
-            }
-        }
+        $users = $this->repository->findByRole();
 
         return $this->render('backend/admin/user/index.html.twig', [
-            'admins' => $admins,
-            'teachers' => $teachers,
-            'families' => $families,
-            // 'users' => $users
+            'admins' => $users['admins'],
+            'teachers' => $users['teachers'],
+            'families' => $users['families']
         ]);
     }
 

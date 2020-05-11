@@ -43,6 +43,31 @@ class Message
      */
     private $created_at;
 
+    /**
+     * @ORM\Column(type="boolean", nullable=false, options={"default":0}))
+     */
+    private $open_transmitter = false;
+
+    /**
+     * @ORM\Column(type="boolean", nullable=false, options={"default":0}))
+     */
+    private $open_recipient = false;
+
+    /**
+     * @ORM\Column(type="boolean", nullable=false, options={"default":0}))
+     */
+    private $trash_transmitter = false;
+
+    /**
+     * @ORM\Column(type="boolean", nullable=false, options={"default":0}))
+     */
+    private $trash_recipient = false;
+
+    public function isOwner(User $user)
+    {
+        return ($this->getTransmitter() === $user || $this->getRecipient() === $user );
+    }
+
     public function __construct()
     {
         $this->created_at = new \DateTime();
@@ -109,6 +134,54 @@ class Message
     public function setCreatedAt(\DateTimeInterface $created_at): self
     {
         $this->created_at = $created_at;
+
+        return $this;
+    }
+
+    public function getOpenTransmitter(): ?bool
+    {
+        return $this->open_transmitter;
+    }
+
+    public function setOpenTransmitter(bool $open_transmitter): self
+    {
+        $this->open_transmitter = $open_transmitter;
+
+        return $this;
+    }
+
+    public function getOpenRecipient(): ?bool
+    {
+        return $this->open_recipient;
+    }
+
+    public function setOpenRecipient(bool $open_recipient): self
+    {
+        $this->open_recipient = $open_recipient;
+
+        return $this;
+    }
+
+    public function getTrashTransmitter(): ?bool
+    {
+        return $this->trash_transmitter;
+    }
+
+    public function setTrashTransmitter(bool $trash_transmitter): self
+    {
+        $this->trash_transmitter = $trash_transmitter;
+
+        return $this;
+    }
+
+    public function getTrashRecipient(): ?bool
+    {
+        return $this->trash_recipient;
+    }
+
+    public function setTrashRecipient(bool $trash_recipient): self
+    {
+        $this->trash_recipient = $trash_recipient;
 
         return $this;
     }

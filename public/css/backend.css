@@ -1,0 +1,65 @@
+body
+{
+    background-color: #edeef2;
+}
+.create
+{
+    border: solid 5px #f8f9fc !important;
+    border-radius: 5px;
+    color: #343a40 !important;
+}
+.create:hover
+{
+    border: solid 5px #343a40 !important;
+    border-radius: 5px;
+    background-color: #343a40 !important;
+    color: #f8f9fc !important;
+    text-decoration: none;
+}
+.buttonStyle
+{
+    background-color: #f8f9fc;
+    border: solid 3px #f8f9fc;
+}
+.buttonStyle:hover
+{
+    color: white !important;
+    background-color: #343a40 !important;
+    border: solid 3px #d2c5b4 !important;
+}
+.returnLink
+{
+    color: black;
+}
+.returnLink:hover
+{
+    color: #343a40;
+    text-decoration: none;
+}
+#pills-tab .nav-link.active, #pills-tab .nav-link:hover, #pills-tab .nav-link.active:hover, .plus:hover
+{
+    background-color: #343a40 !important;
+    color: white !important;
+    font-weight: bold;
+}
+.actionBtn
+{
+    color: #d2c5b4;
+    background: none;
+    border: none;
+}
+.actionBtn:hover
+{
+    color: white;
+}
+.deleteBtn
+{
+    color: #343a40;
+    background: none;
+    border: none;
+    padding: 0;
+}
+.deleteBtn:hover
+{
+    color: #d2c5b4;
+}

@@ -3,89 +3,53 @@
 {% block title 'Accueil | MonEcole' %}
 
 {% block body %}
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <a class="navbar-brand" href="{{ path('home') }}">Mon Ecole</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav mr-auto">
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ path('home') }}#news">Actualités</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ path('home') }}#about">A propos</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ path('home') }}#contact">Contact</a>
-                </li>
-            </ul>
-            <ul class="navbar-nav">
-                <li class="nav-item">
-                    {% if app.user %}
-                        {% if is_granted('ROLE_ADMIN') %}
-                        <a class="btn" href="{{ path('admin.index') }}" role="button">
-                            <i class="fas fa-user text-white fa-lg pr-2"></i>
-                        </a>
-                        {% elseif is_granted('ROLE_TEACHER') %}
-                        <a class="btn" href="{{ path('teacher.index') }}" role="button">
-                            <i class="fas fa-user text-white fa-lg pr-2"></i>
-                        </a>
-                        {% elseif is_granted('ROLE_USER') %}
-                        <a class="btn" href="{{ path('user.index') }}" role="button">
-                            <i class="fas fa-user text-white fa-lg pr-2"></i>
-                        </a>
-                        {% endif %}
-                    <a class="btn btn-outline-light" href="{{ path('logout') }}" role="button">Se deconnecter</a>
-                    {% else %}
-                    <a class="btn btn-outline-light" href="{{ path('login') }}" role="button">Se connecter</a>
-                    {% endif %}
-                </li>  
-            </ul>
+    <header id="home">
+        <div class="wrapper">
+            <div class="content">
+                <h1 class="text-white text-center">BIENVENUE</h1>
+                <p class="subtitle">sur le site de l'école</p>
+            </div>
         </div>
+    </header>
+
+    <nav class="navbar navbar-home sticky-top navbar-expand-lg text-corail justify-content-center border-bottom">
+        <ul class="nav justify-content-center">
+            <li class="nav-item">
+                <a class="nav-link text-corail" href="{{ path('home') }}#carouselExampleCaptions">Actualités</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-corail" href="{{ path('home') }}#about">A propos</a>
+            </li>
+            <li class="nav-item">
+                <a class="navbar-brand text-corail" href="{{ path('home') }}#home"><i class="fas fa-school"></i></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-corail" href="{{ path('home') }}#contact">Contact</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-corail" href="{{ path('login') }}">Mon compte</a>
+            </li>
+        </ul>
     </nav>
-
-    <div id="" class="d-flex align-content-center flex-wrap" style="background-color: lightgrey; height: 600px;">
-        <h1 class="mx-auto">Bienvenue sur la page d'accueil</h1>
-    </div>
-
-<style type="text/css">
-
-.carousel-control-prev-icon
-{
-    background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%23000' viewBox='0 0 8 8'%3E%3Cpath d='M5.25 0l-4 4 4 4 1.5-1.5-2.5-2.5 2.5-2.5-1.5-1.5z'/%3E%3C/svg%3E") !important;
-}
-
-.carousel-control-next-icon
-{
-    background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%23000' viewBox='0 0 8 8'%3E%3Cpath d='M2.75 0l-1.5 1.5 2.5 2.5-2.5 2.5 1.5 1.5 4-4-4-4z'/%3E%3C/svg%3E") !important;
-}
-
-.carousel-indicators li
-{
-    background-color: black !important;
-}
-
-</style>
-
-    <div id="carouselExampleCaptions" class="carousel slide" data-ride="carousel" data-interval="300000" data-pause="false">
+    
+    <div id="carouselExampleCaptions" class="carousel slide py-5" data-ride="carousel" data-interval="300000" data-pause="false">
         <ol class="carousel-indicators" data-keyboard="true">
             {% for article in articles %}
             <li data-target="#carouselExampleCaptions" data-slide-to="{{ loop.index0 }}" class="{{ loop.index is same as(1) ? "active" : ""  }}"</li>
             {% endfor %}
         </ol>
-        <div class="carousel-inner" id="news">
+        <div id="news" class="carousel-inner">
             {% for article in articles %}
             <div class="carousel-item {{ loop.index is same as(1) ? "active" : ""  }}">
-                <div class="d-block w-100 my-auto" style="background-color: white;">
+                <div class="d-block w-100 my-auto">
                     <div class="container-fluid my-auto">
                         <div class="col-md-10 mx-auto my-5">
-                            <div class="card" style="height: 500px;">
-                                <h5 class="card-header text-center">Tableau d'informations</h5>
-                                <div class="card-body text-white" style="background-color: #5A5E6B; border: solid 6px #E0CDA9">
+                            <div class="card">
+                                <h5 class="card-header text-center">Actualités</h5>
+                                <div class="card-body text-white">
                                     <div class="d-flex justify-content-between px-2">
-                                        <p class="" style="color: rgba(255,255,255, 0.3);">le {{ article.createdAt | date('d/m/Y') }}</p>
-                                        <p class="" style="color: rgba(255,255,255, 0.3);">{{ article.categoryType }}</p>
+                                        <p class="card-p">le {{ article.createdAt | date('d/m/Y') }}</p>
+                                        <p class="card-p">{{ article.categoryType }}</p>
                                     </div>
                                     <h4 class="text-center pb-5">{{ article.title }}</h4>
                                     <p class="card-text text-center">{{ article.content }}</p>
@@ -98,7 +62,7 @@
             {% endfor %}
         </div>
         <a class="carousel-control-prev" href="#carouselExampleCaptions" role="button" data-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true" style="color: grey!important;"></span>
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
             <span class="sr-only">Previous</span>
         </a>
         <a class="carousel-control-next" href="#carouselExampleCaptions" role="button" data-slide="next">
@@ -107,11 +71,130 @@
         </a>
     </div>
 
-    <div id="about" class="d-flex align-content-center flex-wrap" style="background-color: lightgrey; height: 600px;">
-        <h2 class="mx-auto">A PROPOS</h2>
+    <div id="about" class="py-5">
+        <div class="d-block w-100 my-auto">
+            <div class="container-fluid my-auto">
+                <div class="col-md-10 mx-auto my-5">
+                    <div class="card border-bottom-0">
+                        <h5 class="card-header text-center border-bottom-0">A Propos</h5>
+                        <div class="card-img-top"></div>
+                    </div>
+                </div>
+                <div class="col-md-10 mx-auto my-5 text-center">
+                    <div class="row">
+                        <div class="col-xs-12 col-md-12 section-container-spacer">
+                            <h2 class="text-center">Consectetur adipiscing</h2>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12 col-md-12 section-container-spacer">
+                            <p class="text-center"> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam hendrerit egestas magna. Phasellus rutrum nunc erat, a vulputate nulla vestibulum et. Nullam porttitor nibh ut lectus porttitor, a tincidunt elit tempus. Vestibulum at fringilla est, sed pulvinar ex. Maecenas semper facilisis est, quis aliquet turpis blandit id. Vestibulum volutpat fermentum erat ut tincidunt. Vestibulum pretium dolor leo. Etiam viverra turpis vel cursus malesuada. Mauris viverra ex tortor, at lacinia risus commodo id. Vivamus condimentum rhoncus pulvinar. Morbi vel ex lorem. Cras vel urna et eros suscipit iaculis. Curabitur sapien erat, dignissim ac porttitor a, aliquet ac metus. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque ut sapien justo. Quisque ut dolor et diam venenatis rutrum.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="section-container">
+                    <div class="container">
+                        <div class="row my-5">
+                            <div class="col-xs-12 col-md-4">
+                                <img src="/images/SEU-M-DUCROS-VUE-DEPUIS-LA-COUR-DE-RECREATION - copie.png" alt="" class="img-fluid">
+                                <h3 class="text-center">Consectetur</h3>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc sit amet consectetur dolor. Phasellus ut
+                                    lacus tellus. In pretium lobortis blandit.</p>
+                            </div>
+                            <div class="col-xs-12 col-md-4">
+                                <img src="/images/SEU-M-DUCROS-ENTREE.png" alt="" class="img-fluid">
+                                <h3 class="text-center">Malesuada</h3>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc sit amet consectetur dolor. Phasellus ut
+                                    lacus tellus. In pretium lobortis blandit.</p>
+                            </div>
+                            <div class="col-xs-12 col-md-4">
+                                <img src="/images/SEU-M-DUCROS-PREAU - copie.png" alt="" class="img-fluid">
+                                <h3 class="text-center">Malesuada</h3>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc sit amet consectetur dolor. Phasellus ut
+                                    lacus tellus. In pretium lobortis blandit.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
-    <div id="contact" class="d-flex align-content-center flex-wrap" style="background-color: white; height: 600px;">
-        <h2 class="mx-auto">CONTACT</h2>
+    <div id="contact" class="d-block w-100 py-5">
+        <div class="container-fluid my-auto">
+            <div class="col-md-10 mx-auto my-5">
+                <div class="card">
+                    <h5 class="card-header text-center">Contact</h5>
+                    <div class="card-body text-white">
+                        <form>
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <label for="inputLastname">Nom :</label>
+                                    <input type="text" class="form-control bg-light" id="inputEmail4" placeholder="">
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="inputFirstname">Prénom :</label>
+                                    <input type="text" class="form-control bg-light" id="inputPassword4" placeholder="">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="inputEmail4">Email :</label>
+                                <input type="email" class="form-control bg-light" id="inputEmail4" placeholder="">
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleFormControlTextarea4">Message : </label>
+                                <textarea class="form-control bg-light" id="exampleFormControlTextarea4" rows="5"></textarea>
+                            </div>
+                            <div class="text-right">
+                            <button type="submit" class="buttonStyle btn btn-large font-weight-bold text-right"><i class="fas fa-paper-plane"></i></button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
+
+    <footer class="page-footer font-small lighten-3 dark-grey-text">
+        <div class="container-fluid footer1 py-2 align-items-center">
+            <div class="row">
+                <div class="col-md-12">
+                    <ul class="list-unstyled d-flex justify-content-center">
+                        <li>
+                            <i class="fab fa-facebook-f mr-3"></i>
+                        </li>
+                        <li>
+                            <i class="fab fa-twitter mr-3"></i>
+                        </li>
+                        <li>
+                            <i class="fab fa-instagram mr-3"></i>
+                        </li>
+                        <li>
+                            <i class="fab fa-youtube"></i>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="container-fluid bg-dark py-4">
+            <div class="row">
+                <div class="col-md-12">
+                    <ul class="list-unstyled d-flex justify-content-center mb-0 mt-2">
+                        <li>
+                            <a class="nav-link text-white mx-auto" href="{{ path('home') }}#home">Accueil</a>
+                        </li>
+                        <li>
+                            <a class="nav-link text-white mx-auto" href="{{ path('home') }}#news">Actualités</a>
+                        </li>
+                        <li>
+                            <a class="nav-link text-white mx-auto" href="{{ path('home') }}#about">A propos</a>
+                        </li>
+                        <li>
+                            <a class="nav-link text-white mx-auto" href="{{ path('home') }}#contact">Contact</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
 {% endblock %}

@@ -98,15 +98,15 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator implements P
             return new RedirectResponse($targetPath);
         }
 
-        if($this->security->isGranted("ROLE_ADMIN")){
-            return new RedirectResponse($this->urlGenerator->generate('admin.index'));
+        if($this->security){
+            return new RedirectResponse($this->urlGenerator->generate('dashboard.index'));
         }
-        if($this->security->isGranted("ROLE_TEACHER")){
-            return new RedirectResponse($this->urlGenerator->generate('teacher.index'));
-        }
-        if($this->security->isGranted("ROLE_USER")){
-            return new RedirectResponse($this->urlGenerator->generate('user.index'));
-        }
+        // if($this->security->isGranted("ROLE_TEACHER")){
+        //     return new RedirectResponse($this->urlGenerator->generate('teacher.index'));
+        // }
+        // if($this->security->isGranted("ROLE_USER")){
+        //     return new RedirectResponse($this->urlGenerator->generate('user.index'));
+        // }
         return new RedirectResponse($this->urlGenerator->generate('home'));
     }
 

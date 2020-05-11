@@ -5,10 +5,12 @@
         <title>{% block title %}Welcome!{% endblock %}</title>
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+        <link rel="stylesheet" href="/css/index.css">
+        <link rel="stylesheet" href="/css/backend.css">
         {% block stylesheets %}{% endblock %}
     </head>
     <body>
-        {% if is_granted('ROLE_ADMIN') and app.request.requestUri != '/' %}
+        {% if is_granted('ROLE_ADMIN') and app.request.requestUri != '/' and app.request.requestUri != '/login' %}
         <nav class="navbar navbar-expand navbar-dark bg-dark sticky-top">
             <a class="navbar-brand" href="{{ path('home') }}">Mon Ecole</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -17,7 +19,7 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item">
-                        <a class="nav-link active" href="{{ path('admin.index') }}">
+                        <a class="nav-link active" href="{{ path('dashboard.index') }}">
                             <i class="fas fa-home px-2"></i>
                         </a>
                     </li>
@@ -29,6 +31,54 @@
                     <li class="nav-item">
                         <a class="nav-link" href="{{ path('admin.user.index') }}">
                             <i class="fas fa-user-cog px-2"></i>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path('admin.message.index') }}">
+                            <i class="fas fa-envelope px-2"></i>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="btn btn-outline-light" href="{{ path('logout') }}" role="button">Se deconnecter</a>
+                    </li> 
+                </ul>
+            </div>
+        </nav>
+        {% elseif is_granted('ROLE_TEACHER') %}
+        <nav class="navbar navbar-expand navbar-dark bg-dark sticky-top">
+            <a class="navbar-brand" href="{{ path('home') }}">Mon Ecole</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="{{ path('dashboard.index') }}">
+                            <i class="fas fa-home px-2"></i>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path('admin.message.index') }}">
+                            <i class="fas fa-envelope px-2"></i>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="btn btn-outline-light" href="{{ path('logout') }}" role="button">Se deconnecter</a>
+                    </li> 
+                </ul>
+            </div>
+        </nav>
+        {% elseif is_granted('ROLE_USER') %}
+        <nav class="navbar navbar-expand navbar-dark bg-dark sticky-top">
+            <a class="navbar-brand" href="{{ path('home') }}">Mon Ecole</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="{{ path('dashboard.index') }}">
+                            <i class="fas fa-home px-2"></i>
                         </a>
                     </li>
                     <li class="nav-item">

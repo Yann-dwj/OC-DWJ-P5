@@ -1,0 +1,96 @@
+/* FRONTEND */
+header
+{
+    background: url('/images/002.png') no-repeat center center;
+    background-size: cover;
+    color: white;
+    min-height: calc(100vh - 56px);
+}
+.wrapper
+{
+    display: table;
+    width: 100%;
+    height:100%;
+}
+.content
+{
+    display: table-cell;
+    text-align: center;
+    vertical-align: middle;
+    text-shadow: 1px 1px 10px black;
+    padding-top: 350px;
+}
+h1
+{
+    font-size: 65px; 
+}
+.subtitle
+{
+    font-size: 23px; 
+}
+.navbar-home
+{
+    background-color: white !important;
+}
+.navbar-brand
+{
+    padding: .3125rem 1rem;
+    margin: 0;
+}
+#news .card
+{
+    height: 500px;
+}
+#news .card-body, #contact .card-body
+{
+    background-color: #343a40; 
+    border: solid 6px #d2c5b4;
+}
+.card-p
+{
+    color: rgba(255,255,255, 0.3);
+}
+.carousel-control-prev-icon
+{
+    background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%23000' viewBox='0 0 8 8'%3E%3Cpath d='M5.25 0l-4 4 4 4 1.5-1.5-2.5-2.5 2.5-2.5-1.5-1.5z'/%3E%3C/svg%3E") !important;
+}
+.carousel-control-next-icon
+{
+    background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%23000' viewBox='0 0 8 8'%3E%3Cpath d='M2.75 0l-1.5 1.5 2.5 2.5-2.5 2.5 1.5 1.5 4-4-4-4z'/%3E%3C/svg%3E") !important;
+}
+.carousel-indicators li
+{
+    background-color: black !important;
+}
+button, .buttonStyle
+{
+    background-color: #f8f9fc;
+    border: solid 3px #f8f9fc;
+}
+.buttonStyle:hover
+{
+    color: white !important;
+    background-color: #343a40 !important;
+    border: solid 3px #d2c5b4 !important;
+}
+#about .card-img-top
+{
+    background-image: url('/images/SEU-M-DUCROS-VUE-DEPUIS-LA-COUR-DE-RECREATION.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center center;
+    height: 200px;
+}
+#about, .form-control, .footer1
+{
+    background-color: #edeef2;
+}
+/* ALL */
+.text-corail
+{
+    color: #a84d52 !important;
+}
+.cream
+{
+    color: #d2c5b4;
+}

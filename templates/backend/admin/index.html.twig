@@ -3,38 +3,6 @@
 {% block title 'Administration | MonEcole' %}
 
 {% block body %}
-
-<style>
-body
-{
-    background-color: #edeef2;
-}
-.create
-{
-    border: solid 5px #f8f9fc !important;
-    border-radius: 5px;
-    color: #343a40 !important;
-}
-.create:hover
-{
-    border: solid 5px #343a40 !important;
-    border-radius: 5px;
-    background-color: #343a40 !important;
-    color: #d2c5b4 !important;
-}
-.buttonStyle
-{
-    background-color: #f8f9fc;
-    border: solid 3px #f8f9fc;
-}
-.buttonStyle:hover
-{
-    color: white !important;
-    background-color: #343a40 !important;
-    border: solid 3px #d2c5b4 !important;
-}
-</style>
-
     <div class="container-fluid">
         <div class="container pt-4">
             <div class="d-sm-flex mb-4">
@@ -46,7 +14,7 @@ body
                         <div class="card-header" style="background-color: #f8f9fc;">
                             <div class="row">
                                 <div class="col"> 
-                                    <h3 class="h6 text-dark font-weight-bold">Utilisateurs</h3>
+                                    <span class="h6 text-dark font-weight-bold m-0">Utilisateurs</span>
                                 </div>
                                 <div class="col text-right"> 
                                     <a class="create" href="{{ path('admin.user.new') }}">
@@ -56,26 +24,26 @@ body
                             </div>
                         </div>
                         <div class="card-body bg-dark">
-                            <div class="row justify-content-center">
-                                <div class="col-sm-4">
+                            <div class="row d-flex mx-auto justify-content-around">
+                                <div class="">
                                     <p class="font-weight-bold text-white">Administrateurs</p>
                                     <span style="font-size: 2em;">
                                         <i class="fas fa-user-shield" style="color: #d2c5b4;"></i>
-                                        <span class="text-white">1</span>
+                                        <span class="text-white">{{ numberOfAdmins }}</span>
                                     </span>
                                 </div>
-                                <div class="col-sm-4">
+                                <div class="">
                                     <p class="font-weight-bold text-white">Instituteurs</p>
                                     <span style="font-size: 2em;">
                                         <i class="fas fa-chalkboard-teacher" style="color: #d2c5b4;"></i>
-                                        <span class="text-white">8</span>
+                                        <span class="text-white">{{ numberOfTeachers }}</span>
                                     </span>
                                 </div>
-                                <div class="col-sm-4">
+                                <div class="">
                                     <p class="font-weight-bold text-white">Parents/Élèves</p>
                                     <span style="font-size: 2em;">
                                         <i class="fas fa-users" style="color: #d2c5b4;"></i>
-                                        <span class="text-white">54</span>
+                                        <span class="text-white">{{ numberOfFamilies }}</span>
                                     </span>
                                 </div>
                             </div>
@@ -92,7 +60,7 @@ body
                         <div class="card-header" style="background-color: #f8f9fc;">
                             <div class="row ">
                                 <div class="col"> 
-                                    <h3 class="h6 text-dark">Actualités</h3>
+                                    <span class="h6 text-dark">Actualités</span>
                                 </div>
                                 <div class="col text-right"> 
                                     <a class="create" href="{{ path('admin.article.new') }}">
@@ -107,7 +75,7 @@ body
                                     <p class="font-weight-bold text-white">Articles</p>
                                     <span style="font-size: 2em;">
                                         <i class="fas fa-edit" style="color: #d2c5b4;"></i>
-                                        <span class="text-white">1</span>
+                                        <span class="text-white">{{ numberOfArticles }}</span>
                                     </span>
                                 </div>
                             </div>
@@ -124,7 +92,7 @@ body
                         <div class="card-header" style="background-color: #f8f9fc;">
                             <div class="row ">
                                 <div class="col"> 
-                                    <h3 class="h6 text-dark font-weight-bold">Messages</h3>
+                                    <span class="h6 text-dark font-weight-bold">Messages</span>
                                 </div>
                                 <div class="col text-right"> 
                                     <a class="create" href="{{ path('admin.message.new') }}">
@@ -137,23 +105,18 @@ body
                             <div class="row d-flex mx-auto justify-content-around">
                                 <span>
                                     <i class="fas fa-inbox" style="color: #d2c5b4; font-size: 1.4em"></i>
-                                    <span class="text-white font-weight-bold" style="font-size: 1.4em">4</span>
+                                    <span class="text-white font-weight-bold" style="font-size: 1.4em">{{ receivedMessages }}</span>
                                     <span class="text-white font-weight-bold ml-2">Reçus</span>
                                 </span>
                                 <span>
                                     <i class="fas fa-envelope" style="color: #d2c5b4; font-size: 1.4em"></i>
-                                    <span class="text-white font-weight-bold" style="font-size: 1.4em">1</span>
+                                    <span class="text-white font-weight-bold" style="font-size: 1.4em">{{ notOpenMessages }}</span>
                                     <span class="text-white font-weight-bold ml-2">Non lus</span>
                                 </span>
                                 <span>
                                     <i class="fas fa-paper-plane" style="color: #d2c5b4; font-size: 1.4em"></i>
-                                    <span class="text-white font-weight-bold" style="font-size: 1.4em">3</span>
+                                    <span class="text-white font-weight-bold" style="font-size: 1.4em">{{ sendedMessages }}</span>
                                     <span class="text-white font-weight-bold ml-2">Envoyés</span>
-                                </span>
-                                <span>
-                                    <i class="fas fa-trash-alt" style="color: #d2c5b4; font-size: 1.4em"></i>
-                                    <span class="text-white font-weight-bold" style="font-size: 1.4em">6</span>
-                                    <span class="text-white font-weight-bold ml-2">Corbeille</span>
                                 </span>
                             </div>
                             <div class="row mt-4 justify-content-center">

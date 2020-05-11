@@ -1,11 +1,55 @@
 {% extends 'base.html.twig' %}
 
-{% block title 'Espace Instituteur | MonEcole' %}
+{% block title 'Mon compte | MonEcole' %}
 
 {% block body %}
-
-    <div id="" class="d-flex align-content-center flex-wrap" style="background-color: lightgrey; height: 600px;">
-        <h1 class="mx-auto">Bienvenue sur votre espace INSTITUTEUR</h1>
+    <div class="container-fluid">
+        <div class="container pt-4">
+            <div class="d-sm-flex mb-4">
+                <h1 class="h3 mb-0 text-gray-800">Tableau de Bord</h1>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card mb-3">
+                        <div class="card-header" style="background-color: #f8f9fc;">
+                            <div class="row ">
+                                <div class="col"> 
+                                    <span class="h6 text-dark font-weight-bold">Messages</span>
+                                </div>
+                                <div class="col text-right"> 
+                                    <a class="create" href="{{ path('admin.message.new') }}">
+                                        <i class="fas fa-plus fa-xl text-right"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body bg-dark">
+                            <div class="row d-flex mx-auto justify-content-around">
+                                <span>
+                                    <i class="fas fa-inbox" style="color: #d2c5b4; font-size: 1.4em"></i>
+                                    <span class="text-white font-weight-bold" style="font-size: 1.4em">{{ receivedMessages }}</span>
+                                    <span class="text-white font-weight-bold ml-2">Reçus</span>
+                                </span>
+                                <span>
+                                    <i class="fas fa-envelope" style="color: #d2c5b4; font-size: 1.4em"></i>
+                                    <span class="text-white font-weight-bold" style="font-size: 1.4em">{{ notOpenMessages }}</span>
+                                    <span class="text-white font-weight-bold ml-2">Non lus</span>
+                                </span>
+                                <span>
+                                    <i class="fas fa-paper-plane" style="color: #d2c5b4; font-size: 1.4em"></i>
+                                    <span class="text-white font-weight-bold" style="font-size: 1.4em">{{ sendedMessages }}</span>
+                                    <span class="text-white font-weight-bold ml-2">Envoyés</span>
+                                </span>
+                            </div>
+                            <div class="row mt-4 justify-content-center">
+                                <div class="col-md-12">
+                                    <a class="buttonStyle btn btn-block font-weight-bold" href="{{ path('admin.message.index') }}" role="button">Voir tout les messages</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-
 {% endblock %}

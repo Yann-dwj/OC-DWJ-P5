@@ -36,43 +36,41 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
         $this->_em->flush();
     }
 
-    // /**
-    //  * Undocumented function
-    //  *
-    //  * @return User[]
-    //  */
-    // public function findByRole(): array
-    // {
-    //     $query = $this->findAll();
-    //     $users = [];
-    //     $admins = [];
-    //     $teachers = [];
-    //     $families = [];
+    /**
+     * Undocumented function
+     *
+     * @return []
+     */
+    public function findByRole(): array
+    {
+        $allUsers = $this->findAll();
+        $users = [];
+        $admins = [];
+        $teachers = [];
+        $families = [];
 
-    //     foreach($users as $user)
-    //     {
-    //         if($user->hasRole('ROLE_ADMIN'))
-    //         {
-    //             $admins[] = $user;
-    //             $user = $admins;
-    //             $admins = $query;
-    //         }
-    //         if($user->hasRole('ROLE_USER'))
-    //         {
-    //             $families[] = $user;
-    //             $user = $families;
-    //             $families = $query;
-    //         }
-    //         if($user->hasRole('ROLE_TEACHER'))
-    //         {
-    //             $teachers[] = $user;
-    //             $user = $teachers;
-    //             $teachers = $query;
-    //         }
-    //     }
+        foreach($allUsers as $user)
+        {
+            if($user->hasRole('ROLE_ADMIN'))
+            {
+                $admins[] = $user;
+            }
+            if($user->hasRole('ROLE_USER'))
+            {
+                $families[] = $user;
+            }
+            if($user->hasRole('ROLE_TEACHER'))
+            {
+                $teachers[] = $user;
+            }
+        }
 
-    //     return $query;
-    // }
+        $users['families'] = $families;
+        $users['teachers'] = $teachers;
+        $users['admins'] = $admins;
+
+        return $users;
+    }
 
     // /**
     //  * @return User[] Returns an array of User objects

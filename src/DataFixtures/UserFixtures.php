@@ -5,6 +5,7 @@ namespace App\DataFixtures;
 use App\Entity\User;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
+use Faker\Factory;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class UserFixtures extends Fixture
@@ -16,32 +17,46 @@ class UserFixtures extends Fixture
 
     public function load(ObjectManager $manager)
     {
-        $user = new User;
-        $user->setFirstName('admin');
-        $user->setClassroom('PS');
-        $user->setEmail('admin@mail.fr');
-        $user->setRoles(['ROLE_ADMIN']);
-        $user->setPassword($this->encoder->encodePassword($user, 'admin'));
-        $manager->persist($user);
-        $this->addReference('user-admin', $user);
+        $faker = Factory::create('fr_FR');
 
-        $user = new User;
-        $user->setFirstName('instituteur');
-        $user->setClassroom('CE2');
-        $user->setEmail('instituteur@mail.fr');
-        $user->setRoles(['ROLE_TEACHER']);
-        $user->setPassword($this->encoder->encodePassword($user, 'instituteur'));
-        $manager->persist($user);
-        $this->addReference('user-teacher', $user);
+        // ADMINISTRATEUR (1)
+        $admin = new User;
+        $admin
+            ->setFirstName('admin')
+            ->setClassroom('PS')
+            ->setEmail('admin@mail.fr')
+            ->setRoles(['ROLE_ADMIN'])
+            ->setPassword($this->encoder->encodePassword($admin, 'admin'));
+        $manager->persist($admin);
+        $this->addReference('user-admin', $admin);
 
-        $user = new User;
-        $user->setFirstName('famille');
-        $user->setClassroom('CP');
-        $user->setEmail('famille@mail.fr');
-        $user->setRoles(['ROLE_USER']);
-        $user->setPassword($this->encoder->encodePassword($user, 'famille'));
-        $manager->persist($user);
-        $this->addReference('user-user', $user);
+        // INSTITUTEURS (8)
+        for ($i = 0; $i < 8; $i++)
+        {
+            $teacher = new User;
+            $teacher
+                ->setRoles(['ROLE_TEACHER'])
+                ->setFirstname($faker->unique()->firstName($gender = 'male'|'female'))
+                ->setEmail($teacher->getFirstName() . '@mail.fr')
+                ->setPassword($this->encoder->encodePassword($teacher, '0000'))
+                ->setClassroom(USER::CLASSROOM[$i]);
+            $manager->persist($teacher);
+            $this->addReference('user-teacher'.$i, $teacher);
+        }
+
+        // FAMILLE (120)
+        for ($i = 0; $i < 120; $i++)
+        {
+            $family = new User;
+            $family
+                ->setRoles(['ROLE_USER'])
+                ->setFirstname($faker->unique()->firstName($gender = 'male'|'female'))
+                ->setEmail($family->getFirstName() . '@mail.fr')
+                ->setPassword($this->encoder->encodePassword($family, '0000'))
+                ->setClassroom($faker->randomElement($array = array('PS', 'MS', 'GS', 'CP', 'CE1', 'CM2', 'CM1', 'CM2'), $count = 1));
+            $manager->persist($family);
+            $this->addReference('user-user'.$i, $family);
+        }
 
         $manager->flush();
     }
