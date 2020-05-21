@@ -3,12 +3,16 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\HttpFoundation\File\File;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ArticleRepository")
  * @UniqueEntity("title")
+ * @Vich\Uploadable
  */
 class Article
 {
@@ -54,6 +58,29 @@ class Article
      * @ORM\ManyToOne(targetEntity="App\Entity\Classroom", inversedBy="articles")
      */
     private $classroom;
+
+    /**
+     * NOTE: This is not a mapped field of entity metadata, just a simple property.
+     * 
+     * @Vich\UploadableField(mapping="article_image", fileNameProperty="imageName")
+     * 
+     * @var File|null
+     */
+    private $imageFile;
+
+    /**
+     * @ORM\Column(type="string")
+     *
+     * @var string|null
+     */
+    private $imageName;
+
+    /**
+     * @ORM\Column(type="datetime")
+     *
+     * @var \DateTimeInterface|null
+     */
+    private $updatedAt;
 
     public function __construct()
     {
@@ -126,6 +153,81 @@ class Article
     public function setClassroom(?classroom $classroom): self
     {
         $this->classroom = $classroom;
+
+        return $this;
+    }
+
+    /**
+     * Get nOTE: This is not a mapped field of entity metadata, just a simple property.
+     *
+     * @return  File|null
+     */ 
+    public function getImageFile()
+    {
+        return $this->imageFile;
+    }
+
+    /**
+     * Set nOTE: This is not a mapped field of entity metadata, just a simple property.
+     *
+     * @param  File|null  $imageFile  NOTE: This is not a mapped field of entity metadata, just a simple property.
+     *
+     * @return  self
+     */ 
+    public function setImageFile(?File $imageFile): Article
+    {
+        $this->imageFile = $imageFile;
+        if ($this->imageFile instanceof UploadedFile)
+        {
+            $this->updatedAt = new \DateTime('now');
+        }
+        return $this;
+    }
+
+    /**
+     * Get the value of imageName
+     *
+     * @return  string|null
+     */ 
+    public function getImageName()
+    {
+        return $this->imageName;
+    }
+
+    /**
+     * Set the value of imageName
+     *
+     * @param  string|null  $imageName
+     *
+     * @return  self
+     */ 
+    public function setImageName($imageName)
+    {
+        $this->imageName = $imageName;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of updatedAt
+     *
+     * @return  \DateTimeInterface|null
+     */ 
+    public function getUpdatedAt()
+    {
+        return $this->updatedAt;
+    }
+
+    /**
+     * Set the value of updatedAt
+     *
+     * @param  \DateTimeInterface|null  $updatedAt
+     *
+     * @return  self
+     */ 
+    public function setUpdatedAt($updatedAt)
+    {
+        $this->updatedAt = $updatedAt;
 
         return $this;
     }
