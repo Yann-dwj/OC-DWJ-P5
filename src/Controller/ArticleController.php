@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controller\Admin;
+namespace App\Controller;
 
 use App\Entity\Article;
 use App\Form\ArticleType;
@@ -11,7 +11,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
-class AdminArticleController extends AbstractController
+class ArticleController extends AbstractController
 {
     /**
      *
@@ -26,40 +26,54 @@ class AdminArticleController extends AbstractController
     }
 
     /**
-     * @Route("/admin/article", name="admin.article.index")
+     * @Route("/article", name="article.index")
      * @return Response
      */
     public function index()
     {
-        $articles = $this->repository->findAll();
-        return $this->render('backend/admin/article/index.html.twig', compact('articles'));
+        $user = $this->getUser();
+        $classroom = $user->getClassroom();
+
+        if($user->hasRole('ROLE_TEACHER'))
+        {
+            $articles = $this->repository->findBy(['classroom' => $classroom], ['id' => 'desc']);
+        }
+        else
+        {
+            $articles = $this->repository->findBy(['classroom' => null]);
+        }
+
+        return $this->render('backend/article/index.html.twig', compact('articles'));
     }
 
     /**
-     * @Route("/admin/article/create", name="admin.article.new")
+     * @Route("/article/create", name="article.new")
      */
     public function new(Request $request)
     {
+        $classroom = $this->getUser()->getclassroom();
         $article = new Article();
         $form = $this->createForm(ArticleType::class, $article);
         $form->handleRequest($request);
+        dump($classroom);
 
         if ($form->isSubmitted() && $form->isValid())
         {
+            $article->setClassroom($classroom);
             $this->entityManager->persist($article);
             $this->entityManager->flush();
             $this->addFlash('success', 'article ajouté avec succès');
-            return $this->redirectToRoute('admin.article.index');
+            return $this->redirectToRoute('article.index');
         }
 
-        return $this->render('backend/admin/article/new.html.twig',[
+        return $this->render('backend/article/new.html.twig',[
             'article' => $article,
             'form' => $form->createView()
         ]);
     }
 
     /**
-     * @Route("/admin/article/{id}", name="admin.article.edit", methods="GET|POST")
+     * @Route("/article/{id}", name="article.edit", methods="GET|POST")
      * @param Article $article
      * @param Request $request
      * @return Response
@@ -73,17 +87,17 @@ class AdminArticleController extends AbstractController
         {
             $this->entityManager->flush();
             $this->addFlash('success', 'article modifié avec succès');
-            return $this->redirectToRoute('admin.article.index');
+            return $this->redirectToRoute('article.index');
         }
 
-        return $this->render('backend/admin/article/edit.html.twig',[
+        return $this->render('backend/article/edit.html.twig',[
             'article' => $article,
             'form' => $form->createView()
         ]);
     }
 
     /**
-     * @Route("/admin/article/{id}", name="admin.article.delete", methods="DELETE")
+     * @Route("/article/{id}", name="article.delete", methods="DELETE")
      * @param Article $article
      * @return Response
      */
@@ -96,6 +110,6 @@ class AdminArticleController extends AbstractController
             $this->addFlash('success', 'article supprimé avec succès');
         }
 
-        return $this->redirectToRoute('admin.article.index');
+        return $this->redirectToRoute('article.index');
     }
 }

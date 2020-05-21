@@ -24,7 +24,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ path('admin.article.index') }}">
+                        <a class="nav-link" href="{{ path('article.index') }}">
                             <i class="fas fa-align-left px-2"></i>
                         </a>
                     </li>
@@ -44,7 +44,7 @@
                 </ul>
             </div>
         </nav>
-        {% elseif is_granted('ROLE_TEACHER') %}
+        {% elseif is_granted('ROLE_TEACHER') and app.request.requestUri != '/' and app.request.requestUri != '/login' %}
         <nav class="navbar navbar-expand navbar-dark bg-dark sticky-top">
             <a class="navbar-brand" href="{{ path('home') }}">Mon Ecole</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -68,7 +68,7 @@
                 </ul>
             </div>
         </nav>
-        {% elseif is_granted('ROLE_USER') %}
+        {% elseif is_granted('ROLE_USER') and app.request.requestUri != '/' and app.request.requestUri != '/login' %}
         <nav class="navbar navbar-expand navbar-dark bg-dark sticky-top">
             <a class="navbar-brand" href="{{ path('home') }}">Mon Ecole</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">

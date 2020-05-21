@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\User;
 use App\Entity\Message;
 use App\Form\MessageType;
+use App\Form\MessageReplyType;
 use App\Repository\UserRepository;
 use App\Repository\MessageRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -84,13 +85,14 @@ class MessageController extends AbstractController
     public function new(Request $request)
     {
         $message = new Message();
-        $form = $this->createForm(MessageType::class, $message);
+        $form = $this->createForm(MessageType::class, $message, ['user'=> $this->getUser()]);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid())
         {
             $message->setTransmitter($this->getUser());
             $message->setOpenTransmitter(true);
+            $message->setLiaison(false);
             $this->entityManager->persist($message);
             $this->entityManager->flush();
             $this->addFlash('success', 'Le message a été envoyé avec succès');
@@ -111,11 +113,18 @@ class MessageController extends AbstractController
      */
     public function reply(Message $message, Request $request)
     {
-        $form = $this->createForm(MessageType::class, $message);
+        $reply = new Message();
+        $form = $this->createForm(MessageReplyType::class, $reply);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid())
         {
+            $reply->setTransmitter($this->getUser());
+            $reply->setRecipient($message->getTransmitter());
+            $reply->setSubject('RE:' . $message->getSubject());
+            $reply->setOpenTransmitter(true);
+            $reply->setLiaison(false);
+            $this->entityManager->persist($reply);
             $this->entityManager->flush();
             $this->addFlash('success', 'Le message a été envoyé avec succès');
             return $this->redirectToRoute('admin.message.index');
@@ -150,7 +159,7 @@ class MessageController extends AbstractController
                 $this->addFlash('success', 'Le message a été supprimé avec succès');
             }
 
-            if ($message->getTrashTransmitter() === true && $message->getTrashRecipient() === true)
+            if ($message->getTrashTransmitter() === true && $message->getTrashRecipient() === true && $message->getLiaison() === false)
             {
                 $this->entityManager->remove($message);
                 $this->entityManager->flush();

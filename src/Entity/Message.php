@@ -63,6 +63,11 @@ class Message
      */
     private $trash_recipient = false;
 
+    /**
+     * @ORM\Column(type="boolean", nullable=false, options={"default":0})
+     */
+    private $liaison = false;
+
     public function isOwner(User $user)
     {
         return ($this->getTransmitter() === $user || $this->getRecipient() === $user );
@@ -182,6 +187,18 @@ class Message
     public function setTrashRecipient(bool $trash_recipient): self
     {
         $this->trash_recipient = $trash_recipient;
+
+        return $this;
+    }
+
+    public function getLiaison(): ?bool
+    {
+        return $this->liaison;
+    }
+
+    public function setLiaison(bool $liaison): self
+    {
+        $this->liaison = $liaison;
 
         return $this;
     }

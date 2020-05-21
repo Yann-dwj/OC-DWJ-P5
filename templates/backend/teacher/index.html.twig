@@ -9,6 +9,80 @@
                 <h1 class="h3 mb-0 text-gray-800">Tableau de Bord</h1>
             </div>
             <div class="row">
+                <div class="col-md-6">
+                    <div class="card mb-3">
+                        <div class="card-header" style="background-color: #f8f9fc;">
+                            <div class="row">
+                                <div class="col"> 
+                                    <span class="h6 text-dark font-weight-bold m-0">Classe</span>
+                                </div>
+                                {# <div class="col text-right"> 
+                                    <a class="create" href="{{ path('admin.user.new') }}">
+                                        <i class="fas fa-plus fa-xl"></i>
+                                    </a>
+                                </div> #}
+                            </div>
+                        </div>
+                        <div class="card-body bg-dark">
+                            <div class="row d-flex mx-auto justify-content-around">
+                                <div class="col-md-8">
+                                    <p class="h4 font-weight-bold text-white">{{ user.classroom }}</p>
+                                    <p class="h5 font-weight-bold text-white">{{ user.firstname ~ " " ~ user.lastname }}</p>
+                                </div>
+                                <div class="col-md-4">
+                                    <p class="font-weight-bold text-white">Élèves</p>
+                                    <span style="font-size: 2em;">
+                                        <i class="fas fa-users" style="color: #d2c5b4;"></i>
+                                        <span class="text-white">{{ numberOfStudents }}</span>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="row mt-4 justify-content-center">
+                                <div class="col-md-12">
+                                    <a class="buttonStyle btn btn-block font-weight-bold" href="{{ path('teacher.liaison.index') }}" role="button">Voir les carnets de liaisons</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card mb-3">
+                        <div class="card-header" style="background-color: #f8f9fc;">
+                            <div class="row ">
+                                <div class="col"> 
+                                    <span class="h6 text-dark">Blog</span>
+                                </div>
+                                {# <div class="col text-right"> 
+                                    <a class="create" href="{{ path('admin.article.new') }}">
+                                        <i class="fas fa-plus fa-xl text-right"></i>
+                                    </a>
+                                </div> #}
+                            </div>
+                        </div>
+                        <div class="card-body bg-dark">
+                            <div class="row d-flex mx-auto justify-content-around">
+                                <div class="col-md-8 my-auto">
+                                    <ul class="font-weight-bold text-white">
+                                        <li class="">Ouvrir le blog</li>
+                                        <li class="">Voir les autres blog</li>
+                                    </ul>
+                                </div>
+                                <div class="col-md-4">
+                                    <p class="font-weight-bold text-white">Articles</p>
+                                    <span style="font-size: 2em;">
+                                        <i class="fas fa-edit" style="color: #d2c5b4;"></i>
+                                        <span class="text-white">{{ numberOfArticles }}</span>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="row mt-4 justify-content-center">
+                                <div class="col-md-12">
+                                    <a class="buttonStyle btn btn-block font-weight-bold" href="{{ path('article.index') }}" role="button">Voir la liste des articles</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <div class="col-md-12">
                     <div class="card mb-3">
                         <div class="card-header" style="background-color: #f8f9fc;">

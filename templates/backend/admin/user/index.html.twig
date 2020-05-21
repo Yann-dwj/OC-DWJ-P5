@@ -107,7 +107,7 @@
                                                     <td>{{ teacher.id }}</td>
                                                     <td>{{ teacher.firstname }}</td>
                                                     <td>{{ teacher.email }}</td>
-                                                    <td>{{ teacher.classroom }}</td>
+                                                    <td>{{ teacher.classroom}}</td>
                                                     <td class="text-right">
                                                         <form method="post" action="{{ path('admin.user.delete', {id: teacher.id}) }}" style="display: inline-block;" onsubmit="return confirm('Êtes vous sur de supprimer cet utilisateur ?')">
                                                             <input type="hidden" name="_method" value="DELETE">

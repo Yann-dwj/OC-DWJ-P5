@@ -36,7 +36,7 @@
                                     <span class="h6 text-dark font-weight-bold">Articles</span>
                                 </div>
                                 <div class="col text-right"> 
-                                    <a class="font-weight-bold create" href="{{ path('admin.article.new') }}" role="button"><i class="fas fa-plus fa-xl"></i></a>
+                                    <a class="font-weight-bold create" href="{{ path('article.new') }}" role="button"><i class="fas fa-plus fa-xl"></i></a>
                                 </div>
                             </div>
                         </div>
@@ -58,12 +58,12 @@
                                         <td>{{ article.title }}</td>
                                         <td>"{{ article.content|striptags|slice(0, 55)|raw }}..."</td>
                                         <td class="text-right">
-                                            <a href="{{ path('admin.article.edit', {id: article.id}) }}" class="buttonStyle btn font-weight-bold">
+                                            <a href="{{ path('article.edit', {id: article.id}) }}" class="buttonStyle btn font-weight-bold">
                                                 <i class="fas fa-edit"></i>
                                             </a>
                                         </td>
                                         <td class="text-right">
-                                            <form method="post" action="{{ path('admin.article.delete', {id: article.id}) }}" style="display: inline-block;" onsubmit="return confirm('Êtes vous sur de supprimer cet article ?')">
+                                            <form method="post" action="{{ path('article.delete', {id: article.id}) }}" style="display: inline-block;" onsubmit="return confirm('Êtes vous sur de supprimer cet article ?')">
                                                 <input type="hidden" name="_method" value="DELETE">
                                                 <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ article.id) }}">
                                                 <button class="btn buttonStyle font-weight-bold"><i class="fas fa-trash-alt"></i></button>
@@ -75,7 +75,7 @@
                             </table>
                             <div class="row mt-4 justify-content-center">
                                 <div class="col-md-12">
-                                    <a class="buttonStyle btn btn-block font-weight-bold" href="{{ path('admin.article.new') }}" role="button">Ajouter un article</a>
+                                    <a class="buttonStyle btn btn-block font-weight-bold" href="{{ path('article.new') }}" role="button">Ajouter un article</a>
                                 </div>
                             </div>
                         </div>

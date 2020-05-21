@@ -50,6 +50,11 @@ class Article
      */
     private $created_at;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Classroom", inversedBy="articles")
+     */
+    private $classroom;
+
     public function __construct()
     {
         $this->created_at = new \DateTime();
@@ -109,6 +114,18 @@ class Article
     public function setCreatedAt(\DateTimeInterface $created_at): self
     {
         $this->created_at = $created_at;
+
+        return $this;
+    }
+
+    public function getClassroom(): ?classroom
+    {
+        return $this->classroom;
+    }
+
+    public function setClassroom(?classroom $classroom): self
+    {
+        $this->classroom = $classroom;
 
         return $this;
     }

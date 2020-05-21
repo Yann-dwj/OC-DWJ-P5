@@ -12,16 +12,16 @@ use Symfony\Component\Security\Core\User\UserInterface;
  */
 class User implements UserInterface, \Serializable
 {
-    const CLASSROOM = [
-        0 => 'PS',
-        1 => 'MS',
-        2 => 'GS',
-        3 => 'CP',
-        4 => 'CE1', 
-        5 => 'CE2',
-        6 => 'CM1',
-        7 => 'CM2'
-    ];
+    // const CLASSROOM = [
+    //     0 => 'PS',
+    //     1 => 'MS',
+    //     2 => 'GS',
+    //     3 => 'CP',
+    //     4 => 'CE1', 
+    //     5 => 'CE2',
+    //     6 => 'CM1',
+    //     7 => 'CM2'
+    // ];
 
     const ROLES = [
         'Famille' => 'ROLE_USER',
@@ -58,9 +58,9 @@ class User implements UserInterface, \Serializable
     private $firstname;
 
     /**
-     * @ORM\Column(type="string", length=25)
+     * @ORM\Column(type="string", length=255)
      */
-    private $classroom;
+    private $lastname;
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Message", mappedBy="transmitter")
@@ -71,6 +71,12 @@ class User implements UserInterface, \Serializable
      * @ORM\OneToMany(targetEntity="App\Entity\Message", mappedBy="recipient")
      */
     private $receivedMessages;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Classroom", inversedBy="users", cascade={"persist"})
+     * @ORM\JoinColumn(nullable=true)
+     */
+    private $classroom;
 
     public function __construct()
     {
@@ -163,22 +169,22 @@ class User implements UserInterface, \Serializable
     /**
      * @see UserInterface
      */
-    public function getClassroom(): ?string
+    public function getLastname(): ?string
     {
-        return $this->classroom;
+        return $this->lastname;
     }
 
-    public function getClassroomType(): string
+    public function setLastname(?string $lastname): self
     {
-        return self::CLASSROOM[$this->classroom];
-    }
-
-    public function setClassroom(?string $classroom): self
-    {
-        $this->classroom = $classroom;
+        $this->lastname = $lastname;
 
         return $this;
     }
+
+    // public function getClassroomType(): string
+    // {
+    //     return self::CLASSROOM[$this->classroom];
+    // }
 
     /**
      * @see UserInterface
@@ -254,26 +260,17 @@ class User implements UserInterface, \Serializable
         return $this->receivedMessages;
     }
 
-    public function addReceivedMessage(Message $receivedMessage): self
+    public function getClassroom(): ?Classroom
     {
-        if (!$this->receivedMessages->contains($receivedMessage)) {
-            $this->receivedMessages[] = $receivedMessage;
-            $receivedMessage->setRecipient($this);
-        }
+        return $this->classroom;
+    }
+
+    public function setClassroom(?Classroom $classroom): self
+    {
+        $this->classroom = $classroom;
 
         return $this;
     }
 
-    public function removeReceivedMessage(Message $receivedMessage): self
-    {
-        if ($this->receivedMessages->contains($receivedMessage)) {
-            $this->receivedMessages->removeElement($receivedMessage);
-            // set the owning side to null (unless already changed)
-            if ($receivedMessage->getRecipient() === $this) {
-                $receivedMessage->setRecipient(null);
-            }
-        }
-
-        return $this;
-    }
+ 
 }

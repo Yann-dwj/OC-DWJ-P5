@@ -2,13 +2,10 @@
 
 namespace App\Controller;
 
-use App\Entity\Article;
-use App\Form\ArticleType;
 use App\Repository\UserRepository;
 use App\Repository\ArticleRepository;
 use App\Repository\MessageRepository;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -45,14 +42,17 @@ class DashboardController extends AbstractController
     public function index()
     {
         $user = $this->getUser();
+        $classroom = $user->getClassroom();
         $users = $this->userRepository->findByRole();
-        $articles = $this->articleRepository->findAll();
+        $students = $this->userRepository->findByClassroom($user->getClassroom());
         $receivedMessages = $this->messageRepository->findBy(['recipient' => $user, 'trash_recipient' => false], ['id' => 'desc']);
         $notOpenMessages = $this->messageRepository->findBy(['recipient' =>$user, 'open_recipient' => false], ['id' => 'desc']);
         $sendedMessages = $this->messageRepository->findBy(['transmitter' => $user, 'trash_transmitter' => false], ['id' => 'desc']);
 
         if($user->hasRole('ROLE_ADMIN'))
         {
+            $articles = $this->articleRepository->findBy(['classroom' => null]);
+
             return $this->render('backend/admin/index.html.twig', [
                 "numberOfAdmins" => count($users['admins']),
                 "numberOfTeachers" => count($users['teachers']),
@@ -65,7 +65,12 @@ class DashboardController extends AbstractController
         }
         elseif($user->hasRole('ROLE_TEACHER'))
         {
+            $articles = $this->articleRepository->findBy(['classroom' => $classroom]);
+
             return $this->render('backend/teacher/index.html.twig', [
+                'user' => $user,
+                'numberOfStudents' => count($students),
+                "numberOfArticles" => count($articles),
                 'receivedMessages' => count($receivedMessages),
                 'notOpenMessages' => count($notOpenMessages),
                 'sendedMessages' => count($sendedMessages),
@@ -73,7 +78,10 @@ class DashboardController extends AbstractController
         }
         else
         {
+            $articles = $this->articleRepository->findBy(['classroom' => $classroom]);
+
             return $this->render('backend/family/index.html.twig', [
+                'user' => $user,
                 'receivedMessages' => count($receivedMessages),
                 'notOpenMessages' => count($notOpenMessages),
                 'sendedMessages' => count($sendedMessages),

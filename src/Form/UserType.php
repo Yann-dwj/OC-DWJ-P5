@@ -15,9 +15,8 @@ class UserType extends AbstractType
     {
         $builder
             ->add('firstname')
-            ->add('classroom', ChoiceType::class, [
-                'choices' => $this->getChoices()
-            ])
+            ->add('lastname')
+            ->add('classroom')
             ->add('email')
             ->add('password', PasswordType::class)
             ->add('roles', ChoiceType::class, [
@@ -36,14 +35,14 @@ class UserType extends AbstractType
         ]);
     }
 
-    private function getChoices()
-    {
-        $choices = User::CLASSROOM;
-        $output = [];
-        foreach($choices as $k => $v)
-        {
-            $output[$v] = $k;
-        }
-        return $output;
-    }
+    // private function getChoices()
+    // {
+    //     $choices = User::CLASSROOM;
+    //     $output = [];
+    //     foreach($choices as $k => $v)
+    //     {
+    //         $output[$v] = $k;
+    //     }
+    //     return $output;
+    // }
 }

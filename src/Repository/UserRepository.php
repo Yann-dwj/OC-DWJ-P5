@@ -3,11 +3,12 @@
 namespace App\Repository;
 
 use App\Entity\User;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use App\Entity\Classroom;
 use Doctrine\Persistence\ManagerRegistry;
-use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
-use Symfony\Component\Security\Core\User\PasswordUpgraderInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Security\Core\User\PasswordUpgraderInterface;
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
 
 /**
  * @method User|null find($id, $lockMode = null, $lockVersion = null)
@@ -34,6 +35,17 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
         $user->setPassword($newEncodedPassword);
         $this->_em->persist($user);
         $this->_em->flush();
+    }
+
+    public function findRecipientFor(User $user){
+
+        return $this->createQueryBuilder('u')
+        ->where('u.classroom = :classroom OR u.roles LIKE :teacher OR u.roles LIKE :admin')
+        ->setParameter('classroom', $user->getClassroom())
+        ->setParameter('teacher', '%ROLE_TEACHER%')
+        ->setParameter('admin', '%ROLE_ADMIN%')
+        ->andWhere('u <> :user')
+        ->setParameter('user', $user);
     }
 
     /**
@@ -70,6 +82,31 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
         $users['admins'] = $admins;
 
         return $users;
+    }
+
+    /**
+     * Undocumented function
+     *
+     * @return array
+     */
+    public function findByClassroom($classroom)
+    {
+        $allUsers = $this->findBy(['classroom' => $classroom]);
+        
+        $users = [];
+        $students = [];
+
+        foreach($allUsers as $user)
+        {
+            if($user->hasRole('ROLE_USER'))
+            {
+               $students[] = $user; 
+            }
+        }
+
+        $users['student'] = $students;
+    
+        return $students;
     }
 
     // /**
