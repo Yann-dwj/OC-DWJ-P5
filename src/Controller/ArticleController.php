@@ -5,11 +5,12 @@ namespace App\Controller;
 use App\Entity\Article;
 use App\Form\ArticleType;
 use App\Repository\ArticleRepository;
+use App\Repository\ClassroomRepository;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class ArticleController extends AbstractController
 {
@@ -19,10 +20,27 @@ class ArticleController extends AbstractController
      */
     private $repository;
 
-    public function __construct(ArticleRepository $repository, EntityManagerInterface $entityManager)
+    public function __construct(ArticleRepository $repository, ClassroomRepository $classroomRepository, EntityManagerInterface $entityManager)
     {
         $this->repository = $repository;
+        $this->classroomRepository = $classroomRepository;
         $this->entityManager = $entityManager;
+    }
+
+    /**
+     * @param Article $classroom
+     * @Route("/blog/{id}", name="blog.index")
+     */
+    public function showBlog(Article $classroom)
+    {
+        $articles = $this->repository->findBy(['classroom' => $classroom], ['id' => 'desc']);
+        $classroom = $this->classroomRepository->findOneBy(['id' => $classroom]);
+
+        dump($classroom);
+        return $this->render('backend/blog/index.html.twig', [
+            'articles' => $articles,
+            'classroom' => $classroom
+        ]);
     }
 
     /**
