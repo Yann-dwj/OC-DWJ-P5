@@ -78,10 +78,13 @@ class DashboardController extends AbstractController
         }
         else
         {
-            $articles = $this->articleRepository->findBy(['classroom' => $classroom]);
+            $articles = $this->articleRepository->findBy(['classroom' => $classroom], ['id' => 'DESC'], 3);
+            $teacher = $classroom->getTeacher();
 
             return $this->render('backend/family/index.html.twig', [
                 'user' => $user,
+                'teacher' => $teacher,
+                'articles' => $articles,
                 'receivedMessages' => count($receivedMessages),
                 'notOpenMessages' => count($notOpenMessages),
                 'sendedMessages' => count($sendedMessages),

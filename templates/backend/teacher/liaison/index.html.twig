@@ -44,7 +44,7 @@
                                 </thead>
                                 <tbody>
                                 {% for student in students %}
-                                    <tr onclick="document.location='{{ path('teacher.liaison.show', {id: student.id}) }}'">
+                                    <tr onclick="document.location='{{ path('liaison.show', {id: student.id}) }}'">
                                         <td>{{ loop.index }}</td>
                                         <td>{{ student.lastname }}</td>
                                         <td>{{ student.firstname }}</td>

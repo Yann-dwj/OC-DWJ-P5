@@ -5,48 +5,74 @@
 {% block body %}
     <div class="container-fluid">
         <div class="container pt-4">
-            <div class="d-sm-flex mb-4">
-                <h1 class="h3 mb-0 text-gray-800">Tableau de Bord</h1>
-            </div>
             <div class="row">
                 <div class="col-md-12">
                     <div class="card mb-3">
                         <div class="card-header" style="background-color: #f8f9fc;">
-                            <div class="row ">
+                            <div class="row">
                                 <div class="col"> 
-                                    <span class="h6 text-dark font-weight-bold">Messages</span>
+                                    <span class="h6 text-dark font-weight-bold m-0">Tableau de Bord</span>
                                 </div>
                                 <div class="col text-right"> 
-                                    <a class="create" href="{{ path('admin.message.new') }}">
-                                        <i class="fas fa-plus fa-xl text-right"></i>
-                                    </a>
+                                    <span class="h6 text-dark font-weight-bold m-0">{{ user.firstname ~ " " ~ user.lastname }}</span>
                                 </div>
                             </div>
                         </div>
                         <div class="card-body bg-dark">
-                            <div class="row d-flex mx-auto justify-content-around">
-                                <span>
-                                    <i class="fas fa-inbox" style="color: #d2c5b4; font-size: 1.4em"></i>
-                                    <span class="text-white font-weight-bold" style="font-size: 1.4em">{{ receivedMessages }}</span>
-                                    <span class="text-white font-weight-bold ml-2">Reçus</span>
-                                </span>
-                                <span>
-                                    <i class="fas fa-envelope" style="color: #d2c5b4; font-size: 1.4em"></i>
-                                    <span class="text-white font-weight-bold" style="font-size: 1.4em">{{ notOpenMessages }}</span>
-                                    <span class="text-white font-weight-bold ml-2">Non lus</span>
-                                </span>
-                                <span>
-                                    <i class="fas fa-paper-plane" style="color: #d2c5b4; font-size: 1.4em"></i>
-                                    <span class="text-white font-weight-bold" style="font-size: 1.4em">{{ sendedMessages }}</span>
-                                    <span class="text-white font-weight-bold ml-2">Envoyés</span>
-                                </span>
-                            </div>
-                            <div class="row mt-4 justify-content-center">
-                                <div class="col-md-12">
-                                    <a class="buttonStyle btn btn-block font-weight-bold" href="{{ path('admin.message.index') }}" role="button">Voir tout les messages</a>
+                            <div class="row d-flex mx-auto">
+                                <div class="col-md-3 text-left border-right">
+                                    <p class="h4 font-weight-bold text-white">{{ user.classroom }}</p>
+                                    <p class="h5 font-weight-bold text-white">{{ 'De ' ~ teacher.firstname ~ " " ~ teacher.lastname }}</p>
+                                </div>
+                                <div class="col-md-9">
+                                    <div class="row mb-3">
+                                        <div class="col-md-12 d-flex mx-auto justify-content-around">
+                                            <span class="text-white font-weight-bold" style="font-size: 1.4em">Messages :</span>
+                                            <span>
+                                                <i class="fas fa-inbox" style="color: #d2c5b4; font-size: 1.4em"></i>
+                                                <span class="text-white font-weight-bold" style="font-size: 1.4em">{{ receivedMessages }}</span>
+                                                <span class="text-white font-weight-bold ml-2">Reçus</span>
+                                            </span>
+                                            <span>
+                                                <i class="fas fa-envelope" style="color: #d2c5b4; font-size: 1.4em"></i>
+                                                <span class="text-white font-weight-bold" style="font-size: 1.4em">{{ notOpenMessages }}</span>
+                                                <span class="text-white font-weight-bold ml-2">Non lus</span>
+                                            </span>
+                                            <span>
+                                                <i class="fas fa-paper-plane" style="color: #d2c5b4; font-size: 1.4em"></i>
+                                                <span class="text-white font-weight-bold" style="font-size: 1.4em">{{ sendedMessages }}</span>
+                                                <span class="text-white font-weight-bold ml-2">Envoyés</span>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-11 mx-auto">
+                                            <a class="buttonStyle btn btn-block font-weight-bold" href="{{ path('liaison.show', {id: user.id}) }}" role="button">Ouvrir le carnet de liaison</a>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="row pt-0">
+                        {% for article in articles %}
+                        <div class="col-lg-4 col-md-6 mb-5">
+                            <a class="text-decoration-none" href="{{ path('blog.article', {id: article.id}) }}">
+                                <div class="card">
+                                    {% if article.imagename %}
+                                        <img class="card-img-top" src="{{ vich_uploader_asset(article, 'imageFile') }}" alt="Card image cap" style="height: 230px;">
+                                    {% else %}
+                                        <div class="card-img-top" style="height: 230px; background-color: #f8f9fc;"></div>
+                                    {% endif %}
+                                    <div class="card-body text-center bg-dark">
+                                        <h5 class="text-white">{{ article.title}}</h5>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                        {% endfor %}
                     </div>
                 </div>
             </div>
