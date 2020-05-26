@@ -16,11 +16,6 @@
                                 <div class="col"> 
                                     <span class="h6 text-dark font-weight-bold m-0">Classe</span>
                                 </div>
-                                {# <div class="col text-right"> 
-                                    <a class="create" href="{{ path('admin.user.new') }}">
-                                        <i class="fas fa-plus fa-xl"></i>
-                                    </a>
-                                </div> #}
                             </div>
                         </div>
                         <div class="card-body bg-dark">
@@ -52,11 +47,6 @@
                                 <div class="col"> 
                                     <span class="h6 text-dark">Blog</span>
                                 </div>
-                                {# <div class="col text-right"> 
-                                    <a class="create" href="{{ path('admin.article.new') }}">
-                                        <i class="fas fa-plus fa-xl text-right"></i>
-                                    </a>
-                                </div> #}
                             </div>
                         </div>
                         <div class="card-body bg-dark">
@@ -64,7 +54,7 @@
                                 <div class="col-md-8 my-auto">
                                     <ul class="font-weight-bold text-white">
                                         <li class=""><a class="text-white" href="{{ path('blog.index', {id: user.classroom.id}) }}" target="_blank">Ouvrir le blog</a></li>
-                                        <li class="">Voir les autres blog</li>
+                                        <li class=""><a class="text-white" href="{{ path('blogs.index') }}">Voir les autres blogs</a></li>
                                     </ul>
                                 </div>
                                 <div class="col-md-4">

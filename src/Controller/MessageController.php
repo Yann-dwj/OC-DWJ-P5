@@ -121,7 +121,7 @@ class MessageController extends AbstractController
         {
             $reply->setTransmitter($this->getUser());
             $reply->setRecipient($message->getTransmitter());
-            $reply->setSubject('RE:' . $message->getSubject());
+            $reply->setSubject('RE: ' . $message->getSubject());
             $reply->setOpenTransmitter(true);
             $reply->setLiaison(false);
             $this->entityManager->persist($reply);

@@ -57,20 +57,22 @@
                                     <table class="table table-bordered table-hover table-dark text-white m-0">
                                         <thead>
                                             <tr>
-                                                <th class="cream">ID</th>
+                                                <th class="cream">#</th>
                                                 <th class="cream">Nom</th>
-                                                <th class="cream">Email</th>
+                                                <th class="cream">Prénom</th>
                                                 <th class="cream">Classe</th>
+                                                <th class="cream">Email</th>
                                                 <th class="cream text-right">Supprimer</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             {% for family in families %}
                                                 <tr>
-                                                    <td>{{ family.id }}</td>
+                                                    <td>{{ loop.index }}</td>
+                                                    <td>{{ family.lastname }}</td>
                                                     <td>{{ family.firstname }}</td>
-                                                    <td>{{ family.email }}</td>
                                                     <td>{{ family.classroom }}</td>
+                                                    <td>{{ family.email }}</td>
                                                     <td class="text-right">
                                                         <form method="post" action="{{ path('admin.user.delete', {id: family.id}) }}" style="display: inline-block;" onsubmit="return confirm('Êtes vous sur de supprimer cet utilisateur ?')">
                                                             <input type="hidden" name="_method" value="DELETE">
@@ -94,20 +96,22 @@
                                     <table class="table table-bordered table-hover table-dark text-white m-0">
                                         <thead>
                                             <tr>
-                                                <th class="cream">ID</th>
+                                                <th class="cream">#</th>
                                                 <th class="cream">Nom</th>
-                                                <th class="cream">Email</th>
+                                                <th class="cream">Prénom</th>
                                                 <th class="cream">Classe</th>
+                                                <th class="cream">Email</th>
                                                 <th class="cream text-right">Supprimer</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             {% for teacher in teachers %}
                                                 <tr>
-                                                    <td>{{ teacher.id }}</td>
+                                                    <td>{{ loop.index }}</td>
+                                                    <td>{{ teacher.lastname }}</td>
                                                     <td>{{ teacher.firstname }}</td>
-                                                    <td>{{ teacher.email }}</td>
                                                     <td>{{ teacher.classroom}}</td>
+                                                    <td>{{ teacher.email }}</td>
                                                     <td class="text-right">
                                                         <form method="post" action="{{ path('admin.user.delete', {id: teacher.id}) }}" style="display: inline-block;" onsubmit="return confirm('Êtes vous sur de supprimer cet utilisateur ?')">
                                                             <input type="hidden" name="_method" value="DELETE">
@@ -131,20 +135,22 @@
                                     <table class="table table-bordered table-hover table-dark text-white m-0">
                                         <thead>
                                             <tr>
-                                                <th class="cream">ID</th>
+                                                <th class="cream">#</th>
                                                 <th class="cream">Nom</th>
-                                                <th class="cream">Email</th>
+                                                <th class="cream">Prénom</th>
                                                 <th class="cream">Classe</th>
+                                                <th class="cream">Email</th>
                                                 <th class="cream text-right">Supprimer</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             {% for admin in admins %}
                                                 <tr>
-                                                    <td>{{ admin.id }}</td>
+                                                    <td>{{ loop.index }}</td>
+                                                    <td>{{ admin.lastname }}</td>
                                                     <td>{{ admin.firstname }}</td>
-                                                    <td>{{ admin.email }}</td>
                                                     <td>{{ admin.classroom }}</td>
+                                                    <td>{{ admin.email }}</td>
                                                     <td class="text-right">
                                                         <form method="post" action="{{ path('admin.user.delete', {id: admin.id}) }}" style="display: inline-block;" onsubmit="return confirm('Êtes vous sur de supprimer cet utilisateur ?')">
                                                             <input type="hidden" name="_method" value="DELETE">

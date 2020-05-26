@@ -36,11 +36,17 @@ body
     color: #343a40;
     text-decoration: none;
 }
-#pills-tab .nav-link.active, #pills-tab .nav-link:hover, #pills-tab .nav-link.active:hover, .plus:hover
+#pills-tab .nav-link.active, #pills-tab .nav-link:hover, #pills-tab .nav-link.active:hover, .plus:hover, .readArticle
 {
     background-color: #343a40 !important;
     color: white !important;
     font-weight: bold;
+}
+.readArticle:hover
+{
+    background-color: white !important;
+    color: #343a40 !important;
+    font-weight: bold;   
 }
 .actionBtn
 {

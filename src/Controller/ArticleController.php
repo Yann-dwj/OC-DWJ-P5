@@ -36,10 +36,35 @@ class ArticleController extends AbstractController
         $articles = $this->repository->findBy(['classroom' => $classroom], ['id' => 'desc']);
         $classroom = $this->classroomRepository->findOneBy(['id' => $classroom]);
 
-        dump($classroom);
         return $this->render('backend/blog/index.html.twig', [
             'articles' => $articles,
             'classroom' => $classroom
+        ]);
+    }
+
+    /**
+     * @param Article $article
+     * @Route("/blog/article/{id}", name="blog.article")
+     */
+    public function showArticle(Article $article)
+    {
+        $article = $this->repository->findOneBy(['id' => $article]);
+
+        return $this->render('backend/blog/article.html.twig', [
+            'article' => $article,
+        ]);
+    }
+
+
+    /**
+     * @Route("/blogs", name="blogs.index")
+     */
+    public function showAllBlog()
+    {
+        $classrooms = $this->classroomRepository->findAll();
+
+        return $this->render('backend/article/blogs.html.twig', [
+            'classrooms' => $classrooms
         ]);
     }
 

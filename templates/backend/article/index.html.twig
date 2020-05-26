@@ -41,38 +41,46 @@
                             </div>
                         </div>
                         <div class="card-body bg-dark">
-                            <table class="table table-bordered table-hover table-dark text-white">
-                                <thead>
-                                    <tr>
-                                        <th class="cream">ID</th>
-                                        <th class="cream">Titre</th>
-                                        <th class="cream">Contenu</th>
-                                        <th class="cream">Editer</th>
-                                        <th class="cream text-right">Supprimer</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                {% for article in articles %}
-                                    <tr>
-                                        <td>{{ article.id }}</td>
-                                        <td>{{ article.title }}</td>
-                                        <td>"{{ article.content|striptags|slice(0, 55)|raw }}..."</td>
-                                        <td class="text-right">
-                                            <a href="{{ path('article.edit', {id: article.id}) }}" class="buttonStyle btn font-weight-bold">
-                                                <i class="fas fa-edit"></i>
-                                            </a>
-                                        </td>
-                                        <td class="text-right">
-                                            <form method="post" action="{{ path('article.delete', {id: article.id}) }}" style="display: inline-block;" onsubmit="return confirm('Êtes vous sur de supprimer cet article ?')">
-                                                <input type="hidden" name="_method" value="DELETE">
-                                                <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ article.id) }}">
-                                                <button class="btn buttonStyle font-weight-bold"><i class="fas fa-trash-alt"></i></button>
-                                            </form>
-                                        </td>
-                                    </tr>
-                                {% endfor %}
-                                </tbody>
-                            </table>
+                            {% if articles %}
+                                <table class="table table-bordered table-hover table-dark text-white">
+                                    <thead>
+                                        <tr>
+                                            <th class="cream">#</th>
+                                            <th class="cream">Titre</th>
+                                            <th class="cream">Contenu</th>
+                                            <th class="cream">Editer</th>
+                                            <th class="cream text-right">Supprimer</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for article in articles %}
+                                            <tr>
+                                                <td>{{ loop.index }}</td>
+                                                <td>{{ article.title }}</td>
+                                                <td>"{{ article.content|striptags|slice(0, 55)|raw }}..."</td>
+                                                <td class="text-right">
+                                                    <a href="{{ path('article.edit', {id: article.id}) }}" class="buttonStyle btn font-weight-bold">
+                                                        <i class="fas fa-edit"></i>
+                                                    </a>
+                                                </td>
+                                                <td class="text-right">
+                                                    <form method="post" action="{{ path('article.delete', {id: article.id}) }}" style="display: inline-block;" onsubmit="return confirm('Êtes vous sur de supprimer cet article ?')">
+                                                        <input type="hidden" name="_method" value="DELETE">
+                                                        <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ article.id) }}">
+                                                        <button class="btn buttonStyle font-weight-bold"><i class="fas fa-trash-alt"></i></button>
+                                                    </form>
+                                                </td>
+                                            </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            {% else %}
+                                <div class="row cream text-center">
+                                    <div class="col-md-12">
+                                        <p class="m-0">Le blog ne contient pas encore d'articles</p>
+                                    </div>
+                                </div>
+                            {% endif %}
                             <div class="row mt-4 justify-content-center">
                                 <div class="col-md-12">
                                     <a class="buttonStyle btn btn-block font-weight-bold" href="{{ path('article.new') }}" role="button">Ajouter un article</a>

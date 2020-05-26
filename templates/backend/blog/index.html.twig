@@ -3,52 +3,34 @@
 {% block title 'Blog | MonEcole' %}
 
 {% block body %}
-<div class="jumbotron text-center">
-    <h1 class="">{{'Blog de la ' ~ classroom.name}}</h1>
-    <h2 class="font-weight-bold">{{'De ' ~ classroom.teacher.firstName ~ ' ' ~ classroom.teacher.lastName ~ ', Année ' ~ classroom.year}}</h2>
-</div>
+    <div class="p-5 text-center">
+        <h1 class="">{{'Blog de la ' ~ classroom.name}}</h1>
+        <h2 class="font-weight-bold">{{'De ' ~ classroom.teacher.firstName ~ ' ' ~ classroom.teacher.lastName ~ ', Année ' ~ classroom.year}}</h2>
+    </div>
     <div class="container-fluid">
         <div class="container pt-4">
-
             {% for article in articles %}
-            <!-- Grid row -->
-            <div class="row align-items-center">
-                <!-- Grid column -->
+            <div class="row align-items-center bg-white py-3">
                 {% if article.imagename %}
                     <div class="col-lg-5">
-                        <!-- Featured image -->
                         <div class="view overlay rounded z-depth-2 mb-lg-0 mb-4">
                             <img class="img-fluid" src="{{ vich_uploader_asset(article, 'imageFile') }}" alt="Sample image">
-                            <a>
-                                <div class="mask rgba-white-slight"></div>
-                            </a>
                         </div>
                     </div>
-
-                    <!-- Grid column -->
-                    <!-- Grid column -->
                     <div class="col-lg-7">
                 {% else %}
                     <div class="col-lg-12">
                 {% endif %}
-                    <!-- Category -->
                     <a href="#!" class="green-text">
                         <h6 class="font-weight-bold mb-3"><i class="fas fa-utensils pr-2"></i>{{ article.categoryType }}</h6>
                     </a>
-                    <!-- Post title -->
                     <h4 class="font-weight-bold mb-3"><strong>{{ article.title }}</strong></h4>
-                    <!-- Excerpt -->
                     <p>{{ article.content|striptags|slice(0, 255)|raw }}...</p>
-                    <!-- Post data -->
                     <p>écrit par <a><strong>Mr l'instituteur</strong></a>, le {{ article.createdAt | date('d/m/Y') }}</p>
-                    <!-- Read more button -->
-                    <a class="btn btn-success btn-md btn-rounded mx-0">Lire l'article</a>
+                    <a class="btn readArticle" href="{{ path('blog.article', {id: article.id}) }}">Lire l'article</a>
                 </div>
-                <!-- Grid column -->
             </div>
-            <!-- Grid row -->
-
-            <hr class="my-5">
+            <hr class="my-3">
             {% endfor %}
         </div>
     </div>
