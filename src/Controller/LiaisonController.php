@@ -45,16 +45,16 @@ class LiaisonController extends AbstractController
         $teacher = $this->getUser();
         $students = $this->userRepository->findByClassroom($teacher->getClassroom());
 
+        $messagesCount= [];
+
         foreach ($students as $student)
         {
-            $messages = $this->messageRepository->findByLiaison($teacher, $student);
-            $numberOfMessages = count($messages);
-            dump($numberOfMessages);
+$messagesCount[$student->getId()] = count($this->messageRepository->findByLiaison($teacher, $student));
         }
         
         return $this->render('backend/teacher/liaison/index.html.twig', [
             'students' => $students,
-            'numberOfMessages' => $numberOfMessages
+            'messagesCount' => $messagesCount
         ]);
     }
 

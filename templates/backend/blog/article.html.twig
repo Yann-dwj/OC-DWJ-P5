@@ -15,7 +15,7 @@
                         </div>
                         <div class="card-body card-body-cascade text-center">
                             <h3 class="font-weight-bold"><a>{{ article.title }}</a></h3>
-                            <p>écrit par <a><strong>Mr l'instituteur</strong></a>, le {{ article.createdAt | date('d/m/Y') }}</p>
+                            <p>écrit par {{ article.classroom.teacher}}, le {{ article.createdAt | date('d/m/Y') }}</p>
                         </div>
                     </div>
                     <div class="mt-5">

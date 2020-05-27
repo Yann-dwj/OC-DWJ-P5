@@ -47,6 +47,20 @@ class MessageController extends AbstractController
     }
 
     /**
+     * @Route("/messages/check", name="message.check")
+     * @return Response
+     */
+    public function check()
+    {
+        $user = $this->getUser();
+        $notOpenMessages = $this->repository->findBy(['recipient' => $user, 'open_recipient' => false], ['id' => 'desc']);
+        $messagesCount = count($notOpenMessages);
+
+        // TODO jouer avc ton messageRepository pour recuperer le nombre de message non lu
+        return $this->json(['count' => $messagesCount]);
+    }
+
+    /**
      * @Route("/message/show/{id}", name="admin.message.show")
      * @param Message $message
      * @return Response

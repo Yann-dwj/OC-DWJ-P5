@@ -63,7 +63,7 @@ class Article
      * NOTE: This is not a mapped field of entity metadata, just a simple property.
      * 
      * @Vich\UploadableField(mapping="article_image", fileNameProperty="imageName")
-     * @Assert\Image(mimeTypes="image/jpeg")
+     * @Assert\Image(mimeTypes="image/*")
      * @var File|null
      */
     private $imageFile;

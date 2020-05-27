@@ -27,21 +27,10 @@ class MessageRepository extends ServiceEntityRepository
     {
         $qb = $this->createQueryBuilder('m');
 
-        $studentToTeacher = $qb->expr()->andX();
-        $studentToTeacher
-            ->add('m.transmitter = :student')
-            ->add('m.recipient = :teacher')
-        ;
-
-        $teacherToStudent = $qb->expr()->andX();
-        $teacherToStudent
-            ->add('m.transmitter = :teacher')
-            ->add('m.recipient = :student')
-        ;
         
         return $qb
-            ->andWhere($teacherToStudent)
-            ->orWhere($studentToTeacher)
+            ->andWhere('m.transmitter = :teacher AND m.recipient = :student')
+            ->orWhere('m.transmitter = :student AND m.recipient = :teacher')
             ->setParameter('teacher', $teacher)
             ->setParameter('student', $student)
             ->orderBy('m.id', 'DESC')
