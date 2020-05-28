@@ -8,6 +8,8 @@ use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\User\PasswordUpgraderInterface;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\Query;
+use Doctrine\ORM\QueryBuilder;
 use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
 
 /**
@@ -37,6 +39,79 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
         $this->_em->flush();
     }
 
+    /**
+     * Undocumented function
+     *
+     * @return QueryBuilder
+     */
+    public function findUserQuery(): QueryBuilder
+    {
+        return $this->createQueryBuilder('u');
+    }
+
+    /**
+     * Undocumented function
+     *
+     * @return Query
+     */
+    public function findAllUsersQuery(): Query
+    {
+        $query = $this->findUserQuery();
+        $query->orderBy('u.id', 'DESC');
+        return $query->getQuery();
+    }
+
+    // /**
+    //  * Undocumented function
+    //  *
+    //  * @return Query
+    //  */
+    // public function findAllAdminsQuery(): Query
+    // {
+    //     $query = $this->findUserQuery();
+    //     $query
+    //         ->where('u.roles LIKE :admin')
+    //         ->setParameter('admin', '%ROLE_ADMIN%');
+    
+    //     return $query->getQuery();
+    // }
+
+    // /**
+    //  * Undocumented function
+    //  *
+    //  * @return Query
+    //  */
+    // public function findAllTeachersQuery(): Query
+    // {
+    //     $query = $this->findUserQuery();
+    //     $query
+    //         ->where('u.roles LIKE :teacher')
+    //         ->setParameter('teacher', '%ROLE_TEACHER%');
+    
+    //     return $query->getQuery();
+    // }
+
+    // /**
+    //  * Undocumented function
+    //  *
+    //  * @return Query
+    //  */
+    // public function findAllStudentsQuery(): Query
+    // {
+    //     $query = $this->findUserQuery();
+    //     $query
+    //         ->where('u.roles LIKE :user')
+    //         ->setParameter('user', '%ROLE_USER%');
+    
+    //     return $query->getQuery();
+    // }
+
+    /**
+     * Undocumented function
+     *
+     * @param User $user
+     * @return void
+     */
     public function findRecipientFor(User $user){
 
         return $this->createQueryBuilder('u')

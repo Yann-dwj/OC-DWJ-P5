@@ -36,7 +36,7 @@
                                 <div class="col"> 
                                     <ul class="nav nav-pills" id="pills-tab" role="tablist">
                                         <li class="nav-item">
-                                            <a class="nav-link active text-dark font-weight-bold py-0" id="pills-family-tab" data-toggle="pill" href="#pills-family" role="tab" aria-controls="pills-family" aria-selected="true">Parents/Élèves</a>
+                                            <a class="nav-link active text-dark font-weight-bold py-0" id="pills-student-tab" data-toggle="pill" href="#pills-student" role="tab" aria-controls="pills-family" aria-selected="true">Parents/Élèves</a>
                                         </li>
                                         <li class="nav-item">
                                             <a class="nav-link text-dark font-weight-bold py-0" id="pills-teacher-tab" data-toggle="pill" href="#pills-teacher" role="tab" aria-controls="pills-teacher" aria-selected="false">Instituteurs</a>
@@ -52,7 +52,7 @@
                             </div>
                         </div>
                         <div class="tab-content" id="pills-tabContent">
-                            <div class="tab-pane fade show active" id="pills-family" role="tabpanel" aria-labelledby="pills-family-tab">
+                            <div class="tab-pane fade show active" id="pills-student" role="tabpanel" aria-labelledby="pills-student-tab">
                                 <div class="card-body bg-dark">
                                     <table class="table table-bordered table-hover table-dark text-white m-0">
                                         <thead>
@@ -66,17 +66,17 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            {% for family in families %}
+                                            {% for student in students %}
                                                 <tr>
                                                     <td>{{ loop.index }}</td>
-                                                    <td>{{ family.lastname }}</td>
-                                                    <td>{{ family.firstname }}</td>
-                                                    <td>{{ family.classroom }}</td>
-                                                    <td>{{ family.email }}</td>
+                                                    <td>{{ student.lastname }}</td>
+                                                    <td>{{ student.firstname }}</td>
+                                                    <td>{{ student.classroom }}</td>
+                                                    <td>{{ student.email }}</td>
                                                     <td class="text-right">
-                                                        <form method="post" action="{{ path('admin.user.delete', {id: family.id}) }}" style="display: inline-block;" onsubmit="return confirm('Êtes vous sur de supprimer cet utilisateur ?')">
+                                                        <form method="post" action="{{ path('admin.user.delete', {id: student.id}) }}" style="display: inline-block;" onsubmit="return confirm('Êtes vous sur de supprimer cet utilisateur ?')">
                                                             <input type="hidden" name="_method" value="DELETE">
-                                                            <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ family.id) }}">
+                                                            <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ student.id) }}">
                                                             <button class="btn buttonStyle font-weight-bold"><i class="fas fa-trash-alt"></i></button>
                                                         </form>
                                                     </td>
@@ -84,6 +84,9 @@
                                             {% endfor %}
                                         </tbody>
                                     </table>
+                                    <div class="pagination mt-4 justify-content-center">
+                                        {{ knp_pagination_render(students) }}
+                                    </div>
                                     <div class="row mt-4 justify-content-center">
                                         <div class="col-md-12">
                                             <a class="buttonStyle btn btn-block font-weight-bold" href="{{ path('admin.user.new') }}" role="button">Ajouter un utilisateur</a>
@@ -123,6 +126,9 @@
                                             {% endfor %}
                                         </tbody>
                                     </table>
+                                    <div class="pagination">
+                                        {{ knp_pagination_render(teachers) }}
+                                    </div>
                                     <div class="row mt-4 justify-content-center">
                                         <div class="col-md-12">
                                             <a class="buttonStyle btn btn-block font-weight-bold" href="{{ path('admin.user.new') }}" role="button">Ajouter un utilisateur</a>
@@ -162,6 +168,9 @@
                                             {% endfor %}
                                         </tbody>
                                     </table>
+                                    <div class="pagination">
+                                        {{ knp_pagination_render(admins) }}
+                                    </div>
                                     <div class="row mt-4 justify-content-center">
                                         <div class="col-md-12">
                                             <a class="buttonStyle btn btn-block font-weight-bold" href="{{ path('admin.user.new') }}" role="button">Ajouter un utilisateur</a>

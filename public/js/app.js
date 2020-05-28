@@ -2,8 +2,6 @@
 $(function(){
     $("input[type=file].custom-file-input").change(function (e){$(this).next('.custom-file-label').text(e.target.files[0].name);})
 
-
-
     // Set Interval
 
     // $.ajax('/messages/check').then((result) => console.log(result));

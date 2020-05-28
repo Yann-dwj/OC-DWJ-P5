@@ -7,6 +7,7 @@ use App\Form\UserType;
 use App\Entity\Message;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -31,14 +32,38 @@ class AdminUserController extends AbstractController
      * @Route("/admin/user", name="admin.user.index")
      * @return Response
      */
-    public function index()
+    public function index(PaginatorInterface $paginator, Request $request): Response
     {
-        $users = $this->repository->findByRole();
 
-        return $this->render('backend/admin/user/index.html.twig', [
-            'admins' => $users['admins'],
-            'teachers' => $users['teachers'],
-            'families' => $users['families']
+        $users = $paginator->paginate(
+            $this->repository->findAllUsersQuery(),
+            $request->query->getInt('page', 1),
+            5
+        );
+
+        // $admins = $paginator->paginate(
+        //     $this->repository->findAllAdminsQuery(),
+        //     $request->query->getInt('page', 1),
+        //     10
+        // );
+
+        // $teachers = $paginator->paginate(
+        //     $this->repository->findAllTeachersQuery(),
+        //     $request->query->getInt('page', 1),
+        //     10
+        // );
+
+        // $students = $paginator->paginate(
+        //     $this->repository->findAllStudentsQuery(),
+        //     $request->query->getInt('page', 1),
+        //     10
+        // );
+
+        return $this->render('backend/admin/user/indexNouveau.html.twig', [
+            'users' => $users
+            // 'admins' => $admins,
+            // 'teachers' => $teachers,
+            // 'students' => $students
         ]);
     }
 

@@ -69,6 +69,21 @@ body
 {
     color: #d2c5b4;
 }
+.page-link
+{
+    color: black!important;
+}
+.page-link:hover, .page-link:active
+{
+    color: white!important;
+    background-color: #343a40!important;
+}
+.page-item.active .page-link
+{
+    color: white!important;
+    background-color: #343a40!important;
+    border-color: white!important;
+}
 /* .notificationBadge
 {
     position:absolute;
