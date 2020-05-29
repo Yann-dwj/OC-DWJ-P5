@@ -45,12 +45,13 @@
                             <table class="table table-bordered table-hover table-dark text-white m-0">
                                 <thead>
                                     <tr>
-                                        <th class="cream">#</th>
-                                        <th class="cream">Nom</th>
-                                        <th class="cream">Prénom</th>
-                                        <th class="cream">Classe</th>
-                                        <th class="cream">Email</th>
-                                        <th class="cream text-right">Supprimer</th>
+                                        <th class="user-cream">{{ knp_pagination_sortable(users, '#ID', 'u.id') }}</th>
+                                        <th class="user-cream">{{ knp_pagination_sortable(users, 'Nom', 'u.lastname') }}</th>
+                                        <th class="user-cream">{{ knp_pagination_sortable(users, 'Prénom', 'u.firstname') }}</th>
+                                        <th class="user-cream">{{ knp_pagination_sortable(users, 'Classe', 'u.classroom ') }}</th>
+                                        <th class="user-cream">{{ knp_pagination_sortable(users, 'Email', 'u.email') }}</th>
+                                        <th class="user-cream">{{ knp_pagination_sortable(users, 'Role', 'u.roles') }}</th>
+                                        {# <th class="cream text-right">Supprimer</th> #}
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -61,6 +62,15 @@
                                             <td>{{ user.firstname }}</td>
                                             <td>{{ user.classroom }}</td>
                                             <td>{{ user.email }}</td>
+                                            {% for role in user.roles %}
+                                                {% if role == 'ROLE_TEACHER' %}
+                                                    <td>Instituteur</td>
+                                                {% elseif role == 'ROLE_USER' %}
+                                                    <td>Élève</td>
+                                                {% elseif role == 'ROLE_ADMIN'%}
+                                                    <td>Administrateur</td>
+                                                {% endif %}
+                                            {% endfor %}
                                             <td class="text-right">
                                                 <form method="post" action="{{ path('admin.user.delete', {id: user.id}) }}" style="display: inline-block;" onsubmit="return confirm('Êtes vous sur de supprimer cet utilisateur ?')">
                                                     <input type="hidden" name="_method" value="DELETE">

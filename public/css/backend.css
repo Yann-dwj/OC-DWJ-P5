@@ -84,6 +84,10 @@ body
     background-color: #343a40!important;
     border-color: white!important;
 }
+.user-cream a
+{
+    color: #d2c5b4 !important;
+}
 /* .notificationBadge
 {
     position:absolute;
