@@ -1,7 +1,7 @@
 /* FRONTEND */
 header
 {
-    background: url('/images/002.png') no-repeat center center;
+    background: url('/images/01.png') no-repeat center center;
     background-size: cover;
     color: white;
     min-height: calc(100vh - 56px);
@@ -37,6 +37,10 @@ h1
     padding: .3125rem 1rem;
     margin: 0;
 }
+.card-header
+{
+    background-color: #f8f9fc;
+}
 #news .card
 {
     height: 500px;
@@ -53,6 +57,7 @@ h1
 .carousel-control-prev-icon
 {
     background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%23000' viewBox='0 0 8 8'%3E%3Cpath d='M5.25 0l-4 4 4 4 1.5-1.5-2.5-2.5 2.5-2.5-1.5-1.5z'/%3E%3C/svg%3E") !important;
+    right:0;
 }
 .carousel-control-next-icon
 {
@@ -75,13 +80,13 @@ button, .buttonStyle
 }
 #about .card-img-top
 {
-    background-image: url('/images/SEU-M-DUCROS-VUE-DEPUIS-LA-COUR-DE-RECREATION.png');
+    background-image: url('/images/02 - copie.png');
     background-repeat: no-repeat;
     background-size: cover;
-    background-position: center center;
-    height: 200px;
+    background-position: bottom center;
+    height: 300px;
 }
-#about, .form-control, .footer1
+.form-control, .footer1
 {
     background-color: #edeef2;
 }
@@ -93,4 +98,29 @@ button, .buttonStyle
 .cream
 {
     color: #d2c5b4;
+}
+.login-badge
+{
+    display: inline-block;
+    font-size:.7em;
+    background: red;
+    /* margin-left: -8px; */
+    width:10px;
+    height:10px;
+    border-radius:50%;
+}
+@media all and (max-width: 960px)
+{
+    .carousel-control-prev
+    {
+        left: 25%;
+    }
+    .carousel-control-next
+    {
+        right: 25%;
+    }
+    .carousel-control-prev,
+    .carousel-control-next{
+        top: 85%;
+    }
 }

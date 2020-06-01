@@ -20,11 +20,11 @@
                         </div>
                         <div class="card-body bg-dark">
                             <div class="row d-flex mx-auto justify-content-around">
-                                <div class="col-md-8">
+                                <div class="col-lg-8">
                                     <p class="h4 font-weight-bold text-white">{{ user.classroom }}</p>
                                     <p class="h5 font-weight-bold text-white">{{ user.firstname ~ " " ~ user.lastname }}</p>
                                 </div>
-                                <div class="col-md-4">
+                                <div class="col-lg-4">
                                     <p class="font-weight-bold text-white">Élèves</p>
                                     <span style="font-size: 2em;">
                                         <i class="fas fa-users" style="color: #d2c5b4;"></i>
@@ -51,13 +51,13 @@
                         </div>
                         <div class="card-body bg-dark">
                             <div class="row d-flex mx-auto justify-content-around">
-                                <div class="col-md-8 my-auto">
+                                <div class="col-lg-8 my-auto">
                                     <ul class="font-weight-bold text-white">
                                         <li class=""><a class="text-white" href="{{ path('blog.index', {id: user.classroom.id}) }}" target="_blank">Ouvrir le blog</a></li>
                                         <li class=""><a class="text-white" href="{{ path('blogs.index') }}">Voir les autres blogs</a></li>
                                     </ul>
                                 </div>
-                                <div class="col-md-4">
+                                <div class="col-lg-4">
                                     <p class="font-weight-bold text-white">Articles</p>
                                     <span style="font-size: 2em;">
                                         <i class="fas fa-edit" style="color: #d2c5b4;"></i>

@@ -84,7 +84,7 @@ body
     background-color: #343a40!important;
     border-color: white!important;
 }
-.user-cream a
+.user-cream a, .cream a:hover
 {
     color: #d2c5b4 !important;
 }
