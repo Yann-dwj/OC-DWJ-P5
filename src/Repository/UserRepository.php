@@ -134,7 +134,7 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
         $users = [];
         $admins = [];
         $teachers = [];
-        $families = [];
+        $students = [];
 
         foreach($allUsers as $user)
         {
@@ -144,7 +144,7 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
             }
             if($user->hasRole('ROLE_USER'))
             {
-                $families[] = $user;
+                $students[] = $user;
             }
             if($user->hasRole('ROLE_TEACHER'))
             {
@@ -152,7 +152,7 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
             }
         }
 
-        $users['families'] = $families;
+        $users['students'] = $students;
         $users['teachers'] = $teachers;
         $users['admins'] = $admins;
 

@@ -56,7 +56,7 @@ class DashboardController extends AbstractController
             return $this->render('backend/admin/index.html.twig', [
                 "numberOfAdmins" => count($users['admins']),
                 "numberOfTeachers" => count($users['teachers']),
-                "numberOfFamilies" => count($users['families']),
+                "numberOfStudents" => count($users['students']),
                 "numberOfArticles" => count($articles),
                 'receivedMessages' => count($receivedMessages),
                 'notOpenMessages' => count($notOpenMessages),

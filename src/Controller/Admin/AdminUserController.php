@@ -34,36 +34,12 @@ class AdminUserController extends AbstractController
      */
     public function index(PaginatorInterface $paginator, Request $request): Response
     {
+        $users = $this->repository->findByRole();
 
-        $users = $paginator->paginate(
-            $this->repository->findAllUsersQuery(),
-            $request->query->getInt('page', 1),
-            5
-        );
-
-        // $admins = $paginator->paginate(
-        //     $this->repository->findAllAdminsQuery(),
-        //     $request->query->getInt('page', 1),
-        //     10
-        // );
-
-        // $teachers = $paginator->paginate(
-        //     $this->repository->findAllTeachersQuery(),
-        //     $request->query->getInt('page', 1),
-        //     10
-        // );
-
-        // $students = $paginator->paginate(
-        //     $this->repository->findAllStudentsQuery(),
-        //     $request->query->getInt('page', 1),
-        //     10
-        // );
-
-        return $this->render('backend/admin/user/indexNouveau.html.twig', [
-            'users' => $users
-            // 'admins' => $admins,
-            // 'teachers' => $teachers,
-            // 'students' => $students
+        return $this->render('backend/admin/user/index.html.twig', [
+            'admins' => $users['admins'],
+            'teachers' => $users['teachers'],
+            'students' => $users['students']
         ]);
     }
 

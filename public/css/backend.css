@@ -84,7 +84,7 @@ body
     background-color: #343a40!important;
     border-color: white!important;
 }
-.user-cream a, .cream a:hover
+.cream, .user-cream, form label, table th
 {
     color: #d2c5b4 !important;
 }

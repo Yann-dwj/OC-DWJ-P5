@@ -97,14 +97,13 @@ button, .buttonStyle
 }
 .cream
 {
-    color: #d2c5b4;
+    color: #d2c5b4 !important;
 }
 .login-badge
 {
     display: inline-block;
     font-size:.7em;
     background: red;
-    /* margin-left: -8px; */
     width:10px;
     height:10px;
     border-radius:50%;
@@ -119,8 +118,8 @@ button, .buttonStyle
     {
         right: 25%;
     }
-    .carousel-control-prev,
-    .carousel-control-next{
+    .carousel-control-prev, .carousel-control-next
+    {
         top: 85%;
     }
 }
