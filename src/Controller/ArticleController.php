@@ -11,6 +11,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 class ArticleController extends AbstractController
 {
@@ -33,13 +34,23 @@ class ArticleController extends AbstractController
      */
     public function showBlog(Article $classroom)
     {
-        $articles = $this->repository->findBy(['classroom' => $classroom], ['id' => 'desc']);
-        $classroom = $this->classroomRepository->findOneBy(['id' => $classroom]);
+        $user = $this->getUser();
 
-        return $this->render('backend/blog/index.html.twig', [
-            'articles' => $articles,
-            'classroom' => $classroom
-        ]);
+        if ($user->hasRole('ROLE_TEACHER') || $user->getClassroom()->getId() === $classroom->getId())
+        {
+            $articles = $this->repository->findBy(['classroom' => $classroom], ['id' => 'desc']);
+            $classroom = $this->classroomRepository->findOneBy(['id' => $classroom]);
+    
+            return $this->render('backend/blog/index.html.twig', [
+                'articles' => $articles,
+                'classroom' => $classroom
+            ]);
+        }
+        else
+        {
+            throw new AccessDeniedException();
+        }
+
     }
 
     /**

@@ -43,7 +43,6 @@ security:
         - { path: ^/user, roles: ROLE_USER }
         - { path: ^/teacher, roles: ROLE_TEACHER }
 
-    # role_hierarchy:
-    #     ROLE_USER: ROLE_USER
-    #     ROLE_TEACHER: ROLE_USER
-    #     ROLE_ADMIN: ROLE_ADMIN
+    role_hierarchy:
+        ROLE_TEACHER: ROLE_USER
+        ROLE_ADMIN: ROLE_TEACHER

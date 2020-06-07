@@ -1,0 +1,39 @@
+html, body
+{
+    height: 100%;
+}
+body
+{
+    background-color: #edeef2;
+}
+.card-body
+{
+    background-color: #343a40; 
+    border: solid 6px #d2c5b4;
+}
+.buttonStyle
+{
+    color: white !important;
+    background-color: #343a40 !important;
+    border: solid 3px #d2c5b4 !important;
+}
+.buttonStyle:hover
+{
+    color: #343a40 !important;
+    background-color: #f8f9fc !important;
+    border: solid 3px #f8f9fc !important;
+}
+@media all and (max-width: 640px)
+{
+    #desktop
+    {
+        display: none;
+    }
+}
+@media all and (min-width: 640px)
+{
+    #mobile
+    {
+        display: none;
+    }
+}

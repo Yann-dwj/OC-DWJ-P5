@@ -14,6 +14,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 class MessageController extends AbstractController
 {
@@ -95,6 +96,7 @@ class MessageController extends AbstractController
 
     /**
      * @Route("/message/create", name="admin.message.new")
+     * @IsGranted("ROLE_USER")
      */
     public function new(Request $request)
     {
