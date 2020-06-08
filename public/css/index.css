@@ -123,3 +123,21 @@ button, .buttonStyle
         top: 85%;
     }
 }
+@media all and (max-width: 640px)
+{
+    #desktop
+    {
+        display: none;
+    }
+    header
+    {
+        min-height: 100vh;
+    }
+}
+@media all and (min-width: 640px)
+{
+    #mobile
+    {
+        display: none;
+    }
+}

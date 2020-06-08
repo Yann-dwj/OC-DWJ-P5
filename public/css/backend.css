@@ -88,10 +88,14 @@ body
 {
     color: #d2c5b4 !important;
 }
-.badge
+.navbar-dark .navbar-nav .nav-link:hover
 {
-    position:absolute;
-    top: 10px;
-    right: 168px;
-    border-radius: 50% !important;
+    color: white!important;
+}
+@media all and (max-width: 959px)
+{
+    li #separator
+    {
+        display: none;
+    }
 }

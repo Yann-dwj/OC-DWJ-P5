@@ -5,6 +5,40 @@
 {% block stylesheets %}<link rel="stylesheet" href="/css/index.css">{% endblock %}
 
 {% block body %}
+    <nav id="mobile" class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+        <a class="navbar-brand text-corail px-0" href="{{ path('home') }}#home">
+            <i class="fas fa-school px-1"></i>
+            <span class="align-middle">Mon Ecole</span>
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link text-corail" href="{{ path('home') }}#carouselExampleCaptions">Actualités</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-corail" href="{{ path('home') }}#about">A propos</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-corail" href="{{ path('home') }}#contact">Contact</a>
+                </li>
+                {% if app.user %}
+                    <li class="nav-item">
+                        <a class="nav-link text-corail font-weight-bold" href="{{ path('login') }}">{{ app.user.firstname ~ ' ' ~ app.user.lastname }}
+                        <span class="login-badge mb-2"></span>
+                        </a>
+                    </li>
+                {% else %}
+                    <li class="nav-item">
+                        <a class="nav-link text-corail" href="{{ path('login') }}">Mon compte</a>
+                    </li>
+                {% endif %}
+            </ul>
+        </div>
+    </nav>
+
     <header id="home">
         <div class="wrapper">
             <div class="content">
@@ -14,7 +48,7 @@
         </div>
     </header>
 
-    <nav class="navbar navbar-home sticky-top navbar-expand-lg text-corail justify-content-center border-bottom">
+    <nav id="desktop" class="navbar navbar-home sticky-top navbar-expand-lg text-corail justify-content-center border-bottom">
         <ul class="nav justify-content-center">
             <li class="nav-item">
                 <a class="nav-link text-corail" href="{{ path('home') }}#carouselExampleCaptions">Actualités</a>
@@ -30,7 +64,7 @@
             </li>
             {% if app.user %}
                 <li class="nav-item">
-                    <a class="nav-link text-corail font-weight-bold" href="{{ path('login') }}">{{ app.user.lastname }}
+                    <a class="nav-link text-corail font-weight-bold" href="{{ path('login') }}">{{ app.user.firstname ~ ' ' ~ app.user.lastname }}
                     <span class="login-badge mb-2"></span>
                     </a>
                 </li>
