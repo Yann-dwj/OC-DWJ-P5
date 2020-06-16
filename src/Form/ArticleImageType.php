@@ -10,7 +10,7 @@ use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 
-class ArticleType extends AbstractType
+class ArticleImageType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -24,6 +24,10 @@ class ArticleType extends AbstractType
             ])
             ->add('category', ChoiceType::class, [
                 'choices' => $this->getChoices()
+            ])
+            ->add('imageFile', FileType::class, [
+                'label' => 'Image',
+                'required' => false
             ])
         ;
     }

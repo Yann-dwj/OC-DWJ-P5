@@ -9,6 +9,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 class DashboardController extends AbstractController
 {
@@ -37,6 +38,7 @@ class DashboardController extends AbstractController
 
     /**
      * @Route("/dashboard", name="dashboard.index")
+     * @IsGranted("ROLE_USER")
      * @return Response
      */
     public function index()
@@ -53,7 +55,7 @@ class DashboardController extends AbstractController
         {
             $articles = $this->articleRepository->findBy(['classroom' => null]);
 
-            return $this->render('backend/admin/index.html.twig', [
+            return $this->render('backoffice/admin/index.html.twig', [
                 "numberOfAdmins" => count($users['admins']),
                 "numberOfTeachers" => count($users['teachers']),
                 "numberOfStudents" => count($users['students']),
@@ -67,7 +69,7 @@ class DashboardController extends AbstractController
         {
             $articles = $this->articleRepository->findBy(['classroom' => $classroom]);
 
-            return $this->render('backend/teacher/index.html.twig', [
+            return $this->render('backoffice/teacher/index.html.twig', [
                 'user' => $user,
                 'numberOfStudents' => count($students),
                 "numberOfArticles" => count($articles),
@@ -78,18 +80,17 @@ class DashboardController extends AbstractController
         }
         else
         {
-            $articles = $this->articleRepository->findBy(['classroom' => $classroom], ['id' => 'DESC'], 3);
+            $latestArticle = $this->articleRepository->findOneBy(['classroom' => $classroom], ['id' => 'DESC']);
             $teacher = $classroom->getTeacher();
 
-            return $this->render('backend/family/index.html.twig', [
+            return $this->render('backoffice/family/index.html.twig', [
                 'user' => $user,
                 'teacher' => $teacher,
-                'articles' => $articles,
+                'latestArticle' => $latestArticle,
                 'receivedMessages' => count($receivedMessages),
                 'notOpenMessages' => count($notOpenMessages),
                 'sendedMessages' => count($sendedMessages),
             ]);
         }
-
     }
 }

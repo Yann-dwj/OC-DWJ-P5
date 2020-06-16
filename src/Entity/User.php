@@ -12,19 +12,8 @@ use Symfony\Component\Security\Core\User\UserInterface;
  */
 class User implements UserInterface, \Serializable
 {
-    // const CLASSROOM = [
-    //     0 => 'PS',
-    //     1 => 'MS',
-    //     2 => 'GS',
-    //     3 => 'CP',
-    //     4 => 'CE1', 
-    //     5 => 'CE2',
-    //     6 => 'CM1',
-    //     7 => 'CM2'
-    // ];
-
     const ROLES = [
-        'Famille' => 'ROLE_USER',
+        'Élève' => 'ROLE_USER',
         'Instituteur' => 'ROLE_TEACHER',
         'Administrateur' => 'ROLE_ADMIN'
     ];

@@ -2,43 +2,48 @@
 
 namespace App\Form;
 
-use App\Entity\Article;
+use App\Entity\User;
+use App\Entity\Classroom;
+use App\Repository\UserRepository;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 
-class ArticleType extends AbstractType
+class ClassroomType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('title')
-            ->add('content', TextareaType::class, [
-                'attr' => [
-                    'class' => 'tinymce',
-                    'rows' => 6
-                ]
-            ])
-            ->add('category', ChoiceType::class, [
+            ->add('name')
+            ->add('year')
+            ->add('level', ChoiceType::class, [
                 'choices' => $this->getChoices()
+            ])
+            ->add('teacher',EntityType::class, [
+                'class' => User::class,
+                'query_builder'=> function(UserRepository $repo) use ($options){
+                    return $repo->findRecipientFor($options['user']);
+                }
             ])
         ;
     }
 
     public function configureOptions(OptionsResolver $resolver)
     {
+        $resolver->setRequired('user');
+        $resolver->setAllowedTypes('user', User::class);
+
         $resolver->setDefaults([
-            'data_class' => Article::class,
+            'data_class' => Classroom::class,
             'translation_domain' => 'forms'
         ]);
     }
 
     private function getChoices()
     {
-        $choices = Article::CATEGORY;
+        $choices = Classroom::LEVEL;
         $output = [];
         foreach($choices as $k => $v)
         {

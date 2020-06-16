@@ -11,6 +11,24 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Classroom
 {
+    const LEVEL = [
+        0 => 'PS',
+        1 => 'PS/MS',
+        2 => 'MS',
+        3 => 'MS/GS',
+        4 => 'GS', 
+        5 => 'GS/CP',
+        7 => 'CP',
+        8 => 'CP/CE1',
+        9 => 'CE1',
+        10 => 'CE1/CE2',
+        11 => 'CE2',
+        12 => 'CE2/CM1',
+        13 => 'CM1',
+        14 => 'CM1/CM2',
+        15 => 'CM2'
+    ];
+
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
@@ -27,6 +45,13 @@ class Classroom
      * @ORM\Column(type="integer")
      */
     private $year;
+
+    /**
+     * @ORM\Column(type="string", length=55, nullable=true)
+     * @ORM\JoinColumn(nullable=false)
+     * @var string|null
+     */
+    private $level;
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\User", mappedBy="classroom")
@@ -76,6 +101,23 @@ class Classroom
     public function setYear(int $year): self
     {
         $this->year = $year;
+
+        return $this;
+    }
+
+    public function getLevel()
+    {
+        return $this->level;
+    }
+
+    public function getLevelType(): string
+    {
+        return self::LEVEL[$this->category];
+    }
+
+    public function setLevel($level)
+    {
+        $this->level = $level;
 
         return $this;
     }

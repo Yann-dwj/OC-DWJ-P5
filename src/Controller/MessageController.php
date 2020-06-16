@@ -2,7 +2,6 @@
 
 namespace App\Controller;
 
-use App\Entity\User;
 use App\Entity\Message;
 use App\Form\MessageType;
 use App\Form\MessageReplyType;
@@ -41,7 +40,7 @@ class MessageController extends AbstractController
         $receivedMessages = $this->repository->findBy(['recipient' => $user, 'trash_recipient' => false], ['id' => 'desc']);
         $sendedMessages = $this->repository->findBy(['transmitter' => $user, 'trash_transmitter' => false], ['id' => 'desc']);
 
-        return $this->render('backend/message/index.html.twig', [
+        return $this->render('backoffice/message/index.html.twig', [
             'receivedMessages' => $receivedMessages,
             'sendedMessages' => $sendedMessages,
         ]);
@@ -57,7 +56,6 @@ class MessageController extends AbstractController
         $notOpenMessages = $this->repository->findBy(['recipient' => $user, 'open_recipient' => false], ['id' => 'desc']);
         $messagesCount = count($notOpenMessages);
 
-        // TODO jouer avc ton messageRepository pour recuperer le nombre de message non lu
         return $this->json(['count' => $messagesCount]);
     }
 
@@ -69,7 +67,7 @@ class MessageController extends AbstractController
     public function show(Message $message)
     {
         // TODO attention on ne doit pas pouvoir voir le message de quelqu'un d'autre
- 
+
         if($message->isOwner($this->getUser()))
         {
             if($message->getRecipient() === $this->getUser() && $message->getOpenRecipient() === false)
@@ -80,11 +78,11 @@ class MessageController extends AbstractController
 
             if($message->getRecipient() === $this->getUser())
             {
-                return $this->render('backend/message/received.html.twig', compact('message'));
+                return $this->render('backoffice/message/received.html.twig', compact('message'));
             }
             else
             {
-                return $this->render('backend/message/sended.html.twig', compact('message'));   
+                return $this->render('backoffice/message/sended.html.twig', compact('message'));   
             }
         }
         else
@@ -115,7 +113,7 @@ class MessageController extends AbstractController
             return $this->redirectToRoute('admin.message.index');
         }
 
-        return $this->render('backend/message/new.html.twig',[
+        return $this->render('backoffice/message/new.html.twig',[
             'message' => $message,
             'form' => $form->createView()
         ]);
@@ -146,7 +144,7 @@ class MessageController extends AbstractController
             return $this->redirectToRoute('admin.message.index');
         }
 
-        return $this->render('backend/message/reply.html.twig',[
+        return $this->render('backoffice/message/reply.html.twig',[
             'message' => $message,
             'form' => $form->createView()
         ]);

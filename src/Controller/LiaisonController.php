@@ -3,7 +3,6 @@
 namespace App\Controller;
 
 use App\Entity\User;
-use App\Form\UserType;
 use App\Entity\Message;
 use App\Form\MessageLiaisonType;
 use App\Repository\UserRepository;
@@ -49,10 +48,10 @@ class LiaisonController extends AbstractController
 
         foreach ($students as $student)
         {
-$messagesCount[$student->getId()] = count($this->messageRepository->findByLiaison($teacher, $student));
+            $messagesCount[$student->getId()] = count($this->messageRepository->findByLiaison($teacher, $student));
         }
         
-        return $this->render('backend/teacher/liaison/index.html.twig', [
+        return $this->render('backoffice/teacher/liaison/index.html.twig', [
             'students' => $students,
             'messagesCount' => $messagesCount
         ]);
@@ -72,11 +71,7 @@ $messagesCount[$student->getId()] = count($this->messageRepository->findByLiaiso
             $teacher = $user;
 
             $messages = $this->messageRepository->findByLiaison($teacher, $student);
-            // $messages = $this->messageRepository->findBy(['transmitter' => $teacher, 'recipient' => $student], ['id' => 'desc']);
-            // $messagesSended = $this->messageRepository->findBy(['transmitter' => $teacher, 'recipient' => $student], ['id' => 'desc']);
-            // $messagesReceived = $this->messageRepository->findBy(['transmitter' => $student, 'recipient' => $teacher], ['id' => 'desc']);
             
-    
             if ($teacher->getClassroom() === $student->getClassroom())
             {
                 $message = new Message();
@@ -95,12 +90,10 @@ $messagesCount[$student->getId()] = count($this->messageRepository->findByLiaiso
                     return $this->redirectToRoute('liaison.show', array('id' => $student->getId()));
                 }
     
-                return $this->render('backend/teacher/liaison/show.html.twig', [
+                return $this->render('backoffice/teacher/liaison/show.html.twig', [
                     'student' => $student,
                     'messages' => $messages,
                     'form' => $form->createView()
-                    // 'messagesSended' => $messagesSended,
-                    // 'messagesReceived' => $messagesReceived
                 ]);
             }
             else
@@ -134,7 +127,7 @@ $messagesCount[$student->getId()] = count($this->messageRepository->findByLiaiso
                     return $this->redirectToRoute('liaison.show', array('id' => $student->getId()));
                 }
     
-                return $this->render('backend/family/show.html.twig', [
+                return $this->render('backoffice/family/show.html.twig', [
                     'student' => $student,
                     'messages' => $messages,
                     'form' => $form->createView()

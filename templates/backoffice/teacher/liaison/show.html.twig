@@ -1,0 +1,90 @@
+{% extends 'base.html.twig' %}
+
+{% block title 'Carnets de liaisons | MonEcole' %}
+
+{% block stylesheets %}<link rel="stylesheet" href="/css/backoffice.css">{% endblock %}
+
+{% block body %}
+    <div class="container-fluid">
+        <div class="container pt-4">
+            <div class="row mb-2">
+                <div class="col-md-12">
+                    <h1 class="h3 mb-2 text-gray-800">Carnets de liaisons</h1>
+                </div>
+                <div class="d-md-flex col-md-12 justify-content-between">
+                    <div class="">
+                        <span class="small font-italic"><a class="text-dark" href="{{ path('dashboard.index') }}"><i class="fas fa-home mr-1"></i>Tableau de bord</a></span>
+                        <span class="small font-italic">/</span>
+                        <span class="small font-italic"><a class="text-dark" href="{{ path('teacher.liaison.index') }}">Carnets de liaisons</a></span>
+                        <span class="small font-italic">/</span>
+                        <span class="small font-italic">{{ student.firstname ~ " " ~ student.lastname }}</span>
+                    </div>
+                    <div class="">
+                        <span class="h3 mb-0 text-right"><a class="returnLink" href="{{ path('teacher.liaison.index') }}"><i class="fas fa-long-arrow-alt-left fa-lg"></i></a></span>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card mb-3">
+                        <div class="card-header my-0" >
+                            <div class="row">
+                                <div class="col"> 
+                                    <span class="h6 text-dark font-weight-bold">{{ student.firstname ~ " " ~ student.lastname }}</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body bg-dark">
+                            {% if not messages %}
+                                <div class="row cream text-center">
+                                    <div class="col-md-12">
+                                        <p class="mb-3">Le carnet de liaison est vide</p>
+                                    </div>
+                                </div>
+                            {% endif %}
+                            <div class="mb-3 ml-1">
+                                <a class="mb-5 cream font-weight-bold" href="#formMessage" data-toggle="collapse">
+                                    Nouveau message
+                                    {# <i class="fas fa-caret-up"></i> #}
+                                    <i class="fas fa-caret-down"></i>
+                                </a>
+                            </div>
+                            <div id="formMessage" class="collapse">
+                                {{ form_start(form) }}
+                                    <div class="row cream">
+                                        <div class="col-md-12">
+                                            {{ form_row(form.subject) }}
+                                        </div>
+                                        <div class="col-md-12">
+                                            {{ form_row(form.content) }}
+                                            {# {{tinymce_init ()}} #}
+                                            {# {{tinymce_init ({ ' use_callback_tinymce_init ' : true , ' theme ' : { ' simple ' : { ' menubar ' : false }}})}} #}
+                                        </div>
+                                    </div>
+                                    {{ form_rest(form) }}
+                                    <div class="row my-4 justify-content-center">
+                                        <div class="col-md-12">
+                                            <button class="buttonStyle btn btn-block font-weight-bold">Valider</a>
+                                        </div>
+                                    </div>
+                                {{ form_end(form) }}
+                            </div>
+                            {% for message in messages %}
+                                <div class="mx-1 py-3 row text-white border {% if message.transmitter == student %}bg-secondary{% else %}bg-dark{% endif %}">
+                                    <div class="col-md-2 border-right">
+                                        <div class="">le {{ message.createdAt | date('d/m/Y') }}</div>
+                                    </div>
+                                    <div class="col-md-10">
+                                        <div class="h4">{{ message.subject }}</div>
+                                        <div class="">{{ message.content }}</div>
+                                        <div class="text-right">{{ message.transmitter }}</div>                                            
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>         
+        </div>
+    </div>
+{% endblock %}

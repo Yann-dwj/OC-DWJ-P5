@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Article;
 use App\Form\ArticleType;
+use App\Form\ArticleImageType;
 use App\Repository\ArticleRepository;
 use App\Repository\ClassroomRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -41,7 +42,7 @@ class ArticleController extends AbstractController
             $articles = $this->repository->findBy(['classroom' => $classroom], ['id' => 'desc']);
             $classroom = $this->classroomRepository->findOneBy(['id' => $classroom]);
     
-            return $this->render('backend/blog/index.html.twig', [
+            return $this->render('backoffice/blog/index.html.twig', [
                 'articles' => $articles,
                 'classroom' => $classroom
             ]);
@@ -61,7 +62,7 @@ class ArticleController extends AbstractController
     {
         $article = $this->repository->findOneBy(['id' => $article]);
 
-        return $this->render('backend/blog/article.html.twig', [
+        return $this->render('backoffice/blog/article.html.twig', [
             'article' => $article,
         ]);
     }
@@ -74,7 +75,7 @@ class ArticleController extends AbstractController
     {
         $classrooms = $this->classroomRepository->findAll();
 
-        return $this->render('backend/article/blogs.html.twig', [
+        return $this->render('backoffice/article/blogs.html.twig', [
             'classrooms' => $classrooms
         ]);
     }
@@ -97,7 +98,7 @@ class ArticleController extends AbstractController
             $articles = $this->repository->findBy(['classroom' => null]);
         }
 
-        return $this->render('backend/article/index.html.twig', compact('articles'));
+        return $this->render('backoffice/article/index.html.twig', compact('articles'));
     }
 
     /**
@@ -105,11 +106,20 @@ class ArticleController extends AbstractController
      */
     public function new(Request $request)
     {
+        $user = $this->getUser();
         $classroom = $this->getUser()->getclassroom();
         $article = new Article();
-        $form = $this->createForm(ArticleType::class, $article);
+        
+        if($user->hasRole('ROLE_ADMIN'))
+        {
+            $form = $this->createForm(ArticleType::class, $article);
+        }
+        else
+        {
+            $form = $this->createForm(ArticleImageType::class, $article);
+        }
+
         $form->handleRequest($request);
-        dump($classroom);
 
         if ($form->isSubmitted() && $form->isValid())
         {
@@ -120,10 +130,20 @@ class ArticleController extends AbstractController
             return $this->redirectToRoute('article.index');
         }
 
-        return $this->render('backend/article/new.html.twig',[
-            'article' => $article,
-            'form' => $form->createView()
-        ]);
+        if($user->hasRole('ROLE_ADMIN'))
+        {
+            return $this->render('backoffice/article/new.html.twig',[
+                'article' => $article,
+                'form' => $form->createView()
+            ]);
+        }
+        else
+        {
+            return $this->render('backoffice/article/newImage.html.twig',[
+                'article' => $article,
+                'form' => $form->createView()
+            ]);        
+        }
     }
 
     /**
@@ -134,7 +154,17 @@ class ArticleController extends AbstractController
      */
     public function edit(Article $article, Request $request)
     {
-        $form = $this->createForm(ArticleType::class, $article);
+        $user = $this->getUser();
+
+        if($user->hasRole('ROLE_ADMIN'))
+        {
+            $form = $this->createForm(ArticleType::class, $article);
+        }
+        else
+        {
+            $form = $this->createForm(ArticleImageType::class, $article);
+        }   
+        
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid())
@@ -144,10 +174,20 @@ class ArticleController extends AbstractController
             return $this->redirectToRoute('article.index');
         }
 
-        return $this->render('backend/article/edit.html.twig',[
-            'article' => $article,
-            'form' => $form->createView()
-        ]);
+        if($user->hasRole('ROLE_ADMIN'))
+        {
+            return $this->render('backoffice/article/edit.html.twig',[
+                'article' => $article,
+                'form' => $form->createView()
+            ]);
+        }
+        else
+        {
+            return $this->render('backoffice/article/editImage.html.twig',[
+                'article' => $article,
+                'form' => $form->createView()
+            ]);        
+        }
     }
 
     /**

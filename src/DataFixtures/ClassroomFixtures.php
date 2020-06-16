@@ -14,6 +14,7 @@ class ClassroomFixtures extends Fixture
         {
             $classroom = new Classroom();
             $classroom->setName('Classe '.($i+1));
+            $classroom->setLevel(null);
             $manager->persist($classroom);
             $this->addReference('classroom'.$i, $classroom);
         }

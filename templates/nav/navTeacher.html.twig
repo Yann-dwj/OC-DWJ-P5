@@ -1,24 +1,51 @@
-<nav class="navbar navbar-expand navbar-dark bg-dark sticky-top">
-    <a class="navbar-brand" href="{{ path('home') }}">Mon Ecole</a>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
+    <a class="navbar-brand px-0" href="{{ path('home') }}">
+        <i class="fas fa-school px-1"></i>
+        <span class="align-middle">Mon Ecole</span>
+    </a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
+
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav ml-auto">
             <li class="nav-item">
-                <a class="nav-link active" href="{{ path('dashboard.index') }}">
-                    <i class="fas fa-home px-2"></i>
+                <a class="nav-link" href="{{ path('dashboard.index') }}">
+                    <i class="fas fa-home px-1 align-middle"></i>
+                    <span class="d-lg-none align-middle">Accueil</span>
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link mr-3" href="{{ path('admin.message.index') }}">
-                    <i class="fas fa-envelope"></i>
+                <a class="nav-link" href="{{ path('teacher.liaison.index') }}">
+                    <i class="fas fa-users px-1 align-middle"></i>
+                    <span class="d-lg-none align-middle">Élèves</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{ path('article.index') }}">
+                    <i class="fas fa-edit px-1 align-middle"></i>
+                    <span class="d-lg-none align-middle">Articles</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{ path('admin.message.index') }}">
                     <span class="badge badge-danger"></span>
+                    <i class="fas fa-envelope px-1 align-middle"></i>
+                    <span class="d-lg-none align-middle">Messagerie</span>
                 </a>
             </li>
             <li class="nav-item">
-                <a class="btn btn-outline-light" href="{{ path('logout') }}" role="button">Se deconnecter</a>
-            </li> 
+                <span id="separator" class="nav-link text-white align-middle">|</span>
+            </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link cream font-weight-bold align-middle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                {{ app.user.firstname ~ ' ' ~ app.user.lastname }}
+                <i class="fas fa-sign-out-alt"></i>
+                </a>
+                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item" href="{{ path('logout') }}">se deconnecter</a>
+                </div>
+            </li>
         </ul>
     </div>
 </nav>

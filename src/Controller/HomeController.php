@@ -44,7 +44,7 @@ class HomeController extends AbstractController
             return $this->redirectToRoute('home');
         }
 
-        return $this->render('frontend/home.html.twig', [
+        return $this->render('frontoffice/home.html.twig', [
             'articles' => $articles,
             'form' => $form->createView()
         ]);

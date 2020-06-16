@@ -1,0 +1,81 @@
+{% extends 'base.html.twig' %}
+
+{% block title 'Message ? | MonEcole' %}
+
+{% block stylesheets %}<link rel="stylesheet" href="/css/backoffice.css">{% endblock %}
+
+{% block body %}
+    <div class="container-fluid">
+        <div class="container pt-4">
+            <div class="row mb-2">
+                <div class="col-md-12">
+                    <h1 class="h3 mb-2 text-gray-800">Messages</h1>
+                </div>
+                <div class="d-md-flex col-md-12 justify-content-between">
+                    <div class="">
+                        <span class="small font-italic"><a class="text-dark" href="{{ path('dashboard.index') }}"><i class="fas fa-home mr-1"></i>Tableau de bord</a></span>
+                        <span class="small font-italic">/</span>
+                        <span class="small font-italic"><a class="text-dark" href="{{ path('admin.message.index') }}">Messages</a></span>
+                        <span class="small font-italic">/</span>
+                        <span class="small font-italic">Envoyé</span>
+                    </div>
+                    <div class="">
+                        <span class="h3 mb-0 text-right"><a class="returnLink" href="{{ path('admin.message.index') }}"><i class="fas fa-long-arrow-alt-left fa-lg"></i></a></span>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card mb-3">
+                        <div class="card-header my-0" >
+                            <div class="row">
+                                <div class="col"> 
+                                    <span class="h6 text-dark font-weight-bold">Envoyé</span>
+                                </div>
+                                <div class="col text-right"> 
+                                    <form method="post" action="{{ path('admin.message.delete', {id: message.id}) }}" style="display: inline-block;" onsubmit="return confirm('Êtes vous sur de vouloir supprimer ce message ?')">
+                                        <input type="hidden" name="_method" value="DELETE">
+                                        <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ message.id) }}">
+                                        <button class="deleteBtn font-weight-bold"><i class="fas fa-trash-alt"></i></button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body bg-dark">
+                            <div class="row my-2">
+                                <div class="col-md-6">
+                                    <span class="cream font-weight-bold">A : </span>
+                                    <span class="text-white">{{ message.recipient }}</span>
+                                </div>
+                                <div class="col-md-6 text-right">
+                                    <span class="cream font-weight-bold">le :</span>
+                                    <span class="text-white">{{ message.createdAt | date('d/m/Y') }}</span>
+                                </div>
+                            </div>
+                            <div class="row mt-4">
+                                <div class="col-md-12">
+                                    <span class="cream font-weight-bold">Sujet :</span>
+                                    <span class="text-white">{{ message.subject }}</span>
+                                </div>
+                            </div>
+                            <div class="row my-4">
+                                <div class="col-md-12 text-white">
+                                    {{ message.content }}
+                                </div>
+                            </div>
+                            <div class="row mt-5">
+                                <div class="col-md-12 justify-content-center">
+                                    <form method="post" action="{{ path('admin.message.delete', {id: message.id}) }}" onsubmit="return confirm('Êtes vous sur de vouloir supprimer ce message ?')">
+                                        <input type="hidden" name="_method" value="DELETE">
+                                        <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ message.id) }}">
+                                        <button class="buttonStyle btn btn-block font-weight-bold">Supprimer</i></button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>         
+        </div>
+    </div>
+{% endblock %}

@@ -14,8 +14,8 @@ class UserType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('firstname')
             ->add('lastname')
+            ->add('firstname')
             ->add('classroom')
             ->add('email')
             ->add('password', PasswordType::class)
@@ -34,15 +34,4 @@ class UserType extends AbstractType
             'translation_domain' => 'forms'
         ]);
     }
-
-    // private function getChoices()
-    // {
-    //     $choices = User::CLASSROOM;
-    //     $output = [];
-    //     foreach($choices as $k => $v)
-    //     {
-    //         $output[$v] = $k;
-    //     }
-    //     return $output;
-    // }
 }
