@@ -1,0 +1,177 @@
+{% extends 'base.html.twig' %}
+
+{% block title 'Tableau de bord | MonEcole' %}
+
+{% block stylesheets %}<link rel="stylesheet" href="/css/backoffice.css">{% endblock %}
+
+{% block body %}
+    <div class="container-fluid">
+        <div class="container pt-4">
+            <div class="d-sm-flex mb-4">
+                <h1 class="h3 mb-0 text-gray-800">Tableau de Bord</h1>
+            </div>
+            <div class="row">
+                <!-- Messages -->
+                <div class="col-lg-8">
+                    <div class="card mb-3">
+                        <div class="card-header">
+                            <div class="row">
+                                <div class="col"> 
+                                    <span class="h6 text-dark">Messages</span>
+                                </div>
+                                <div class="col text-right"> 
+                                    <a class="create" href="{{ path('admin.message.new') }}">
+                                        <i class="fas fa-plus fa-xl"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body bg-dark">
+                            <div class="row d-flex mx-auto justify-content-around">
+                                <div class="">
+                                    <p class="font-weight-bold text-white">Non Lus</p>
+                                    <span style="font-size: 2em;">
+                                        <i class="fas fa-envelope cream"></i>
+                                        <span class="text-white">{{ notOpenMessages }}</span>
+                                    </span>
+                                </div>
+                                <div class="">
+                                    <p class="font-weight-bold text-white">Reçus</p>
+                                    <span style="font-size: 2em;">
+                                        <i class="fas fa-inbox cream"></i>
+                                        <span class="text-white">{{ receivedMessages }}</span>
+                                    </span>
+                                </div>
+                                <div class="">
+                                    <p class="font-weight-bold text-white">Envoyés</p>
+                                    <span style="font-size: 2em;">
+                                        <i class="fas fa-paper-plane cream"></i>
+                                        <span class="text-white">{{ sendedMessages }}</span>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="row mt-4 justify-content-center">
+                                <div class="col-md-12">
+                                    <a class="buttonStyle btn btn-block font-weight-bold" href="{{ path('admin.message.index') }}" role="button">Voir tous les messages</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- news -->
+                <div class="col-lg-4">
+                    <div class="card mb-3">
+                        <div class="card-header" >
+                            <div class="row ">
+                                <div class="col"> 
+                                    <span class="h6 text-dark">Actualités</span>
+                                </div>
+                                <div class="col text-right"> 
+                                    <a class="create" href="{{ path('article.new') }}">
+                                        <i class="fas fa-plus fa-xl text-right"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body bg-dark">
+                            <div class="row justify-content-center">
+                                <div class="col-sm-12 text-center">
+                                    <p class="font-weight-bold text-white">Articles</p>
+                                    <span style="font-size: 2em;">
+                                        <i class="fas fa-edit cream"></i>
+                                        <span class="text-white">{{ numberOfArticles }}</span>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="row mt-4 justify-content-center">
+                                <div class="col-md-12">
+                                    <a class="buttonStyle btn btn-block font-weight-bold" href="{{ path('article.index') }}" role="button">Voir tous les articles</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Users -->
+                <div class="col-lg-8">
+                    <div class="card mb-3">
+                        <div class="card-header">
+                            <div class="row">
+                                <div class="col">
+                                    <span class="h6 text-dark">Utilisateurs</span>
+                                </div>
+                                <div class="col text-right"> 
+                                    <a class="create" href="{{ path('admin.user.new') }}">
+                                        <i class="fas fa-plus fa-xl"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body bg-dark">
+                            <div class="row d-flex mx-auto justify-content-around">
+                                <div class="">
+                                    <p class="font-weight-bold text-white">Administrateurs</p>
+                                    <span style="font-size: 2em;">
+                                        <i class="fas fa-user-shield cream"></i>
+                                        <span class="text-white">{{ numberOfAdmins }}</span>
+                                    </span>
+                                </div>
+                                <div class="">
+                                    <p class="font-weight-bold text-white">Instituteurs</p>
+                                    <span style="font-size: 2em;">
+                                        <i class="fas fa-chalkboard-teacher cream"></i>
+                                        <span class="text-white">{{ numberOfTeachers }}</span>
+                                    </span>
+                                </div>
+                                <div class="">
+                                    <p class="font-weight-bold text-white">Élèves</p>
+                                    <span style="font-size: 2em;">
+                                        <i class="fas fa-users cream"></i>
+                                        <span class="text-white">{{ numberOfStudents }}</span>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="row mt-4 justify-content-center">
+                                <div class="col-md-12">
+                                    <a class="buttonStyle btn btn-block font-weight-bold" href="{{ path('admin.user.index') }}" role="button">Voir tous les utilisateurs</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Classrooms -->
+                <div class="col-lg-4">
+                    <div class="card mb-3">
+                        <div class="card-header" >
+                            <div class="row ">
+                                <div class="col">
+                                    <span class="h6 text-dark">Classes</span>
+                                </div>
+                                <div class="col text-right"> 
+                                    <a class="create" href="{{ path('admin.classroom.new') }}">
+                                        <i class="fas fa-plus fa-xl text-right"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body bg-dark">
+                            <div class="row justify-content-center">
+                                <div class="col-sm-12 text-center">
+                                    <p class="font-weight-bold text-white">Classes</p>
+                                    <span style="font-size: 2em;">
+                                        <i class="cream fas fa-chalkboard"></i>
+                                        <span class="text-white">{{ numberOfTeachers }}</span>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="row mt-4 justify-content-center">
+                                <div class="col-md-12">
+                                    <a class="buttonStyle btn btn-block font-weight-bold" href="{{ path('admin.classroom.index') }}" role="button">Voir toutes les classes</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

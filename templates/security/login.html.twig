@@ -1,0 +1,87 @@
+{% extends 'base.html.twig' %}
+
+{% block title 'Se connecter | MonEcole' %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="/css/login.css">
+{% endblock %}
+
+{% block body %}
+    <div id="desktop" class="container h-100">
+        <div class="row h-100">
+            <div class="col-lg-8 mx-auto my-auto">
+            {% if error %}
+            <div class="alert alert-danger">
+                {{ error.messageKey | trans(error.messagedata, 'security') }}
+            </div>
+            {% endif %}
+                <div class="h-100 card">
+                    <h1 class="h5 card-header text-center">Connexion</h1>
+                    <div class="card-body text-white">
+                    <form action="{{ path('login') }}" method="post">
+                        <div class="row justify-content-center">
+                            <div class="form-group cream col-md-8">
+                                <label class="text-white" for="email">Email :</label>
+                                <input type="email" id="email" name="email" class="form-control" value="{{ last_username }}">
+                            </div>
+                        </div>
+                        <div class="row justify-content-center">
+                            <div class="form-group cream col-md-8">
+                                <label class="text-white" for="password">Mot de passe :</label>
+                                <input type="password" id="password" name="password" class="form-control">
+                            </div>
+                        </div>
+                        <div class="row mt-4 justify-content-center">
+                            <div class="col-md-8 mb-2">
+                                <input type="hidden" id="" name="_csrf_token" class="form-control" value="{{ csrf_token('authenticate') }}">
+                                <button type="submit" class="btn btn-block buttonStyle font-weight-bold">Se connecter<i class="fas fa-sign-in-alt ml-1"></i></button>
+                            </div>
+                        </div>
+                    </form>
+                    <div class="cream text-center mt-3">
+                        <small>
+                            <a href="/" class="text-white font-weight-bold">Revenir sur la page d'accueil</a>
+                        </small>
+                    </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="mobile" class="h-100 card">
+        <h1 class="h5 card-header text-center">Connexion</h1>
+        <div class="card-body text-white">
+            <form action="{{ path('login') }}" method="post">
+                <div class="row justify-content-center">
+                    <div class="form-group cream col-md-8">
+                        <label class="text-white" for="email">Emai :</label>
+                        <input type="email" id="email" name="email" class="form-control" value="{{ last_username }}">
+                    </div>
+                </div>
+                <div class="row justify-content-center">
+                    <div class="form-group cream col-md-8">
+                        <label class="text-white" for="password">Mot de passe :</label>
+                        <input type="password" id="password" name="password" class="form-control">
+                    </div>
+                </div>
+                <div class="row mt-4 justify-content-center">
+                    <div class="col-md-8 mb-2">
+                        <input type="hidden" id="" name="_csrf_token" class="form-control" value="{{ csrf_token('authenticate') }}">
+                        <button type="submit" class="btn btn-block buttonStyle font-weight-bold">Se connecter<i class="fas fa-sign-in-alt ml-1"></i></button>
+                    </div>
+                </div>
+            </form>
+            <div class="cream text-center mt-3">
+                <small>
+                    <a href="/" class="text-white font-weight-bold">Revenir sur la page d'accueil</a>
+                </small>
+            </div>
+            {% if error %}
+            <div class="alert alert-danger">
+                {{ error.messageKey | trans(error.messagedata, 'security') }}
+            </div>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}

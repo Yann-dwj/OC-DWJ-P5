@@ -1,0 +1,77 @@
+{% extends 'base.html.twig' %}
+
+{% block title 'Tableau de bord | MonEcole' %}
+
+{% block stylesheets %}<link rel="stylesheet" href="/css/backoffice.css">{% endblock %}
+
+{% block body %}
+    <div class="container-fluid">
+        <div class="container pt-4">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card mb-3">
+                        <div class="card-header" >
+                            <div class="row">
+                                <div class="col"> 
+                                    <span class="h6 text-dark font-weight-bold m-0">Tableau de Bord</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body bg-dark align-items-center">
+                            <div class="row d-flex mx-auto">
+                                <div class="col-lg-3 text-left border-right">
+                                    <p class="h4 font-weight-bold text-white">{{ user.firstname ~ " " ~ user.lastname }}</p>
+                                    <p class="mt-5"><i class="fas fa-user-graduate fa-4x cream"></i></p>
+                                    <p class="h5 font-weight-bold text-white">{{ user.classroom }}</p>
+                                    <p class="h5 font-weight-bold text-white">{{ 'De ' ~ teacher.firstname ~ " " ~ teacher.lastname }}</p>
+                                    
+                                    <p class="h6 font-weight-bold text-white mt-5">{{ 'Niveau : ' ~ user.classroom.level }}</p>
+                                    <p class="h6 font-weight-bold text-white">{{ 'Année : ' ~ user.classroom.year }}</p>
+                                </div>
+                                <div class="col-lg-9 my-auto">
+                                    {% if latestArticle %}
+                                    <p class="h5"><a class="text-white text-decoration-none" href="{{ path('blog.article', {id: latestArticle.id}) }}">Dernier article du blog</a></p>
+                                    <div class="row align-items-center">
+                                        {% if latestArticle.imageName %}
+                                        <div class="col-lg-5">
+                                            <img class="img-fluid" src="{{ vich_uploader_asset(latestArticle, 'imageFile') }}" alt="Sample image">
+                                        </div>
+                                        <div class="col-lg-7 justify-content-between">
+                                        {% else %}
+                                        <div class="col-lg-12 justify-content-between">
+                                        {% endif %}
+                                            <div class="row my-2">
+                                                <div class="col"> 
+                                                    <span class="h6 font-weight-bold">{{ latestArticle.title}}</span>
+                                                </div>
+                                                <div class="col text-right"> 
+                                                    <span class="h6 font-weight-bold">{{ latestArticle.categoryType}}</span>
+                                                </div>
+                                            </div>
+                                            <p>{{ latestArticle.content|striptags|slice(0, 255)|raw }}...</p>
+                                            <p class="font-weight-bold">{{ 'Publié le ' ~ latestArticle.createdAt | date('d/m/Y')}}</p> 
+                                        </div>
+                                    </div>
+                                    <hr class="my-2">
+                                    {% else %}
+                                    <p class="cream text-center mb-3"><i class="fas fa-rss fa-5x"></i></p>
+                                    <p class="cream text-center">Le blog de la classe ne contient pas encore d'article</p>
+                                    <p class="text-white text-center">Revenez nous voir bientot !</p>
+                                    {% endif %}
+                                </div>
+                            </div>
+                            <div class="row d-flex mx-auto">
+                                <div class="col-lg-3 border-right">
+                                    <a class="buttonStyle btn btn-block font-weight-bold my-4" href="{{ path('liaison.show', {id: user.id}) }}" role="button">Carnet de liaison</a>
+                                </div>
+                                <div class="col-lg-9">
+                                    <a class="buttonStyle btn btn-block font-weight-bold my-4" href="{{ path('blog.index', {id: user.classroom.id}) }}" role="button">Voir le blog de la classe</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
