@@ -97,6 +97,10 @@ class UserController extends AbstractController
     {
         if ($this->isCsrfTokenValid('delete' . $user->getId(), $request->get('_token')))
         {
+            if($user->getClassrooms()->count()){
+                $this->addFlash('danger','Vous ne pouvez pas supprimer un professeur lié à des classes');
+                return $this->redirectToRoute('admin.user.index');
+            }
             $this->entityManager->remove($user);
             $this->entityManager->flush();
             $this->addFlash('success', 'utilisateur supprimé avec succès');

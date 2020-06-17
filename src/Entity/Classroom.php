@@ -54,17 +54,18 @@ class Classroom
     private $level;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\User", mappedBy="classroom")
+     * @ORM\OneToMany(targetEntity="App\Entity\User", cascade={"persist"}, mappedBy="classroom", orphanRemoval=true)
+
      */
     private $users;
 
     /**
-     * @ORM\OneToOne(targetEntity="App\Entity\User", cascade={"persist", "remove"})
+     * @ORM\ManyToOne(targetEntity="App\Entity\User", cascade={"persist"}, inversedBy="classrooms")
      */
     private $teacher;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Article", mappedBy="classroom")
+     * @ORM\OneToMany(targetEntity="App\Entity\Article", cascade={"remove"}, mappedBy="classroom")
      */
     private $articles;
 
@@ -74,7 +75,6 @@ class Classroom
         $this->year = date('Y');
         $this->articles = new ArrayCollection();
     }
-
 
     public function getId(): ?int
     {

@@ -61,7 +61,8 @@
                                                 <td>{{ loop.index }}</td>
                                                 <td>{{ classroom.name }}</td>
                                                 <td>{{ classroom.teacher.firstname ~ ' ' ~ classroom.teacher.lastname }}</td>
-                                                <td class="text-center">{{ classroom.users|length - 1 }}</td>
+                                                {# <td class="text-center">{{ classroom.users|length - 1 }}</td> #}
+                                                <td class="text-center">{{ classroom.users|length }}</td>
                                                 <td>{{ classroom.year }}</td>
                                                 <td class="text-right">
                                                     <form method="post" action="{{ path('admin.classroom.delete', {id: classroom.id}) }}" style="display: inline-block;" onsubmit="return confirm('Êtes vous sur de vouloir supprimer cette classe ?')">

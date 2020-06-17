@@ -13,42 +13,37 @@ class MessageFixtures extends Fixture implements DependentFixtureInterface
     public function load(ObjectManager $manager)
     {
         $message = new Message();
-        $message->setTransmitter($this->getReference('user-user2'));
+        $message->setTransmitter($this->getReference('user-teacher3'));
         $message->setRecipient($this->getReference('user-admin'));
-        $message->setSubject('test');
-        $message->setContent('Nam feugiat turpis vel turpis aliquet, nec tristique libero venenatis. Proin sed massa a eros pharetra molestie. Suspendisse accumsan tempor nibh a pharetra. Maecenas semper velit quam. Praesent viverra neque odio, id tempor ipsum commodo et. Maecenas lobortis porta elit, id fringilla lectus consequat nec. Nullam laoreet suscipit tempor. Nam ultricies quis erat et tincidunt.');
+        $message->setSubject('Question technique');
+        $message->setContent('Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.');
         $message->setLiaison(false);
+        $message->setOpenRecipient(true);
         $manager->persist($message);
 
         $message = new Message();
-        $message->setTransmitter($this->getReference('user-user2'));
+        $message->setTransmitter($this->getReference('user-teacher2'));
         $message->setRecipient($this->getReference('user-admin'));
-        $message->setSubject('test2');
-        $message->setContent('Suspendisse id libero at risus tristique venenatis. Nullam quis leo malesuada, scelerisque nibh eget, tempor odio. Ut pellentesque eleifend velit in varius. Nulla facilisi. In erat mi, tincidunt ut magna eget, rhoncus vehicula tellus. Nam sodales sollicitudin turpis. Integer vulputate tempus tempor. Sed scelerisque ultricies tortor, a venenatis nisl rutrum vel. Nam suscipit dui sed nisl malesuada pretium. Fusce feugiat dictum erat in eleifend. Proin condimentum eu eros at condimentum. Donec tincidunt lorem ac dolor elementum, laoreet fringilla turpis imperdiet. Sed placerat nulla dui, accumsan bibendum neque fermentum sit amet. Nunc lacus odio, fringilla vel porta in, scelerisque ac nulla. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nullam tristique sagittis libero, sed iaculis mauris facilisis ut.');
+        $message->setSubject('Actualités');
+        $message->setContent('Aenean porttitor, leo eu lacinia dictum, risus augue auctor neque, nec lobortis magna mi nec elit. Curabitur mollis id risus non bibendum. Proin accumsan arcu sit amet sem finibus consectetur id a ligula. Cras ut pellentesque elit, at ultricies eros. Nunc iaculis maximus nisi, tempus dapibus magna euismod nec. In cursus ante ex, non rhoncus augue auctor vel. Aenean accumsan, est eu imperdiet hendrerit, lacus dui tempus metus, eget euismod nulla odio eget mauris. Donec porta facilisis quam. Vestibulum vulputate ornare erat vel placerat.');
         $message->setLiaison(false);
+        $message->setOpenRecipient(true);
         $manager->persist($message);
 
         $message = new Message();
-        $message->setTransmitter($this->getReference('user-user2'));
+        $message->setTransmitter($this->getReference('user-teacher6'));
         $message->setRecipient($this->getReference('user-admin'));
-        $message->setSubject('test3');
-        $message->setContent('Nam a nulla eleifend, porttitor eros ac, pellentesque est. Nulla eu consequat velit. Donec eleifend turpis ac facilisis euismod. Donec a nibh eu justo interdum lobortis ut quis magna. Fusce tempor nisl ut tristique euismod. Ut laoreet maximus dignissim. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nunc consectetur metus vel vulputate finibus. Morbi iaculis urna quis nisl ullamcorper fringilla. Sed consectetur pellentesque arcu non rutrum. Nunc viverra convallis ex vel mattis. In id felis eget elit blandit sollicitudin sed ut nunc.');
+        $message->setSubject('Informations');
+        $message->setContent('Donec ex nisi, volutpat quis metus quis, porttitor faucibus elit. Suspendisse egestas neque libero, eleifend suscipit mauris imperdiet eget. Sed justo magna, feugiat et odio eu, eleifend feugiat felis. Etiam nec diam est. Proin ac metus lorem. Quisque ullamcorper ante non urna semper, nec pellentesque lorem aliquam. Duis varius risus ac efficitur sollicitudin. Cras sollicitudin metus tortor, accumsan suscipit tellus consequat quis.');
         $message->setLiaison(false);
+        $message->setOpenRecipient(true);
         $manager->persist($message);
 
         $message = new Message();
-        $message->setTransmitter($this->getReference('user-user2'));
+        $message->setTransmitter($this->getReference('user-teacher5'));
         $message->setRecipient($this->getReference('user-admin'));
-        $message->setSubject('test4');
-        $message->setContent('Vestibulum quis facilisis arcu. Aliquam blandit risus vitae nisi iaculis, ac tristique leo lobortis. Nulla tincidunt nunc eu ultricies hendrerit. Donec non tincidunt lectus. Sed pellentesque efficitur ligula quis imperdiet. Aenean quam justo, varius at dui id, varius varius ante. Duis in orci vestibulum, ullamcorper libero id, eleifend leo. Donec id vehicula risus. Morbi condimentum rutrum pellentesque. Sed molestie auctor orci, at tempor ante.');
-        $message->setLiaison(false);
-        $manager->persist($message);
-
-        $message = new Message();
-        $message->setTransmitter($this->getReference('user-user2'));
-        $message->setRecipient($this->getReference('user-admin'));
-        $message->setSubject('test5');
-        $message->setContent('Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam in dolor a urna porta gravida. Aliquam eget convallis massa, sit amet scelerisque metus. Morbi sit amet felis at arcu maximus tristique. Etiam felis massa, malesuada ac molestie nec, semper a orci. Nam id libero sed ipsum rutrum elementum id at velit. Nam porta nulla eget nisl gravida, quis volutpat massa sagittis. Proin urna nisi, rhoncus non dapibus id, sodales non lorem.');
+        $message->setSubject('Liste des élèves');
+        $message->setContent('Fusce blandit diam sem. Donec in posuere massa. Nam vel justo non erat ultricies semper. Fusce ac neque nec magna gravida consectetur nec ut magna. Fusce pretium leo nulla, sed imperdiet dui luctus sed. Aenean blandit vehicula varius. Curabitur in urna eget arcu posuere eleifend. Nulla porta lorem et erat imperdiet, in mattis ipsum efficitur.');
         $message->setLiaison(false);
         $manager->persist($message);
 

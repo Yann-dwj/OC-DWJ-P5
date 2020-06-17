@@ -58,7 +58,7 @@ class ClassroomController extends AbstractController
             $this->entityManager->persist($classroom);
             $this->entityManager->flush();
             $this->addFlash('success', 'utilisateur ajouté avec succès');
-            return $this->redirectToRoute('admin.user.index');
+            return $this->redirectToRoute('admin.classroom.index');
         }
 
         return $this->render('backoffice/admin/classroom/new.html.twig',[

@@ -65,7 +65,7 @@
                                     <a class="buttonStyle btn btn-block font-weight-bold my-4" href="{{ path('liaison.show', {id: user.id}) }}" role="button">Carnet de liaison</a>
                                 </div>
                                 <div class="col-lg-9">
-                                    <a class="buttonStyle btn btn-block font-weight-bold my-4" href="{{ path('blog.index', {id: user.id}) }}" role="button">Voir le blog de la classe</a>
+                                    <a class="buttonStyle btn btn-block font-weight-bold my-4" href="{{ path('blog.index', {id: user.classroom.id}) }}" role="button">Voir le blog de la classe</a>
                                 </div>
                             </div>
                         </div>

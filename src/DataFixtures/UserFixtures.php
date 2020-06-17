@@ -24,8 +24,8 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
         // ADMINISTRATEUR (1)
         $admin = new User;
         $admin
-            ->setFirstname('admin')
-            ->setLastname('super')
+            ->setFirstname('Mon Ecole')
+            ->setLastname('Admin')
             ->setEmail('admin@mail.fr')
             ->setRoles(['ROLE_ADMIN'])
             ->setPassword($this->encoder->encodePassword($admin, 'admin'));
@@ -42,8 +42,8 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
                 ->setFirstname($faker->unique()->firstName($gender = 'male'|'female'))
                 ->setLastname($faker->unique()->lastName())
                 ->setEmail($teacher->getLastName() . '@mail.fr')
-                ->setPassword($this->encoder->encodePassword($teacher, '0000'))
-                ->setClassroom($classroom);
+                ->setPassword($this->encoder->encodePassword($teacher, '0000'));
+                // ->setClassroom($classroom);
 
             $classroom->setTeacher($teacher);
 

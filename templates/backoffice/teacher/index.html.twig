@@ -57,7 +57,11 @@
                             <div class="row d-flex mx-auto justify-content-around">
                                 <div class="col-sm-8 my-auto">
                                     <ul class="font-weight-bold text-white">
-                                        <li class=""><a class="text-white" href="{{ path('blog.index', {id: user.classroom.id}) }}" target="_blank">Ouvrir le blog</a></li>
+                                        {% for classroom in user.classrooms %}
+                                        <li class="">
+                                        <a class="text-white" href="{{ path('blog.index', {id: classroom.id}) }}" target="_blank">Blog {{classroom.name }}</a>
+                                        </li>
+                                        {% endfor %}
                                         <li class=""><a class="text-white" href="{{ path('blogs.index') }}">Voir les autres blogs</a></li>
                                     </ul>
                                 </div>

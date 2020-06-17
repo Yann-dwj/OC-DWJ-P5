@@ -22,14 +22,14 @@ class Message
     private $content;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="sendedMessages")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\ManyToOne(targetEntity="App\Entity\User", cascade={"persist", "remove"}, inversedBy="sendedMessages")
+     * @ORM\JoinColumn(nullable=false, onDelete="CASCADE")
      */
     private $transmitter;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="receivedMessages")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\ManyToOne(targetEntity="App\Entity\User", cascade={"persist", "remove"}, inversedBy="receivedMessages")
+     * @ORM\JoinColumn(nullable=false, onDelete="CASCADE")
      */
     private $recipient;
 

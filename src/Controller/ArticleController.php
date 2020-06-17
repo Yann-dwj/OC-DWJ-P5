@@ -88,6 +88,7 @@ class ArticleController extends AbstractController
     {
         $user = $this->getUser();
         $classroom = $user->getClassroom();
+        dump($classroom);
 
         if($user->hasRole('ROLE_TEACHER'))
         {
@@ -123,7 +124,7 @@ class ArticleController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid())
         {
-            $article->setClassroom($classroom);
+            // $article->setClassroom($classroom);
             $this->entityManager->persist($article);
             $this->entityManager->flush();
             $this->addFlash('success', 'article ajouté avec succès');

@@ -25,6 +25,7 @@ class ArticleImageType extends AbstractType
             ->add('category', ChoiceType::class, [
                 'choices' => $this->getChoices()
             ])
+            ->add('classroom')
             ->add('imageFile', FileType::class, [
                 'label' => 'Image',
                 'required' => false

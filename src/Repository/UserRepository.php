@@ -61,51 +61,6 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
         return $query->getQuery();
     }
 
-    // /**
-    //  * Undocumented function
-    //  *
-    //  * @return Query
-    //  */
-    // public function findAllAdminsQuery(): Query
-    // {
-    //     $query = $this->findUserQuery();
-    //     $query
-    //         ->where('u.roles LIKE :admin')
-    //         ->setParameter('admin', '%ROLE_ADMIN%');
-    
-    //     return $query->getQuery();
-    // }
-
-    // /**
-    //  * Undocumented function
-    //  *
-    //  * @return Query
-    //  */
-    // public function findAllTeachersQuery(): Query
-    // {
-    //     $query = $this->findUserQuery();
-    //     $query
-    //         ->where('u.roles LIKE :teacher')
-    //         ->setParameter('teacher', '%ROLE_TEACHER%');
-    
-    //     return $query->getQuery();
-    // }
-
-    // /**
-    //  * Undocumented function
-    //  *
-    //  * @return Query
-    //  */
-    // public function findAllStudentsQuery(): Query
-    // {
-    //     $query = $this->findUserQuery();
-    //     $query
-    //         ->where('u.roles LIKE :user')
-    //         ->setParameter('user', '%ROLE_USER%');
-    
-    //     return $query->getQuery();
-    // }
-
     /**
      * Undocumented function
      *
@@ -130,7 +85,10 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
      */
     public function findByRole(): array
     {
-        $allUsers = $this->findAll();
+        $all = $this->findAll();
+        $allUsers = $this->findBy(['id' => $all], ['classroom' => 'asc']);
+
+        // $allUsers = $this->findAll();
         $users = [];
         $admins = [];
         $teachers = [];

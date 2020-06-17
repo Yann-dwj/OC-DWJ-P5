@@ -63,14 +63,20 @@ class User implements UserInterface, \Serializable
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Classroom", inversedBy="users", cascade={"persist"})
-     * @ORM\JoinColumn(nullable=true)
+     * @ORM\JoinColumn(nullable=true, onDelete="CASCADE")
      */
     private $classroom;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Classroom", mappedBy="teacher")
+     */
+    private $classrooms;
 
     public function __construct()
     {
         $this->sendedMessages = new ArrayCollection();
         $this->receivedMessages = new ArrayCollection();
+        $this->classrooms = new ArrayCollection();
     }
 
     public function __toString()
@@ -257,6 +263,60 @@ class User implements UserInterface, \Serializable
     public function setClassroom(?Classroom $classroom): self
     {
         $this->classroom = $classroom;
+
+        return $this;
+    }
+
+    public function addReceivedMessage(Message $receivedMessage): self
+    {
+        if (!$this->receivedMessages->contains($receivedMessage)) {
+            $this->receivedMessages[] = $receivedMessage;
+            $receivedMessage->setRecipient($this);
+        }
+
+        return $this;
+    }
+
+    public function removeReceivedMessage(Message $receivedMessage): self
+    {
+        if ($this->receivedMessages->contains($receivedMessage)) {
+            $this->receivedMessages->removeElement($receivedMessage);
+            // set the owning side to null (unless already changed)
+            if ($receivedMessage->getRecipient() === $this) {
+                $receivedMessage->setRecipient(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Classroom[]
+     */
+    public function getClassrooms(): Collection
+    {
+        return $this->classrooms;
+    }
+
+    public function addClassroom(Classroom $classroom): self
+    {
+        if (!$this->classrooms->contains($classroom)) {
+            $this->classrooms[] = $classroom;
+            $classroom->setTeacher($this);
+        }
+
+        return $this;
+    }
+
+    public function removeClassroom(Classroom $classroom): self
+    {
+        if ($this->classrooms->contains($classroom)) {
+            $this->classrooms->removeElement($classroom);
+            // set the owning side to null (unless already changed)
+            if ($classroom->getTeacher() === $this) {
+                $classroom->setTeacher(null);
+            }
+        }
 
         return $this;
     }

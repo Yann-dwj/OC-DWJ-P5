@@ -24,12 +24,6 @@
             </div>
 
 
-        {% for message in app.flashes('success') %}
-        <div class="alert alert-success">
-            {{ message }}
-        </div>
-        {% endfor %}
-
             <div class="row">
                 <div class="col-md-12">
                     <div class="card mb-3">
@@ -112,7 +106,11 @@
                                                     <td>{{ teacher.id }}</td>
                                                     <td>{{ teacher.lastname }}</td>
                                                     <td>{{ teacher.firstname }}</td>
-                                                    <td>{{ teacher.classroom}}</td>
+                                                    <td>
+                                                    {% for classroom in teacher.classrooms %}
+                                                    {{ classroom}} 
+                                                    {% endfor %}
+                                                    </td>
                                                     <td>{{ teacher.email }}</td>
                                                     <td class="text-right">
                                                         <form method="post" action="{{ path('admin.user.delete', {id: teacher.id}) }}" style="display: inline-block;" onsubmit="return confirm('Êtes vous sur de supprimer cet utilisateur ?')">

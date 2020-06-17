@@ -55,7 +55,8 @@ class Article
     private $created_at;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Classroom", inversedBy="articles")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Classroom", cascade={"persist", "remove"}, inversedBy="articles")
+     * @ORM\JoinColumn(onDelete="CASCADE")
      */
     private $classroom;
 
