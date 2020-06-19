@@ -45,10 +45,7 @@ class ClassroomController extends AbstractController
      */
     public function new(Request $request)
     {
-        // $admin = $this->getUser();
-        // $user = new User();
         $classroom = new Classroom();
-        // $form = $this->createForm(ClassroomType::class, $classroom);
         $form = $this->createForm(ClassroomType::class, $classroom, ['user'=> $this->getUser()]);
 
         $form->handleRequest($request);
@@ -57,7 +54,7 @@ class ClassroomController extends AbstractController
         {
             $this->entityManager->persist($classroom);
             $this->entityManager->flush();
-            $this->addFlash('success', 'utilisateur ajouté avec succès');
+            $this->addFlash('success', 'Classe ajouté avec succès');
             return $this->redirectToRoute('admin.classroom.index');
         }
 

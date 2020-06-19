@@ -13,6 +13,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 class LiaisonController extends AbstractController
 {
@@ -37,12 +38,19 @@ class LiaisonController extends AbstractController
 
     /**
      * @Route("/liaison", name="teacher.liaison.index")
+     * @IsGranted("ROLE_TEACHER")
      * @return Response
      */
     public function index()
     {
         $teacher = $this->getUser();
-        $students = $this->userRepository->findByClassroom($teacher->getClassroom());
+        $classrooms = $teacher->getClassrooms();
+        $students = [];
+
+        foreach ($classrooms as $classroom)
+        {
+            $students = $classroom->getUsers();
+        }
 
         $messagesCount= [];
 
@@ -52,6 +60,7 @@ class LiaisonController extends AbstractController
         }
         
         return $this->render('backoffice/teacher/liaison/index.html.twig', [
+            'teacher' => $teacher,
             'students' => $students,
             'messagesCount' => $messagesCount
         ]);
@@ -59,6 +68,7 @@ class LiaisonController extends AbstractController
 
     /**
      * @Route("/liaison/{id}", name="liaison.show")
+     * @IsGranted("ROLE_USER")
      * @param User $user
      * @return Response
      */
@@ -71,8 +81,14 @@ class LiaisonController extends AbstractController
             $teacher = $user;
 
             $messages = $this->messageRepository->findByLiaison($teacher, $student);
-            
-            if ($teacher->getClassroom() === $student->getClassroom())
+
+            $classrooms = $teacher->getClassrooms();
+            foreach ($classrooms as $classroom)
+            {
+                $classroom;
+            }
+
+            if ($classroom === $student->getClassroom())
             {
                 $message = new Message();
                 $form = $this->createForm(MessageLiaisonType::class, $message);
@@ -108,8 +124,14 @@ class LiaisonController extends AbstractController
             $teacher = $classroom->getTeacher();
         
             $messages = $this->messageRepository->findByLiaison($teacher, $student);
+
+            $classrooms = $teacher->getClassrooms();
+            foreach ($classrooms as $classroom)
+            {
+                $classroom;
+            }
     
-            if ($teacher->getClassroom() === $student->getClassroom())
+            if ($classroom === $student->getClassroom())
             {
                 $message = new Message();
                 $form = $this->createForm(MessageLiaisonType::class, $message);

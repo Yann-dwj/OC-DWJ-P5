@@ -67,7 +67,6 @@ class ArticleController extends AbstractController
         ]);
     }
 
-
     /**
      * @Route("/blogs", name="blogs.index")
      */
@@ -87,8 +86,12 @@ class ArticleController extends AbstractController
     public function index()
     {
         $user = $this->getUser();
-        $classroom = $user->getClassroom();
-        dump($classroom);
+        $classrooms = $user->getClassrooms();
+        
+        foreach ($classrooms as $classroom)
+        {
+            $classroom;
+        }
 
         if($user->hasRole('ROLE_TEACHER'))
         {

@@ -43,22 +43,41 @@ class ArticleFixtures extends Fixture implements DependentFixtureInterface
         $article->setCategory(2);
         $manager->persist($article);
 
-
+        
         // ARTICLES BLOG CLASSE1 ()
         $article = new Article;
         $article->setTitle('Bienvenue sur le blog');
         $article->setContent('Fames ac turpis egestas sed tempus urna et pharetra. Porttitor lacus luctus accumsan tortor posuere ac ut. Eros in cursus turpis massa tincidunt dui ut. Est velit egestas dui id ornare. Velit laoreet id donec ultrices tincidunt. Suspendisse ultrices gravida dictum fusce ut placerat orci nulla pellentesque. Viverra mauris in aliquam sem. Non blandit massa enim nec dui nunc mattis enim. Facilisis magna etiam tempor orci eu. Massa ultricies mi quis hendrerit dolor magna eget est lorem. Erat imperdiet sed euismod nisi porta. Nibh mauris cursus mattis molestie a iaculis at erat pellentesque.');
-        $article->setCategory(2);
+        $article->setCategory(0);
         $article->setClassroom($this->getReference('classroom'.(0)));
-        $article->setImageName('5eea177013252003962701.png');
         $manager->persist($article);
 
         $article = new Article;
-        $article->setTitle('Bienvenue sur le blog');
-        $article->setContent('Fames ac turpis egestas sed tempus urna et pharetra. Porttitor lacus luctus accumsan tortor posuere ac ut. Eros in cursus turpis massa tincidunt dui ut. Est velit egestas dui id ornare. Velit laoreet id donec ultrices tincidunt. Suspendisse ultrices gravida dictum fusce ut placerat orci nulla pellentesque. Viverra mauris in aliquam sem. Non blandit massa enim nec dui nunc mattis enim. Facilisis magna etiam tempor orci eu. Massa ultricies mi quis hendrerit dolor magna eget est lorem. Erat imperdiet sed euismod nisi porta. Nibh mauris cursus mattis molestie a iaculis at erat pellentesque.');
+        $article->setTitle('Liste de fournitures');
+        $article->setContent('Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi in libero orci. Mauris malesuada finibus eleifend. Etiam eros purus, hendrerit non diam non, accumsan vestibulum nulla. Ut convallis enim a metus ornare, id fringilla leo egestas. Sed accumsan sapien rhoncus urna fermentum, sit amet lobortis mauris consectetur. Curabitur id venenatis ipsum, a dictum lacus. Ut ultricies nunc ac venenatis tincidunt. Ut luctus, massa a gravida posuere, risus nisi vehicula odio, at pellentesque mi sem id nisl. Vestibulum fermentum dolor non felis placerat efficitur. Proin vitae dui vitae felis eleifend dapibus eu eget felis');
+        $article->setCategory(3);
+        $article->setClassroom($this->getReference('classroom'.(0)));
+        $manager->persist($article);
+
+        $article = new Article;
+        $article->setTitle('Sortie scolaire');
+        $article->setContent('Vivamus nec rutrum mi. Mauris lobortis libero volutpat, maximus urna non, fringilla metus. Nunc porttitor magna sed nisl pellentesque, eu finibus dui varius. Aliquam accumsan blandit massa vel lobortis. Suspendisse varius pharetra sapien, ut hendrerit justo. Praesent sit amet purus ac velit egestas tempus non varius ante. Nunc ultricies bibendum pharetra. Nulla ullamcorper, neque non consequat rhoncus, enim enim fermentum ex, sed imperdiet diam magna ut mi. Fusce placerat nisl eget leo iaculis, id bibendum massa cursus. Vestibulum interdum, ante et hendrerit vestibulum, ante leo dapibus tortor, id sagittis risus tellus vel massa. Aenean at gravida sapien.');
         $article->setCategory(2);
         $article->setClassroom($this->getReference('classroom'.(0)));
-        $article->setImageName('5eea177013252003962701.png');
+        $manager->persist($article);
+
+        $article = new Article;
+        $article->setTitle('Activités de motricité');
+        $article->setContent('Nam nibh sem, mattis vel augue vel, bibendum commodo odio. Donec ornare sapien ut orci euismod malesuada. Fusce sit amet luctus sem. Morbi risus tortor, pharetra eget scelerisque non, varius in sem. Aliquam erat volutpat. Nulla aliquet velit eget orci bibendum varius. Vestibulum interdum leo at diam lobortis, nec aliquam nibh facilisis. Suspendisse molestie felis non metus posuere laoreet. Sed gravida pellentesque fringilla. Aenean posuere, nulla interdum fringilla tempor, sapien nibh auctor mauris, in vulputate dolor ante vitae nibh. Nulla facilisi. Sed lobortis odio eu dui rhoncus porttitor. Morbi rhoncus quis sapien congue consequat. Aliquam tristique mi a velit egestas consequat.');
+        $article->setCategory(3);
+        $article->setClassroom($this->getReference('classroom'.(0)));
+        $manager->persist($article);
+
+        $article = new Article;
+        $article->setTitle('Aire de jeux');
+        $article->setContent('Etiam at est vel nunc maximus pharetra a vel purus. Vestibulum eget justo lectus. In hac habitasse platea dictumst. Nullam mi lectus, ultricies at lacus et, pulvinar convallis felis. Aliquam erat volutpat. Nam sagittis pharetra purus a ornare. Curabitur sed nibh mi. Proin quis hendrerit neque, vel elementum libero. Sed et neque eget nulla consequat dapibus. Vivamus ac efficitur diam, ac porta elit. Nunc non quam at ligula lobortis pulvinar. Sed mollis faucibus diam, condimentum tincidunt leo ullamcorper ac. Nam fringilla lectus eget elit commodo convallis. Aenean vitae sem nec orci ultrices convallis quis ac velit. Praesent sit amet ante sodales nisl laoreet fringilla eu sit amet mi. Duis blandit egestas nibh nec vestibulum.');
+        $article->setCategory(0);
+        $article->setClassroom($this->getReference('classroom'.(0)));
         $manager->persist($article);
 
         $manager->flush();
