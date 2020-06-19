@@ -19,15 +19,17 @@
             {% endif %}
         {% endif %}
 
-        {% for label, messages in app.flashes %}
-            {% for message in messages %}
-                <div class="container pt-4">
-                    <div class="alert alert-{{ label }}">
-                        {{ message }}
+        {% if app.request.requestUri != '/' %}
+            {% for label, messages in app.flashes %}
+                {% for message in messages %}
+                    <div class="container pt-4">
+                        <div class="alert alert-{{ label }}">
+                            {{ message }}
+                        </div>
                     </div>
-                </div>
+                {% endfor %}
             {% endfor %}
-        {% endfor %}
+        {% endif %}
 
         {% block body %}{% endblock %}
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
