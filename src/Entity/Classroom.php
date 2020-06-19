@@ -112,7 +112,7 @@ class Classroom
 
     public function getLevelType(): string
     {
-        return self::LEVEL[$this->category];
+        return self::LEVEL[$this->level];
     }
 
     public function setLevel($level)

@@ -23,12 +23,6 @@
                 </div>
             </div>
 
-        {% for message in app.flashes('success') %}
-        <div class="alert alert-success">
-            {{ message }}
-        </div>
-        {% endfor %}
-
             <div class="row">
                 <div class="col-md-12">
                     <div class="card mb-3">
@@ -61,7 +55,6 @@
                                                 <td>{{ loop.index }}</td>
                                                 <td>{{ classroom.name }}</td>
                                                 <td>{{ classroom.teacher.firstname ~ ' ' ~ classroom.teacher.lastname }}</td>
-                                                {# <td class="text-center">{{ classroom.users|length - 1 }}</td> #}
                                                 <td class="text-center">{{ classroom.users|length }}</td>
                                                 <td>{{ classroom.year }}</td>
                                                 <td class="text-right">

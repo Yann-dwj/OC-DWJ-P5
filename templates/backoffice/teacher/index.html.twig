@@ -24,14 +24,18 @@
                         <div class="card-body bg-dark">
                             <div class="row d-flex mx-auto justify-content-around">
                                 <div class="col-sm-8 col-xs-8">
-                                    <p class="h4 font-weight-bold text-white">{{ user.classroom }}</p>
+                                    {% for classroom in user.classrooms %}
+                                        <p class="h4 font-weight-bold text-white">{{ classroom.name }}</p>
+                                    {% endfor %}
                                     <p class="h5 font-weight-bold text-white">{{ user.firstname ~ " " ~ user.lastname }}</p>
                                 </div>
                                 <div class="col-sm-4 col-xs-4">
                                     <p class="font-weight-bold text-white">Élèves</p>
                                     <span style="font-size: 2em;">
-                                        <i class="fas fa-users" style="color: #d2c5b4;"></i>
-                                        <span class="text-white">{{ numberOfStudents }}</span>
+                                        <i class="fas fa-users cream"></i>
+                                        {% for classroom in user.classrooms %}
+                                            <span class="text-center text-white">{{ classroom.users|length }}</span>
+                                        {% endfor %}
                                     </span>
                                 </div>
                             </div>
@@ -58,8 +62,8 @@
                                 <div class="col-sm-8 my-auto">
                                     <ul class="font-weight-bold text-white">
                                         {% for classroom in user.classrooms %}
-                                        <li class="">
-                                        <a class="text-white" href="{{ path('blog.index', {id: classroom.id}) }}" target="_blank">Blog {{classroom.name }}</a>
+                                        <li>
+                                            <a class="text-white" href="{{ path('blog.index', {id: classroom.id}) }}" target="_blank">Blog {{classroom.name }}</a>
                                         </li>
                                         {% endfor %}
                                         <li class=""><a class="text-white" href="{{ path('blogs.index') }}">Voir les autres blogs</a></li>
@@ -69,7 +73,9 @@
                                     <p class="font-weight-bold text-white">Articles</p>
                                     <span style="font-size: 2em;">
                                         <i class="fas fa-edit" style="color: #d2c5b4;"></i>
-                                        <span class="text-white">{{ numberOfArticles }}</span>
+                                        {% for classroom in user.classrooms %}
+                                            <span class="text-white">{{ classroom.articles.count }}</span>
+                                        {% endfor %}
                                     </span>
                                 </div>
                             </div>

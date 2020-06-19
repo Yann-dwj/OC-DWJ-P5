@@ -24,8 +24,11 @@
                                     <p class="mt-5"><i class="fas fa-user-graduate fa-4x cream"></i></p>
                                     <p class="h5 font-weight-bold text-white">{{ user.classroom }}</p>
                                     <p class="h5 font-weight-bold text-white">{{ 'De ' ~ teacher.firstname ~ " " ~ teacher.lastname }}</p>
-                                    
-                                    <p class="h6 font-weight-bold text-white mt-5">{{ 'Niveau : ' ~ user.classroom.level }}</p>
+                                    <p class="h6 font-weight-bold text-white mt-5">Niveau :
+                                        {% if user.classroom.level is not null %}
+                                            {{ ' ' ~ user.classroom.levelType }}
+                                        {% endif %}
+                                    </p>
                                     <p class="h6 font-weight-bold text-white">{{ 'Année : ' ~ user.classroom.year }}</p>
                                 </div>
                                 <div class="col-lg-9 my-auto">
